@@ -1,0 +1,105 @@
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!--<link rel="stylesheet" href="../materialize/css/materialize.min.css">-->
+
+        <link rel="stylesheet" href="../bootstrap-3.3.6-dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="../bootstrap-3.3.6-dist/css/bootstrap.min.css">
+        <script src="../js/jquery-2.1.4.min.js"></script>
+
+    </head>
+    <body style="background: #f3f3f3;">
+
+        <div class="container-fluid">
+            <div class="row">
+                <img src="../image/logodolphin.png" class="col-md-7">
+                <div class="col-md-5">
+                    <form action="/login" method="post">
+                        <div style="margin-top: 50%">
+                            <input type="text" autocomplete="off" id="form-login-email" placeholder="Username" style="height: 37px;z-index: 8000;margin-top: 142px;width: 250px;position: absolute;background: #f9f9f9 ;border: #f9f9f9;margin-left:45px" name="email">
+                            <input type="password" autocomplete="off" id="form-login-password" placeholder="Password" style="height: 37px;z-index: 8000;margin-top: 189px;width: 250px;position: absolute;background: #f9f9f9 ;border: #f9f9f9;margin-left: 45px"  name="password">
+                            <input src="../image/button.png" id="login-btn" type="image" style="position: absolute;z-index: 8000;margin-top: 236px;margin-left: 45px;width: 283px;height: 45px;">
+                            <div style="margin-top: -30px;">
+                                <img src="../image/box.png">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--        <div class="container">
+                    <div class="row">
+                        <div class="col m3">
+                            <div style="background: #f3f3f3;height:100px"></div>
+                        </div>
+                        <div class="card col m6 s12 card-panel hoverable" style="border: 3px solid #00bcd4;background: #f3f3f3;margin-top: 15%">
+                            <div class="card-title center"><h2 style="color: #00bcd4">Login</h2></div>
+                            <div class="card-content">
+                                <form action="/login" method="post">
+                                    <div class="row">
+                                        <div class="input-field">
+                                            <input id="email" type="text" name="email">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field">
+                                            <input id="email" type="password" name="password">
+                                            <label for="password">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="right row">
+                                        <button class="btn btn-login waves-effect waves-light">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col m3">
+                            <div style="background: #f3f3f3;height:100px"></div>
+                        </div>
+                    </div>
+                </div>
+        
+                <script src="../js/jquery-2.1.4.min.js"></script>
+                <script src="../materialize/js/materialize.min.js"></script>
+        
+                <style>
+                    .btn-login{
+                        background: #00bcd4;
+                        color: white;
+                    }
+                </style>-->
+        <script>
+            checkMobile();
+            function  checkMobile() {
+                var $mobile = $(window).outerWidth() < 995;
+                if ($mobile) {
+                    $('#form-login-email').css('margin-left', '-115px');
+                    $('#form-login-password').css('margin-left', '-115px');
+                    $('#login-btn').css('margin-left', '-117px');
+                }
+            }
+        </script>
+        <script src="../bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+        <style>
+            body{
+                overflow-x: hidden;
+            }
+            #login-btn:hover{
+                box-shadow: 1px 1px 5px;
+            }
+
+        </style>
+    </body>
+</html>

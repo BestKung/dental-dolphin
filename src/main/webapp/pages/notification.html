@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <ul class="collapsible popout" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">phone_in_talk</i>เตือนวันนัดหมาย<span class="right" style="color: red;font-weight: 900" ng-if="totalNontificationAppointmentNotContact > 0" >จำนวนเเจ้งเตือน : {{totalNontificationAppointmentNotContact}}</span></div>
+                    <div class="collapsible-body">
+                        <table class="bordered hoverable responsive-table">
+                            <thead>
+                            <th style="width: 20px">สถานะ</th>
+                            <th style="width: 25px">ชื่อคนไข้</th>
+                            <th style="width: 25px;">ชื่อหมอ</th>
+                            <th style="width: 20px">วันที่</th>
+                            <th style="width: 10px;">เบอร์โทร</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="nonApp in appointNontification.content">
+                                    <td><input ng-show="nonApp.status == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="ติดต่อเเล้ว">
+                                        <input ng-show="nonApp.status != 0"type="submit" class="btn-group btn-gray" value="ติดต่อเเล้ว" ng-click="clickContact(nonApp)">
+                                        <input ng-show="nonApp.status == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่ได้ติดต่อ">
+                                        <input ng-show="nonApp.status != 1" type="submit" class="btn-group btn-gray" value="ยังไม่ได้ติดต่อ" ng-click="clickNotContact(nonApp)">
+                                    </td>
+                                    <td>{{nonApp.patient.name}}</td>
+                                    <td>{{nonApp.doctor.nameTh}}</td>
+                                    <td>{{nonApp.appointDay}}</td>
+                                    <td>{{nonApp.mobile}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" id="card-employee">
+                            <div class="col m12">
+                                <ul class="pagination right" style="margin-top: 10px;">
+                                    <li class="btn btn-pagination" id="first-page-appointnntification" ng-click="firstPageAppointmentNontification()">&Lt;</li>
+                                    <li class="btn btn-pagination" id="pre-page-appointnntification" ng-click="prePageAppointmentNontification()">&LT;</li>
+                                    <li class="btn btn-pagination">{{currentPageAppointmentNontification + 1}}</li>
+                                    <li class="btn btn-pagination" id="next-page-appointnntification" ng-click="nextPageAppointmentNontification()">&GT;</li>
+                                    <li class="btn btn-pagination" id="final-page-appointnntification" ng-click="finalPageAppointmentNontification()">&Gt;</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> 
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">local_shipping</i>เตือนสินค้าใกล้หมด</div>
+                    <div class="collapsible-body">
+                        <table class="bordered hoverable responsive-table">
+                            <thead>
+                            <th style="width: 20px">สถานะ</th>
+                            <th style="width: 20px">รอบสินค้า</th>
+                            <th style="width: 25px;">ชื่อสินค้า</th>
+                            <th style="width: 10px">จำนวนคงเหลือ</th>
+                            <th style="width: 20px;">หยุดเเจ้งเตือน</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="nonOut in outProducts.content">
+                                    <td><input ng-show="nonOut.statusNontificationValue == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="รับทราบ">
+                                        <input ng-show="nonOut.statusNontificationValue != 0"type="submit" class="btn-group btn-gray" value="รับทราบ" ng-click="">
+                                        <input ng-show="nonOut.statusNontificationValue == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ">
+                                        <input ng-show="nonOut.statusNontificationValue != 1" type="submit" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ" ng-click="">
+                                     </td>
+                                    <td>{{nonOut.lot.dateIn}}</td>
+                                    <td>{{nonOut.product.name}}</td>
+                                    <td>{{nonOut.value}}</td>
+                                    <td>
+                                        <a id="moredetail">หยุดเเจ้งเตือน</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">today</i>เตือนวันหมดอายุ</div>
+                    <div class="collapsible-body"><p>หมดเวลาแล้วที่เธอต้องไป</p></div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<script>
+            $(document).ready(function () {
+                $('.collapsible').collapsible({
+                    accordion: false
+                });
+            });
+</script>

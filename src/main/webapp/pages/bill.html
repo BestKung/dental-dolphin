@@ -1,0 +1,380 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;" ><h4>เพิ่มบิล</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix" id="bill-prefix-id">label</i>
+                    <input type="text" id="id" disabled ng-model="bill.id">
+                    <label class="active" for="id">ลำดับ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="bill-prefix-dateBill">today</i>
+                    <input type="date" id="dateIn" class="datepicker" ng-model="bill.dateBill" ng-change="errorDateBill = ''">
+                    <label for="dateIn" class="update" id="nameddatebill" >วันที่ออกบิล<span class="necessary">*</span><span class="margin-left necessary-text">{{errorDateBill}}</span></label>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="input-field col m12" >
+                    <table  class="bordered" >
+                        <thead >
+                            <tr>
+                                <th style="width: 5%">ลำดับ</th>
+                                <th style="width: 30%">ราการที่จัดทำ</th>
+                                <th style="width: 10%">จำนวน</th>                                  
+                                <th style="width: 10%">ราคา</th>
+                                <th style="width: 10%" >หน่วย</th>
+                                <th style="width: 10%">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ODH in dataSelectDetailHeal.orderHealDetailHeals">
+                                <td>{{$index + 1}}</td>
+                                <td>{{ODH.listSelectHeal.name}}</td>
+                                <td>{{ODH.value}}</td>
+                                <td>{{ODH.listSelectHeal.price * ODH.value}}</td>
+                                <td>บาท</td>   
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="p in tmpProducts.content">
+                                <td>{{$index + dataSelectDetailHeal.orderHealDetailHeals.length + 1}}</td>
+                                <td>{{p.priceAndExpireProduct.product.name}}</td>
+                                <td>{{p.value}}</td>
+                                <td>{{p.priceAndExpireProduct.priceSell * p.value}}</td>
+                                <td>บาท</td>
+                                <td><a class="btn-custom-radius btn-delete" ng-click="deleteTmpProduct(p)"><i class="mdi-action-delete"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="font-weight: 900">รวมราคาสินค้าและค่ารักษา</td>
+                                <td></td>
+                                <td style="font-weight: 900">{{totalPrice}}</td>
+                                <td style="font-weight: 900">บาท</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--            ปุ่มกดเลือกชนิดการรักษา-->
+            <div class="row" >
+                <div class="input-field col m6">
+                    <h5>เพิ่มรายการรักษา</h5>
+                    <button class="btn-floating btn-large waves-light btn modal-trigger green" ng-click="clickOrderHeal()">
+                        <i class="material-icons">local_pharmacy</i></button>
+                </div>
+                <div class="input-field col m6">
+                    <h5>เพิ่มรายการสินค้า</h5>
+                    <button class="btn-floating btn-large waves-light btn modal-trigger green" ng-click="clickAddProduct()">
+                        <i class="material-icons">add_shopping_cart</i></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col m6 right">
+                    <a class="btn-best btn-edit right" ng-click="saveBill()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหาบิล</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchDataBill.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchDataBill.searchBy" ng-init="searchDataBill.searchBy = 'DateBill'">
+                            <option value="DateBill">วันที่ออกบิล</option>
+                            <option value="SumPrice">ราคารวม</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searchBill()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางบิล</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearchBill()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="row" ng-init="row = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 5%" class="table-department">ลำดับ</th>
+                <th style="width: 10%" class="table-department">วันที่ออกบิล</th>
+                <th style="width: 10%" class="table-department">ราคารวม</th>
+                <th style="width: 10%" class="table-department">ดูรายละเอียดเพิ่มเติม</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="bs in bills.content">
+                        <td>{{bs.id}}</td>
+                        <td>{{bs.dateBill}}</td>
+                        <td>{{bs.sumPrice}}</td>
+                        <td>
+                            <a href="" ng-click="selectmMoreDetailBill(bs)" class="activator btn-custom-radius btn-moredetail">ดูรายละเอียด</a> 
+                            <a class="btn-custom-radius btn-edit" ng-click="clickUpdateBill(bs)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="clickDeeteBill(bs)"><i class="mdi-action-delete"></i></a>   
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page-bill" ng-click="firstPageBill()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page-bill" ng-click="prePageBill()"><p style="margin-top: 2px;">&LT;</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageBill + 1}}</p></li>
+                        <li class="btn btn-pagination" id="next-page-bill" ng-click="nextPageBill()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page-bill" ng-click="finalPageBill()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-reveal">
+            <div id="card-height" class="card-height">
+                <span class="card-title grey-text text-darken-4" id="close-card">ข้อมูลบิล<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+                <div style="margin-top: 20px;">
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">ลำดับ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{billMoreDetail.id}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">วันที่ออกบิล : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{billMoreDetail.dateBill}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m10 s6" style="position: relative; left: 100px;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%">ลำดับ</th>
+                                        <th style="width: 10%">ราการที่จัดทำ</th>
+                                        <th style="width: 15%">จำนวน</th>                                  
+                                        <th style="width: 10%">ราคา</th>
+                                        <th style="width: 10%" >หน่วย</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sbdh in billMoreDetail.detailHeal.orderHealDetailHeals">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{sbdh.listSelectHeal.name}}</td>  
+                                        <td>{{sbdh.value}}</td>
+                                        <td>{{sbdh.value * sbdh.listSelectHeal.price}}</td> 
+                                        <td>บาท</td> 
+                                    </tr>
+                                    <tr ng-repeat="see in billMoreDetail.orderProduct">
+                                        <td>{{$index + billMoreDetail.detailHeal.orderHealDetailHeals.length + 1}}</td>
+                                        <td>{{see.priceAndExpireProduct.product.name}}</td>  
+                                        <td>{{see.value}}</td>
+                                        <td>{{see.priceAndExpireProduct.priceSell * see.value}}</td> 
+                                        <td>บาท</td> 
+                                    </tr> 
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>รวมราคาสินค้าและค่ารักษา</td>
+                                        <td>{{billMoreDetail.sumPrice}}</td>
+                                        <td>บาท</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--                    <div class="row margin-top right">
+                                            <a class="btn btn-gray waves-light" ng-click="cancel()">ยกเลิก</a>
+                                            <a class="btn btn-blue2 waves-light" ng-click="clickUpdateBill()">แก้ไข</a>
+                                            <button class="btn btn-red waves-light modal-trigger" href="#modal-delete" ng-click="clickDeeteBill()">ลบ</button>
+                                        </div>-->
+                    <div class="row margin-top-20 center" style="margin-right: 10px">
+                        <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                        <a class="btn-custom-radius btn-edit" ng-click="clickUpdateBill(billMoreDetail)"><i class="mdi-content-create"></i></a>
+                        <a class="btn-custom-radius btn-delete" ng-click="clickDeeteBill(billMoreDetail)"><i class="mdi-action-delete"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-detailheal" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เลือกรายละเอียดการรักษา</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataDetailHeal.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 s12 input-field">
+                <i class="material-icons prefix clear-prefix">language</i>
+                <div class="select-custom">
+                    <select class="browser-default" id="searchby" ng-model="searchDataDetailHeal.searchBy" ng-init="searchDataDetailHeal.searchBy = 'ชื่อคนไข้'"> 
+                        <option value="ชื่อคนไข้">ชื่อคนไข้</option>
+                        <option value="วันที่รักษา">วันที่รักษา</option>
+                        <option value="ชื่อทันตเเพทย์">ชื่อทันตเเพทย์</option>
+                    </select> 
+                </div>
+                <label class="active">ค้นหาจาก</label>
+            </div>
+            <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searchDetailHeal()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:30%">ชื่อคนไข้</th>
+                        <th style="width:20%">วันที่รักษา</th>
+                        <th style="width:30%">ชื่อทันตเเพทย์</th>
+                        <th style="width:20%">เลือก</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="det in detailHeals.content">
+                        <td>{{det.patient.name}}</td>
+                        <th>{{det.dateHeal}}</th>
+                        <th><h6>{{det.doctor.nameTh}}</h6></th>
+                        <th><a class="modal-close btn-best btn-edit" ng-click="selectDetailHeal(det)">เลือก</a></th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-detailheal" ng-click="firstPageDetailHeal()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-detailheal" ng-click="prePageDetailHeal()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageDetailHeal + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-detailheal" ng-click="nextPageDetailHeal()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-detailheal" ng-click="finalPageDetailHeal()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a class="magin-button btn btn-orenge modal-action modal-close" ng-click="clearDetailHeal()">Clear</a>
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+
+
+
+<div id="modal-addproduct" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เพิ่มสินค้า</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataProduct.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searchProduct()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                <label><span class="margin-left necessary-text">{{errorProduct}}</span></label>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:15%">ลำดับ</th>
+                        <th style="width:35%">ชื่อสินค้า</th>
+                        <th style="width:10%">วันที่นำเข้า</th>
+                        <th style="width:10%">ราคา</th>
+                        <th style="width:10%">จำนวน</th>
+                        <th style="width:10%">เลือก</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pro in products.content">
+                        <td>{{pro.id}}</td>
+                        <th>{{pro.product.name}}</th>
+                        <td>{{pro.lot.dateIn}}</td>
+                        <th>{{pro.priceSell}}</th>
+                        <th>
+                            <input id="value-of-operation" type="text" style="height:2rem" ng-change="clearErrorProduct()" placeholder="จำนวน" ng-model="valueProduct">
+                        </th>
+                        <th>
+                            <a class="modal-close btn-best btn-edit" ng-click="selectProductToBill(pro, valueProduct)">เลือก</a>
+                        </th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-product" ng-click="firstPageProduct()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-product" ng-click="prePageProduct()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageProduct + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-product" ng-click="nextPageProduct()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-product" ng-click="finalPageProduct()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+
+
+<div id="modal-delete-bill" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: red;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบบิล</h4>
+        </div>
+        <h4 class="margin-left-20">ลบบิล : {{billMoreDetail.dateBill}}</h4>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteBill()">ลบ</a>
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">ยกเลิก</a>
+    </div>
+</div>
+<div id="warp-toast">
+</div>

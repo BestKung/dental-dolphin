@@ -1,0 +1,198 @@
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-content">
+
+            <span class="card-title" style="color: black;"><h4>เพิ่มคนไข้</h4></span>
+
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="id">label</i>
+                    <input type="text" id="id" disabled ng-model="patient.id">
+                    <label for="id" class="update">ID</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">account_balance</i>
+                    <input type="text" id="hn" ng-model="patient.hn">
+                    <label for="hn" class="update">H/N</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">book</i>
+                    <input type="text" id="pid"  ng-model="patient.pid">
+                    <label  for="pid" class="update">เลขประจำคัวประชาชน</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">person</i>
+                    <input type="text" id="name" ng-model="patient.name">
+                    <label for="name" class="update">ชื่อ/สกุล</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">cake</i>
+                    <input type="date" class="datepicker" id="birthdate" ng-model="patient.birthDate">
+                    <label  for="birthdate" class="update">วันเกิด</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="sex">wc</i>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-sex" ng-model="patient.sex" ng-init="patient.sex = 'ชาย'"> 
+                            <option value="ชาย">ชาย</option>
+                            <option value="หญิง">หญิง</option>
+                        </select> 
+                    </div>
+                    <label class="active" id="label-sex">เพศ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="blood">format_bold</i>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-blood" ng-model="patient.blood" ng-init="patient.blood = 'A'">
+                            <option value="A">A</option>
+                            <option value="B">B</option> 
+                            <option value="AB">AB</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+                    <label class="active" id="label-blood">กรุ๊ปเลือด</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">public</i>
+                    <input type="text" id="nation" ng-model="patient.nation">
+                    <label for="nation" class="update">สัญชาติ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">public</i>
+                    <input type="text" id="race"  ng-model="patient.race">
+                    <label for="race" class="update">เชื้อชาติ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">home</i>
+                    <textarea type="text" id="address" class="materialize-textarea"  ng-model="patient.address"></textarea>
+                    <label for="address" class="update">ที่อยู่</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
+                    <input type="text" id="tel" ng-model="patient.tel">
+                    <label for="tel" class="update">เบอร์โทร</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
+                    <input type="text" id="mobile" ng-model="patient.mobile">
+                    <label for="mobile" class="update">เบอร์โทรศัพท์มือถือ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">work</i>
+                    <input type="text" id="mobile" ng-model="patient.job">
+                    <label for="mobile" class="update">อาชีพ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">email</i>
+                    <input type="text" id="mobile" ng-model="patient.email">
+                    <label for="mobile" class="update">อีเมลล์</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="color: black"><h5>ประวัติทางการเเพทย์</h5></span>
+               <div class="row">
+                <div class="col m3 s12" ng-repeat="medi in medicalHistory.content">
+                    <input type="checkbox" checklist-model="patient.medicalHistory" checklist-value="medi" id="{{medi.disease}}">
+                    <label for="{{medi.disease}}">{{medi.disease}}</label>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="color: black"><h5>อัพโหลดรูปภาพ ฟิล์มเอ็กเรย์</h5></span>
+                <div style="margin: 0px auto" class="center">
+                    <img id="employee-picture" class="responsive-img" ng-src="">
+                </div>
+                <div class="center">
+                    <input type="file" id="input-employee-picture" custom-on-change="selectPicture" file-model="image" style="margin-top: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="color: black"><h5>อัพโหลดรูปภาพ ก่อนจัดฟัน</h5></span>
+                <div style="margin: 0px auto" class="center">
+                    <img id="employee-picture" class="responsive-img" ng-src="">
+                </div>
+                <div class="center">
+                    <input type="file" id="input-employee-picture" custom-on-change="selectPicture" file-model="image" style="margin-top: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="color: black"><h5>อัพโหลดรูปภาพ ระหว่างจัดฟัน</h5></span>
+                <div style="margin: 0px auto" class="center">
+                    <img id="employee-picture" class="responsive-img" ng-src="">
+                </div>
+                <div class="center">
+                    <input type="file" id="input-employee-picture" custom-on-change="selectPicture" file-model="image" style="margin-top: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="color: black"><h5>อัพโหลดรูปภาพ หลังจัดฟัน</h5></span>
+                <div style="margin: 0px auto" class="center">
+                    <img id="employee-picture" class="responsive-img" ng-src="">
+                </div>
+                <div class="center">
+                    <input type="file" id="input-employee-picture" custom-on-change="selectPicture" file-model="image" style="margin-top: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="offset m12" style="margin-right: 10px;">
+                <button class="btn right waves-effect waves-light" ng-click="savePatient()" type="submit">Save<i class="mdi-content-send right"></i></button>
+                <input class="btn btn-gray waves-effect waves-light right" style="margin-right: 10px;"  type="submit" value="Clear" ng-click="clearData()">
+            </div>
+        </div>
+    </div>
+</div>

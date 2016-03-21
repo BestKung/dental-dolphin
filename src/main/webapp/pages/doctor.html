@@ -1,0 +1,275 @@
+<div class="container">
+
+    <div class="card">
+        <div class="card-content">
+
+            <span class="card-title" style="color: black;"><h4>เพิ่มทันตเเพทย์</h4></span>
+
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="id">label</i>
+                    <input type="text" id="id" disabled ng-model="doctor.id">
+                    <label for="id" class="update">ลำดับ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix email">email</i>
+                    <input type="text" id="email" ng-model="doctor.email" ng-change="setBackgroundPrefixId();
+                                    error.violations.email.message = '';
+                                    changePrefix('.email')">
+                    <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix password">lock</i>
+                    <input type="password" id="password"  ng-model="password" ng-change="comparePassword();
+                                    error.violations.password.message = '';
+                                    changePrefix('.password')">
+                    <label for="password" class="update">รหัสผ่าน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix confirmpassword">lock</i>
+                    <input type="password" id="confirmpassword"  ng-model="doctor.password" ng-change="comparePassword();
+                                    error.violations.password.message = '';
+                                    changePrefix('.confirmpassword')">
+                    <label for="confirmpassword" class="update">ยืนยันรหัสผ่าน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
+                    <i class="material-icons right-input-custom" id="confirm"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix permitno">book</i>
+                    <input type="text" id="pid"  ng-model="doctor.permitNo" ng-change=";
+                                    changePrefix('.permitno')">
+                    <label  for="pid" class="update">เลขที่ใบอนุญาติ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix permittype">book</i>
+                    <input type="text" id="nameth" ng-model="doctor.permitType" ng-change=";
+                                    changePrefix('.permittype')">
+                    <label for="nameth" class="update">ประเภทใบอนุญาติ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix pid">credit_card</i>
+                    <input type="text" id="pid"  ng-model="doctor.pid" ng-change=";
+                                    changePrefix('.pid')">
+                    <label  for="pid" class="update">รหัสประชาชน</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix nameth">account_circle</i>
+                    <input type="text" id="nameth"  ng-model="doctor.nameTh" ng-change="error.violations.nameTh.message = '';
+                                    ;
+                                    changePrefix('.nameth')">
+                    <label for="nameth" class="update">ชื่อ ภาษาไทย<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.nameTh.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix nameeng">account_circle</i>
+                    <input type="text" id="nameeng"  ng-model="doctor.nameEng" ng-change="changePrefix('.nameeng')">
+                    <label for="nameeng" class="update">ชื่อ ภาษาอังกฤษ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix birthdate">cake</i>
+                    <input type="date" id="birthdate" class="datepicker" ng-model="doctor.birthDate" ng-change="changePrefix('.birthdate')">
+                    <label for="birthdate" class="update" id="label-birthdate">วันเกิด</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="sex">wc</i>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-sex" ng-model="doctor.sex" ng-init="doctor.sex = 'ชาย'"> 
+                            <option value="ชาย">ชาย</option>
+                            <option value="หญิง">หญิง</option>
+                        </select> 
+                    </div>
+                    <label class="active" id="label-sex">เพศ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="blood">format_bold</i>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-blood" ng-model="doctor.blood" ng-init="doctor.blood = 'A'">
+                            <option value="A">A</option>
+                            <option value="B">B</option> 
+                            <option value="AB">AB</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+                    <label class="active" id="label-blood">กรุ๊ปเลือด</label>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">language</i>
+                    <input type="text" id="race" ng-model="doctor.race">
+                    <label for="race" class="update">เชื้อชาติ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">language</i>
+                    <input type="text" id="nation"  ng-model="doctor.nation">
+                    <label for="nation" class="update">สัญชาติ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="marrystatus">favorite</i>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-marrytatus" ng-model="doctor.marryStatus" ng-init="employee.marryStatus = 'โสด'">
+                            <option value="โสด">โสด</option>
+                            <option value="สมรส">สมรส</option>
+                            <option value="หม้าย">หม้าย</option>
+                            <option value="อย่า">อย่า</option>
+                            <option value="เเยกกันอยู่">เเยกกันอยู่</option>
+                        </select>
+                    </div>
+                    <label class="active" id="label-marrystatus">สถานภาพสมรส</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">account_box</i>
+                    <input type="text" id="soilderstatus"  ng-model="doctor.soldierStatus">
+                    <label for="soilderstatus" class="update">สถานะทางทหาร</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">home</i>
+                    <textarea type="text" id="addressofpid" class="materialize-textarea"  ng-model="doctor.addressOfPid"></textarea>
+                    <label for="addressofpid" class="update">ที่อยู่ตามบัตรประชาชน</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">home</i>
+                    <textarea type="text" id="currentaddress" class="materialize-textarea" ng-model="doctor.currentAddress" ng-change="error.violations.currentAddress.message = '';
+                                    setBackgroundPrefixSexBloodMarryStatus()"></textarea>
+                    <label for="currentaddress" class="update">ที่อยู่ปัจจุบัน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.currentAddress.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">phone</i>
+                    <input type="text" id="tel" ng-model="doctor.tel">
+                    <label for="tel" class="update">เบอร์โทร</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
+                    <input type="text" id="mobile" ng-model="doctor.mobile" ng-change="error.violations.mobile.message = '';
+                                    setBackgroundPrefixDepartmentWorkstatus()">
+                    <label for="mobile" class="update">เบอร์โทรศัพท์มือถือ<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.mobile.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">insert_invitation</i>
+                    <input type="date" id="startwork" class="datepicker" ng-model="doctor.startWork">
+                    <label for="startwork" class="update" id="label-startwork">วันที่เริ่มทำงาน</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">insert_invitation</i>
+                    <input type="date" id="endwork" class="datepicker" ng-model="doctor.endWork">
+                    <label for="endwork" class="update" id="label-endwork">วันที่ออกจากงาน</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="workstatus">content_paste</i>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-workstatus" ng-model="doctor.workStatus" ng-init="employee.workStatus = 'ปกติ'">
+                            <option value="ปกติ">ปกติ</option>
+                            <option value="พักงาน">พักงาน</option>
+                            <option value="ลาออก">ลาออก</option>
+                        </select>
+                    </div>
+                    <label class="active" for="workstatus">สถานะการทำงาน</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
+                    <input type="number" id="salary" ng-model="doctor.salary">
+                    <label for="salary" class="update">เงินเดือน</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title" style="color: black"><h5>อัพโหลดรูปภาพ</h5></span>
+                <div style="margin: 0px auto" class="center">
+                    <img id="employee-picture" class="responsive-img" ng-src="">
+                </div>
+                <div class="center">
+                    <input type="file" id="input-employee-picture" custom-on-change="selectPicture" file-model="image" style="margin-top: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title"><h5 style="color: #000">บัญชีธนาคาร</h5></span>
+                    <div class="input-field">
+                        <i class="material-icons prefix clear-prefix">account_balance</i>
+                        <input type="text" id="bankname" ng-model="doctor.bank.bankName">
+                        <label for="bankname" class="update">ชื่อธนาคาร</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix clear-prefix">assignment_ind</i>
+                        <input type="text" id="accountname" ng-model="doctor.bank.accountName">
+                        <label for="accountname" class="update">ชื่อบัญชี</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix clear-prefix">book</i>
+                        <input type="text" id="accountnumber" ng-model="doctor.bank.accountNumber">
+                        <label for="accountnumber" class="update">หมายเลขบัญชี</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col m6">
+            <div class="card no-padding">
+                <div class="card-content">
+                    <span class="card-title"><h5 style="color: #000">ผู้ติดต่อ</h5></span>
+                    <div class="input-field">
+                        <i class="material-icons prefix clear-prefix">accessibility</i>
+                        <input type="text" id="contactname" ng-model="doctor.contact.name">
+                        <label for="contactname" class="update">ชื่อผู้ติดต่อ</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix clear-prefix">face</i>
+                        <input type="text" id="relation" ng-model="doctor.contact.relation">
+                        <label for="relation" class="update">ความสัมพันธ์</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix clear-prefix">phone</i>
+                        <input type="text" id="contacttel" ng-model="doctor.contact.tel">
+                        <label for="contacttel" class="update">เบอร์โทร</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="offset m12" style="margin-right: 10px;">
+                <a class="btn-best btn-edit right" ng-click="saveDoctor()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="warp-toast">
+</div>

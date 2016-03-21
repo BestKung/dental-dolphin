@@ -1,0 +1,326 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>เพิ่ม จำนวน ราคา วันหมดอายุ ของสินค้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">label</i>
+                    <input type="text" id="id" disabled ng-model="priceAndExpireProduct.id">
+                    <label class="active" for="id">ลำดับ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix clear-prefix" >file_download</i>
+                    <input type="text" ng-model="lot" ng-click="clickLot()" ng-change="changePrefix('#prefix-appointment-lot') error.violations.lot.message = '';">
+                    <label id="label-lot" class="active">รอบสินค้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.lot.message}}</span></label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix clear-prefix" >local_grocery_store</i>
+                    <input type="text" ng-model="product" ng-click="clickProduct()" ng-change="changePrefix('#prefix-appointment-product') error.violations.product.message = '';">
+                    <label id="label-product" class="active">ชื่อสินค้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.product.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix" >functions</i>
+                    <input type="number" id="name" ng-model="priceAndExpireProduct.value" ng-change="error.violations.value.message = '';">
+                    <label class="active" for="name">จำนวนสินค้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.value.message}}</span></label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix" >notifications_active</i>
+                    <input type="number" id="name" ng-model="priceAndExpireProduct.notificationsValue" ng-change="error.violations.notificationsValue.message = '';">
+                    <label class="active" for="name">กำหนดการแจ้งเตือนจำนวนสินค้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.notificationsValue.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">snooze</i>
+                    <input type="date" id="dateIn" class="datepicker" ng-model="priceAndExpireProduct.expire">
+                    <label for="dateIn" class="active" id="namedepartment1" >วันที่หมดอายุ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">notifications_active</i>
+                    <!--                    <input type="date" id="dateIn" class="datepicker" ng-model="priceAndExpireProduct.notificationsExpire">
+                                        <label for="dateIn" class="active" id="namedepartment1" >กำหนดการแจ้งเตือนวันหมดอายุ</label>-->
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-sex" ng-model="priceAndExpireProduct.notificationsExpire" ng-init="priceAndExpireProduct.notificationsExpire = '30 วัน'"> 
+                            <option value="30 วัน">30 วัน</option>
+                            <option value="45 วัน">45 วัน</option>
+                            <option value="60 วัน">60 วัน</option>
+                            <option value="75 วัน">75 วัน</option>
+                            <option value="90 วัน">90 วัน</option>
+                        </select> 
+                    </div>
+                    <label class="active" >กำหนดการแจ้งเตือนวันหมดอายุ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix" >format_bold</i>
+                    <input type="number" id="name" ng-model="priceAndExpireProduct.priceBuy" ng-change="error.violations.priceBuy.message = '';">
+                    <label class="active" id="namedepartment" for="name">ราคาซื้อ<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.priceBuy.message}}</span></label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix" >format_bold</i>
+                    <input type="number" id="name" ng-model="priceAndExpireProduct.priceSell" ng-change="error.violations.priceSell.message = '';">
+                    <label class="active" id="namedepartment" for="name">ราคาขาย<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.priceSell.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 center">
+                    <a class="btn-best btn-edit right" ng-click="savePriceAndExpireProduct()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหาจำนวน ราคา วันหมดอายุ ของสินค้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchDataPriceAndExpireProduct.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchDataPriceAndExpireProduct.searchBy" ng-init="searchDataPriceAndExpireProduct.searchBy = 'NameProduct'">
+                            <option value="LotIn">รอบสินค้า</option>
+                            <option value="NameProduct">ชื่อสินค้า</option>
+                            <option value="Expire">วันหมดอายุ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContentPriceAndExpireProduct()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตาราง จำนวน ราคา วันหมดอายุ ของสินค้า</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearchPriceAndExpireProduct()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="rowPriceAndExpireProduct" ng-init="rowPriceAndExpireProduct = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 5%" class="table-department">ลำดับ</th>
+                <th style="width: 10%" class="table-department">รอบสินค้า</th>
+                <th style="width: 15%" class="table-department">ชื่อสินค้า</th>
+                <th style="width: 10%" class="table-department">จำนวนสินค้า</th>
+               <th style="width: 10%" class="table-department">ยอดคงเหลือ</th>
+                <th style="width: 10%" class="table-department">ราคาซื้อ</th>
+                <th style="width: 10%"class="table-department">ราคาขาย</th>
+                <th style="width: 10%" class="table-department">วันหมดอายุ</th>
+                <th style="width: 10%"class="table-department">จัดการ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="paep in priceAndExpireProducts.content">
+                        <td>{{paep.id}}</td>
+                        <td>{{paep.lot.dateIn}}</td>
+                        <td>{{paep.product.name}}</td>
+                        <td>{{paep.value}}</td>
+                         <td>{{paep.amountRemaining}}</td>
+                        <td>{{paep.priceBuy}}</td>
+                        <td>{{paep.priceSell}}</td>
+                        <td>{{paep.expire}}</td>
+                        <td>
+                            <a class="btn-custom-radius btn-edit" ng-click="updatePriceAndExpireProduct(paep)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(paep)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page-priceandexpireproducts" ng-click="firstPagePriceAndExpireProduct()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page-priceandexpireproducts" ng-click="prePagePriceAndExpireProduct()"><p style="margin-top: 2px;">&LT;</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPagePriceAndExpireProduct + 1}}</p></li>
+                        <li class="btn btn-pagination" id="next-page-priceandexpireproducts" ng-click="nextPagePriceAndExpireProduct()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page-priceandexpireproducts" ng-click="finalPagePriceAndExpireProduct()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-delete" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: red;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบจำนวน ราคา วันหมดอายุ ของสินค้า</h4>
+        </div>
+        <h4 class="margin-left-20">ลบจำนวน ราคา วันหมดอายุ ของสินค้า : {{priceAndExpireProductdelete.product.name}}</h4>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deletePriceAndExpireProduct()">ลบ</a>
+        <a href="" class="magin-button btn btn-gray modal-action modal-close" ng-click="clearData()">ยกเลิก</a>
+    </div>
+</div>
+
+
+<div id="modal-lot" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เลือกรอบเข้าสินค้า</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataLot.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 s12 input-field">
+                <i class="material-icons prefix clear-prefix">language</i>
+                <div class="select-custom">
+                    <select class="browser-default" id="searchby" ng-model="searchDataLot.searchBy" ng-init="searchDataLot.searchBy = 'Name'"> 
+                        <option value="Name">คนเซ็นชื่อกำกับ</option>
+                        <option value="DateIn">วันที่นำเข้า</option>
+                        <option value="DateOut">วันที่นำออก</option>
+                    </select> 
+                </div>
+                <label class="active">ค้นหาจาก</label>
+            </div>
+            <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searcDataContentLot()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width: 10px;">ลำดับ</th>
+                        <th style="width: 30px;">คนเซ็นชื่อกำกับ</th>
+                        <th style="width: 20px;">วันที่นำเข้า</th>
+                        <th style="width: 20px;">วันที่นำออก</th>
+                        <th style="width: 30px;">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lo in lots.content">
+                        <td>{{lo.id}}</td>
+                        <td>{{lo.nameStaffReam}}</td>
+                        <td>{{lo.dateIn}}</td>
+                        <td>{{lo.dateOut}}</td>
+                        <th><a class="modal-close btn-best btn-edit" ng-click="selectLot(lo)">เลือก</a></th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-lot" ng-click="firstPageLot()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-lot" ng-click="prePageLot()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageLot + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-lot" ng-click="nextPageLot()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-lot" ng-click="finalPageLot()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+
+<div id="modal-product" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เลือกสินค้า</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataProduct.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 s12 input-field">
+                <i class="material-icons prefix clear-prefix">language</i>
+                <div class="select-custom">
+                    <select class="browser-default" id="searchby" ng-model="searchDataProduct.searchBy" ng-init="searchDataProduct.searchBy = 'Name'"> 
+                        <option value="Name" >ชื่อสินค้า</option>
+                        <option value="TypeProduct">ประเภทสินค้า</option>
+                        <option value="UnitProduct">หน่วยสินค้า</option>
+                    </select> 
+                </div>
+                <label class="active">ค้นหาจาก</label>
+            </div>
+            <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searcDataContentProduct()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:10%">ลำดับ</th>
+                        <th style="width:30%">ชื่อสินค้า</th>
+                        <th style="width:20%">ประเทสินค้า</th>
+                        <th style="width:20%">หน่วยสินค้า</th>
+                        <th style="width:20%">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pd in products.content">
+                        <td>{{pd.id}}</td>
+                        <td>{{pd.name}}</td>
+                        <td>{{pd.typeProduct.name}}</td>
+                        <td>{{pd.unit.name}}</td>
+                        <th><a class="modal-close btn-best btn-edit" ng-click="selectProduct(pd)">เลือก</a></th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-product" ng-click="firstPageProduct()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-product" ng-click="prePageProduct()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageProduct + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-product" ng-click="nextPageProduct()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-product" ng-click="finalPageEmployee()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+<div id="warp-toast">
+</div>
+
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>

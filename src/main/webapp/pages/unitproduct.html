@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>เพิ่มหน่วยสินค้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">label</i>
+                    <input type="text" id="id" disabled ng-model="unitProduct.id">
+                    <label class="active" for="id">ลำดับ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix" >format_underlined</i>
+                    <input type="text" id="name" ng-model="unitProduct.name" ng-change="error.violations.name.message = '';">
+                    <label class="active" id="namedepartment" for="name">ชื่อหน่วย<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.name.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 center">
+                    <a class="btn-best btn-edit right" ng-click="saveUnitProduct()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้าหาหน่วยสินค้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchData.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchData.searchBy" ng-init="searchData.searchBy = 'Name'">
+                            <option value="Name">ชื่อหน่วย</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางหน่วยสินค้า</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span >จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="row" ng-init="row = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 20px" class="table-department">ลำดับ</th>
+                <th style="width: 50px" class="table-department">ชื่อ</th>
+                <th style="width: 30px;"class="table-department">จัดการ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="up in unitProducts.content">
+                        <td>{{up.id}}</td>
+                        <td>{{up.name}}</td>
+                        <td>
+                            <a class="btn-custom-radius btn-edit" ng-click="updateUnitProduct(up)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(up)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPage}}</p></li>
+                        <li class="btn btn-pagination" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-delete" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: red;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบหน่วยสินค้า</h4>
+        </div>
+        <h4 class="margin-left-20">ลบหน่วยสินค้า : {{unitProduct.name}}</h4>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteUnitProduct()">ลบ</a>
+        <a href="" class="magin-button btn btn-gray modal-action modal-close" ng-click="clearData()">ยกเลิก</a>
+    </div>
+</div>
+<div id="warp-toast">
+</div>
+
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>

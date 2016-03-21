@@ -1,0 +1,209 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>เพิ่มรอบการนำเข้าสินค้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">label</i>
+                    <input type="text" id="id" disabled ng-model="lot.id">
+                    <label class="active" for="id">ลำดับ</label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix clear-prefix">create</i>
+                    <input type="text" ng-model="nameStream" ng-click="clickEmployee()" 
+                           ng-change="changePrefix('#prefix-appointment-employee'); error.violations.nameStaffReam.message = '';">
+                    <label id="label-nameStaffReam">ชื่อคนกำกับนำเข้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.nameStaffReam.message}}</span></label>
+                </div>
+            </div>
+            <div class="row col6">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">file_download</i>
+                    <input type="date" id="dateIn" class="datepicker" ng-model="lot.dateIn" ng-change="error.violations.dateIn.message = '';">
+                    <label for="dateIn" class="active" id="namedepartment1" >วันที่นำเข้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.dateIn.message}}</span></label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">file_upload</i>
+                    <input type="date" id="dateOut" class="datepicker" ng-model="lot.dateOut">
+                    <label for="dateOut" class="active" id="namedepartment2" >วันที่นำออก</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 center">
+                    <a class="btn-best btn-edit right" ng-click="saveLot()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหารอบการนำเข้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchDataLot.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchDataLot.searchBy" ng-init="searchDataLot.searchBy = 'Name'">
+                            <option value="Name">คนเซ็นชื่อกำกับ</option>
+                            <option value="DateIn">วันที่นำเข้า</option>
+                            <option value="DateOut">วันที่นำออก</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContentLot()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางรอบการนำเข้าสินค้า</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearchLot()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="rowLot" ng-init="rowLot = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 10px;" class="table-department">ลำดับ</th>
+                <th style="width: 30px;" class="table-department">คนเซ็นชื่อกำกับ</th>
+                <th style="width: 20px;" class="table-department">วันที่นำเข้า</th>
+                <th style="width: 20px;" class="table-department">วันที่นำออก</th>
+                <th style="width: 30px;"class="table-department">จัดการ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lo in lots.content">
+                        <td>{{lo.id}}</td>
+                        <td>{{lo.nameStaffReam}}</td>
+                        <td>{{lo.dateIn}}</td>
+                        <td>{{lo.dateOut}}</td>
+                        <td>
+                            <a class="btn-custom-radius btn-edit" ng-click="updateLot(lo)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(lo)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page-Lot" ng-click="firstPageLot()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page-Lot" ng-click="prePageLot()"><p style="margin-top: 2px;">&LT</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageLot + 1}}</p></li>
+                        <li class="btn btn-pagination" id="next-page-Lot" ng-click="nextPageLot()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page-Lot" ng-click="finalPageLot()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-delete" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: red;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบรอบการนำเข้า</h4>
+        </div>
+        <h4 class="margin-left-20">ลบรอบการนำเข้า : {{lotDelete.dateIn}}</h4>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteLot()">ลบ</a>
+        <a href="" class="magin-button btn btn-gray modal-action modal-close" ng-click="clearData()">ยกเลิก</a>
+    </div>
+</div>
+
+
+<!--<div id="modal-employee" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เลือกคนเซ็นชื่อกำกับชื่อ</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataEmployee.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 s12 input-field">
+                <i class="material-icons prefix clear-prefix">language</i>
+                <div class="select-custom">
+                    <select class="browser-default" id="searchby" ng-model="searchDataEmployee.searchBy" ng-init="searchDataEmployee.searchBy = 'ชื่อ'"> 
+                        <option value="ชื่อ">ชื่อ</option>
+                        <option value="อีเมลล์">อีเมลล์</option>
+                    </select> 
+                </div>
+                <label class="active">ค้นหาจาก</label>
+            </div>
+             <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searcDataContentEmployee()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:30%">ชื่อ</th>
+                        <th style="width:25%">อีเมลล์</th>
+                        <th style="width:25%">เบอร์โทร</th>
+                        <th style="width:20%">เลือก</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="emp in employees.content">
+                        <td>{{emp.nameTh}}</td>
+                        <th>{{emp.email}}</th>
+                        <th>{{emp.mobile}}</th>
+                        <th><a class="modal-close btn-best btn-edit" ng-click="selectEmployee(emp)">เลือก</a></th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-employee" ng-click="firstPageEmployee()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-employee" ng-click="prePageEmployee()"><p style="margin-top: 2px;">&LT</p>;</li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageEmployee + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-employee" ng-click="nextPageEmployee()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-employee" ng-click="finalPageEmployee()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>-->
+<div id="warp-toast">
+</div>
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>

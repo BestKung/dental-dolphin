@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <div id='fullcalendar' style="width: 840px; margin: auto;"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    table th, table td { 
+        overflow: visible; 
+    }
+</style>
+
+<div id="modal-showDataDay" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: green;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">รายละเอียดการนัดรวมบุคคล</h4>
+        </div>
+        <h5 style="margin-left: 5px;">วันที่ {{showAppointmentsDay}}</h5>
+        <table>
+            <thead>
+                <tr>
+                    <td>ชื่อคนไข้</td>
+                    <td>เบอร์โทรคนไข้</td>
+                    <td>ชื่อหมอ</td>
+                    <td>เบอร์โทรหมอ</td>
+                    <td>เวลาเริ่มต้น</td>
+                    <td>เวลาสิ้นสุด</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ap in appointments.content">
+                    <td>{{ap.patient.name}}</td>
+                    <td>{{ap.patient.mobile}}</td>
+                    <td>{{ap.doctor.nameTh}}</td>
+                    <td>{{ap.doctor.mobile}}</td>
+                    <td>{{ap.startTime}}</td>
+                    <td>{{ap.endTime}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close" ng-click="clearData()">ยกเลิก</a>
+    </div>
+</div>
+
+<div id="modal-showDataEvent" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: green;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">รายละเอียดการนัดรายบุคคล</h4>
+        </div>
+<!--        <table>
+            <thead>
+                <tr>
+                    <td>ชื่อคนไข้</td>
+                    <td>เบอร์โทรคนไข้</td>
+                    <td>ชื่อหมอ</td>
+                    <td>เบอร์โทรหมอ</td>
+                    <td>เวลาเริ่มต้น</td>
+                    <td>เวลาสิ้นสุด</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{}}</td>
+                    <td>{{start}}</td>
+                    <td>{{end}}</td>
+                </tr>
+            </tbody>
+        </table>-->
+                <h5 align="center">{{title}}</h5>
+                <h5 align="center">{{start}}</h5>
+                <h5 align="center">{{end}}</h5>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close" ng-click="clearData()">ยกเลิก</a>
+    </div>
+</div>
+

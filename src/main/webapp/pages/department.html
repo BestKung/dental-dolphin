@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>เพิ่มแผนก</h4></span>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">account_circle</i>
+                    <input type="text" id="id" disabled ng-model="department.id">
+                    <label for="id" class="active">ลำดับ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" >star_rate</i>
+                    <input type="text"  id="name" ng-model="department.name" ng-change="error.violations.name.message = ''">
+                    <label for="name" class="active" id="namedepartment">ชื่อแผนก<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.name.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12">
+                    <a class="btn-best btn-edit right" ng-click="saveDepartment()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้าหาแผนกพนักงาน</h4></span>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" ng-model="searchDataDepartment.keyword">
+                    <label >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาจาก : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchDataDepartment.searchBy" ng-init="searchDataDepartment.searchBy = 'ชื่อเเผนก'">
+                            <option value="ชื่อเเผนก">ชื่อเเผนก</option>
+                            <option value="ลำดับ">ลำดับ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContentDepartment()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6 s12">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางข้อมูลแผนก</span>
+                </div>
+                <div class="col m6 s12">
+                    <div class="right">
+                        <span class="">เเสดงเเผนก : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearchDepartment()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="rowDepartment" ng-init="rowDepartment = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 20px" class="table-department">ลำดับ</th>
+                <th style="width: 50px" class="table-department">ชื่อเเผนก</th>
+                <th style="width: 30px;"class="table-department">จัดการ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="dep in departments.content">
+                        <td>{{dep.id}}</td>
+                        <td>{{dep.name}}</td>
+                        <td>
+                            <a class="btn-custom-radius btn-edit" ng-click="actionUpdate(dep)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(dep)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page-department" ng-click="firstPageDepartment()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page-department" ng-click="prePageDepartment()"><p style="margin-top: 2px;">&LT;</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageDepartment + 1}}</p></li>
+                        <li class="btn btn-pagination" id="next-page-department" ng-click="nextPageDepartment()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page-department" ng-click="finalPageDepartment()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>   
+
+<div id="modal-delete" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: red;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">Delete Department</h4>
+        </div>
+        <h4 class="margin-left-20">Delete Department : {{department.name}}</h4>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close" ng-click="clearData()">Cancle</a>
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteDepartment()">Delete</a>
+    </div>
+</div>
+
+<div id="warp-toast">
+</div>
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>

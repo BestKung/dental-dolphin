@@ -1,0 +1,334 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหาทันตเเพทย์</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="search.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="search.searchBy" ng-init="search.searchBy = 'ชื่อ'">
+                            <option value="อีเมลล์">อีเมลล์</option>
+                            <option value="ชื่อ">ชื่อ</option>
+                            <option value="เบอร์โทรศัพท์">เบอร์โทร</option>
+                            <option value="ลำดับ">ลำดับ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searchData()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางข้อมูลทันตแพทย์</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">เเสดงทันตเเพทย์ : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="size" ng-init="size = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="hoverable responsive-table" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">ลำดับ</th>
+                        <th style="width: 15%">ชื่อ</th>
+                        <th style="width: 20%">อีเมลล์</th>
+                        <th style="width: 15%">โทรศัพท์</th>
+                        <th style="width: 10%">สถานะ</th>
+                        <th style="width: 25%">จัดการ</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr ng-repeat="doc in doctors.content">
+                        <td>{{doc.id}}</td>
+                        <td>{{doc.nameTh}}</td>
+                        <td>{{doc.email}}</td>
+                        <td>{{doc.mobile}}</td>
+                        <td>{{doc.workStatus}}</td>
+                        <td>
+                            <a href="" ng-click="moreDetail(doc)" class="activator btn-custom-radius btn-moredetail">ดูรายละเอียด</a> 
+                            <a class="btn-custom-radius btn-edit" ng-click="doctorDetail(doc)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="clickDelete(doc)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn waves-effect btn-pagination" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p>;</li>
+                        <li class="btn waves-effect btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
+                        <li class="btn waves-effect btn-pagination" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4" id="close-card">ตารางข้อมูลทันตแพทย์<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+            <div style="margin-top: 40px;" class="center">
+                <img class="responsive-img" src="" id="img-employee">
+            </div>
+            <div style="margin-top: 20px;">
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ลำดับ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.id}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">อีเมล : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.email}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เลขใบอนุญาติ. : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ประเภทใบอนุญาติ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">รหัสประชาชน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.pid}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ขื่อ ภาษาไทย : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.nameTh}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ชื่อ ภาษาอังกฤษ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.nameEng}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">วันเกิด : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.birthDate}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">อายุ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.age}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">เพศ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.sex}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">กรุ๊ปเลือด : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.blood}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">สถานภาพสมรส : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.marryStatus}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">สัญชาติ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.nation}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">เชื้อชาติ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.race}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">สถานะทางทหาร : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.soldierStatus}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ที่อยู่ตามบัตรประชาชน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.addressOfPid}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ที่อยู่ปัจจุบัน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.currentAddress}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">เบอร์โทร : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.tel}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เบอร์โทรศัพท์มือถือ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.mobile}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">สถานะการทำงาน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.workStatus}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">วันที่เริ่มทำงาน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.startWork}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">วันที่ออกจากงาน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.endWork}}</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">Bank</span>
+            <div class="row">
+                <div class="col m3 s6">
+                    <label class="right topic-detail">ชื่อธนาคาร : </label>
+                </div>
+                <div class="col m3 s6">
+                    <label class=" topic-detail">{{doctorDetail.bank.bankName}}</label>
+                </div>
+                <div class="col m2 s6">
+                    <label class="right topic-detail">ชื่อบัญชี : </label>
+                </div>
+                <div class="col m3 s6">
+                    <label class=" topic-detail">{{doctorDetail.bank.accountName}}</label>
+                </div>
+            </div>
+            <div class="row margin-top">
+                <div class="col m3 s6">
+                    <label class="right topic-detail">เลขบัญชี : </label>
+                </div>
+                <div class="col m3 s6">
+                    <label class=" topic-detail">{{doctorDetail.bank.accountNumber}}</label>
+                </div>
+            </div>
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">Contact</span>
+            <div class="row">
+                <div class="col m3 s6">
+                    <label class="right topic-detail">ชื่อผู้ติดต่อ : </label>
+                </div>
+                <div class="col m3 s6">
+                    <label class=" topic-detail">{{doctorDetail.contact.name}}</label>
+                </div>
+                <div class="col m2 s6">
+                    <label class="right topic-detail">ความสัมพันธ์ : </label>
+                </div>
+                <div class="col m3 s6">
+                    <label class=" topic-detail">{{doctorDetail.contact.relation}}</label>
+                </div>
+            </div>
+            <div class="row margin-top">
+                <div class="col m3 s6">
+                    <label class="right topic-detail">เบอร์โทร : </label>
+                </div>
+                <div class="col m3 s6">
+                    <label class=" topic-detail">{{doctorDetail.contact.tel}}</label>
+                </div>
+            </div>
+
+            <div class="row margin-top-20 center" style="margin-right: 10px">
+                <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                <a class="btn-custom-radius btn-edit" ng-click="UpdateDoctor(doctorDetail)"><i class="mdi-content-create"></i></a>
+                <a class="btn-custom-radius btn-delete" ng-click="clickDelete(doctorDetail)"><i class="mdi-action-delete"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-delete" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: #f44336;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">Delete Doctor</h4>
+        </div>
+        <h5 class="margin-left-20">Delete Doctor : {{doctorDetail.nameTh}}</h5>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteDoctor()">Delete</a>
+    </div>
+</div>
+
+<div id="warp-toast">
+</div>
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>
+

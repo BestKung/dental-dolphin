@@ -1,0 +1,378 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>การนัดหมาย</h4></span>
+
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="prefix-appointment-id">label</i>
+                    <input type="text" id="id" disabled ng-model="appointment.id">
+                    <label for="id" class="update" id="label-appointment-id">ลำดับ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix treatmentlist">content_paste</i>
+                    <textarea type="text" id="treatmentlist" ng-model="appointment.treatmentList" class="materialize-textarea" ng-change="setBackgroundPrefixIdAppointment();changePrefix('.treatmentlist , #prefix-appointment-id')"></textarea>
+                    <label for="treatmentlist" class="update">รายการรักษา</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="prefix-appointment-patient">person</i>
+                    <input type="text" id="appointment-patient" ng-model="patient.name" ng-click="clickPatient()" ng-change="changePrefix('#prefix-appointment-patient')">
+                    <label for="appointment-patient" id="label-appointment-patient" class="update">คนไข้</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="prefix-appointment-doctor">assignment_ind</i>
+                    <input type="text" id="appointment-doctor" ng-model="doctor.nameTh" ng-click="clickDoctor()" ng-change="changePrefix('#prefix-appointment-doctor')">
+                    <label for="appointment-doctor" class="update" id="label-appointment-doctor">ทันตเเพทย์</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="prefix-appointment-mobile">call</i>
+                    <input type="text" id="mobile" ng-model="appointment.mobile" ng-change="changePrefix('#prefix-appointment-mobile')">
+                    <label for="mobile" class="update" id="label-mobile">เบอร์ติดต่อ</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="prefix-appointment-appointday">today</i>
+                    <input type="text" id="appointday" class="datepicker" ng-model="appointment.appointDay" ng-change="changePrefix('#prefix-appointment-appointday');error.violations.appointDay.message = ''">
+                    <label for="appointday" class="update" id="label-appointday">วันที่<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.appointDay.message}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div id="time-starttime"> 
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix" id="prefix-starttime">today</i>
+                        <input type="text" id="startTime" value="" ng-model="startTime" ng-change="changePrefix('#prefix-starttime')">
+                        <label for="startTime" class="update" id="label-starttime">เวลาเริ่ม</label>
+                    </div>
+                </div>
+                <div id="time-endtime">
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix" id="prefix-endtime">today</i>
+                        <input type="text" id="endTime" value="" ng-model="endTime" ng-change="changePrefix('#prefix-endtime')">
+                        <label for="endTime" class="update" id="label-endtime">เวลาสิ่นสุด</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="right">
+                    <a class="btn-best btn-edit right" ng-click="saveAppointment()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> 
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black"><h4>ตารางการนัดหมาย</h4></span>
+            <div class="row">
+                <div class="col m5 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchDataAppointment.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchDataAppointment.searchBy" ng-init="searchDataAppointment.searchBy = 'ชื่อคนไข้'">
+                            <option value="ชื่อคนไข้">ชื่อคนไข้</option>
+                            <option value="ชื่อทันคเเพทย์">ชื่อทันคเเพทย์</option>
+                            <option value="เบอร์โทรศัพท์">เบอร์โทรศัพท์</option>
+                            <option value="วันที่นัด">วันที่นัด (ปปปป-ดด-วว)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col m2" style="margin-top: 40px;">
+                    <a class="btn-best btn-search" ng-click="searchAppointment()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+                <div class="col m2">
+                    <div class="right">
+                        <span class="">เเสดงการนัด : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearchAppointment()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="sizeAppointment" ng-init="sizeAppointment = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="responsive-table hoverable">
+                    <thead>
+                    <th style="width:15%" class="table-department" >Id</th>
+                    <th style="width:20%" class="table-department" >ชื่อคนไข้</th>
+                    <th style="width:20%" class="table-department" >ชื่อหมอ</th>
+                    <th style="width:15%" class="table-department" >วันที่</th>
+                    <th style="width:30%" class="table-department" >จัดการ</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="app in appointments.content">
+                            <td>{{app.id}}</td>
+                            <td>{{app.patient.name}}</td>
+                            <td>{{app.doctor.nameTh}}</td>
+                            <td>{{app.appointDay}}</td>
+                            <td>
+                                <a href="" ng-click="moreDetail(app)" class="activator btn-custom-radius btn-moredetail">ดูรายละเอียด</a> 
+                                <a class="btn-custom-radius btn-edit" ng-click="updateAppointment(app)"><i class="mdi-content-create"></i></a>
+                                <a class="btn-custom-radius btn-delete" ng-click="clickDelete(app)"><i class="mdi-action-delete"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col m12">
+                        <ul class="pagination right" style="margin-top: 10px;">
+                            <li class="btn btn-pagination" id="first-page-appointment" ng-click="firstPageAppointment()()"><p style="margin-top: 2px;">&Lt;</p></li>
+                            <li class="btn btn-pagination" id="pre-page-appointment" ng-click="prePageAppointment()()"><p style="margin-top: 2px;">&LT;</p></li>
+                            <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
+                            <li class="btn btn-pagination" id="next-page-appointment" ng-click="nextPageAppointment()()"><p style="margin-top: 2px;">&GT;</p></li>
+                            <li class="btn btn-pagination" id="final-page-appointment" ng-click="finalPageAppointment()()"><p style="margin-top: 2px;">&Gt;</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-reveal">
+            <div id="card-height" class="card-height">
+                <span class="card-title grey-text text-darken-4" id="close-card">ข้อมูลการนัด<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ID : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.id}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">รายการรักษา : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail" style="word-wrap: break-word">{{appointmentDetail.treatmentList}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ชื่อคนไข้ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.patient.name}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ชื่อทันตเเพทย์ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.doctor.nameTh}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เบอร์ติดต่อ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.mobile}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">วันที่ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.appointDay}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เวลาเริ่ม : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.startTime}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">เวลาสิ้นสุด : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{appointmentDetail.endTime}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top-20 center" style="margin-right: 10px">
+                    <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                    <a class="btn-custom-radius btn-edit" ng-click="updateAppointment(appointmentDetail)"><i class="mdi-content-create"></i></a>
+                    <a class="btn-custom-radius btn-delete"ng-click="clickDelete(appointmentDetail)"><i class="mdi-action-delete"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div id="modal-patient" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เลือกคนไข้</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchData.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 s12 input-field">
+                <i class="material-icons prefix clear-prefix">language</i>
+                <div class="select-custom">
+                    <select class="browser-default" id="searchby" ng-model="searchData.searchBy" ng-init="searchData.searchBy = 'ชื่อ'"> 
+                        <option value="ชื่อ">ชื่อ</option>
+                        <option value="H/N">H/N</option>
+                        <option value="รหัสประชาชน">รหัสประชาชน</option>
+                    </select> 
+                </div>
+                <label class="active">ค้นหาจาก</label>
+            </div>
+             <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searchPatient()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:25%">ชื่อ</th>
+                        <th style="width:15%">H/N</th>
+                        <th style="width:30%">รหัสประชาชน</th>
+                        <th style="width:20%">เลือก</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pat in patients.content">
+                        <td>{{pat.name}}</td>
+                        <th>{{pat.hn}}</th>
+                        <th>{{pat.pid}}</th>
+                        <th><a class="modal-close btn-best btn-edit" ng-click="selectPatient(pat)">เลือก</a></th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+
+<div id="modal-doctor" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เลือกทันตเเพทย์</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataDoctor.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 s12 input-field">
+                <i class="material-icons prefix clear-prefix">language</i>
+                <div class="select-custom">
+                    <select class="browser-default" id="searchby" ng-model="searchDataDoctor.searchBy" ng-init="searchDataDoctor.searchBy = 'ชื่อ'"> 
+                        <option value="ชื่อ">ชื่อ</option>
+                        <option value="อีเมลล์">อีเมลล์</option>
+                        <option value="เบอร์โทร">เบอร์โทร</option>
+                    </select> 
+                </div>
+                <label class="active">ค้นหาจาก</label>
+            </div>
+             <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searchDoctor()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:25%">ชื่อ</th>
+                        <th style="width:25%">อีเมลล์</th>
+                        <th style="width:20%">เบอร์โทร</th>
+                        <th style="width:20%">เลือก</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="doc in doctors.content">
+                        <td>{{doc.nameTh}}</td>
+                        <th>{{doc.email}}</th>
+                        <th>{{doc.mobile}}</th>
+                        <th><a class="modal-close btn-best btn-edit" ng-click="selectDoctor(doc)">เลือก</a></th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-doctor" ng-click="firstPageDoctor()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-doctor" ng-click="prePageDoctor()()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageDoctor + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-doctor" ng-click="nextPageDoctor()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-doctor" ng-click="finalPageDoctor()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+
+
+
+<div id="modal-delete-appointment" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: red;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบการนัด</h4>
+        </div>
+        <h5 class="margin-left-20">ลบการนัด : {{appointmentDetail.patient.name}}</h5>
+         <h5 class="margin-left-20">{{' วันที่ : '+appointmentDetail.appointDay}}</h5>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteAppointment(appointmentDetail)">Delete</a>
+    </div>
+</div>
+
+<div id="modal-appointment" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae">ไม่สามารถนัดย้อนหลังได้</font>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="warp-toast">
+</div>
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>
