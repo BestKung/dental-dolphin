@@ -231,8 +231,9 @@ angular.module('bill').controller('billController', function ($scope, $http) {
         console.log(totalPriceDetailHeal + '-------------------------price');
     };
 
-    $scope.clickDeeteBill = function () {
+    $scope.clickDeeteBill = function (bill) {
         $('#modal-delete-bill').openModal();
+         $scope.billMoreDetail = bill;
     };
 
     function toPreScroll() {

@@ -82,9 +82,12 @@ public class BillController {
             }
 //             System.out.println("-----------------------------------------------------------------------------"+detailHeal);
             bill.setDetailHeal(detailHealAndTmpProduct.getDetailHeal());
-            DetailHeal detailHeal = detailHealRepo.findOne(detailHealAndTmpProduct.getDetailHeal().getId());
-            detailHeal.setStatus("out");
-            detailHealRepo.save(detailHeal);
+            System.out.println("-------------------------------------------------------------//////////" + detailHealAndTmpProduct);
+            if (detailHealAndTmpProduct.getDetailHeal() != null) {
+                DetailHeal detailHeal = detailHealRepo.findOne(detailHealAndTmpProduct.getDetailHeal().getId());
+                detailHeal.setStatus("out");
+                detailHealRepo.save(detailHeal);
+            }
 
             for (int i = 0; i < detailHealAndTmpProduct.getTmpProducts().size(); i++) {
                 PriceAndExpireProduct priceAndExpireProduct = detailHealAndTmpProduct.getTmpProducts().get(i).getPriceAndExpireProduct();
