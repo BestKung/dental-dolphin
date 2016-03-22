@@ -39,4 +39,19 @@ public class LotService {
         Specifications<Lot> specifications = Specifications.where(LotSpec.dateOutBetween(keyword));
         return lotRepo.findAll(specifications, pageable);
     }
+      
+       public Page<Lot> searchByNameStaffReamNonDateOut(String keyword,Pageable pageable){
+        Specifications<Lot> specifications = Specifications.where(LotSpec.nameStaffReamLikeNonDateOut("%"+ keyword + "%"));
+        return lotRepo.findAll(specifications, pageable);
+    }
+    
+     public Page<Lot> searchByDateInNonDateOut(Date keyword,Pageable pageable){
+        Specifications<Lot> specifications = Specifications.where(LotSpec.dateInBetweenNonDateOut(keyword));
+        return lotRepo.findAll(specifications, pageable);
+    }
+     
+      public Page<Lot> searchByDateOutNonDateOut(Date keyword,Pageable pageable){
+        Specifications<Lot> specifications = Specifications.where(LotSpec.dateOutBetweenNonDateOut(keyword));
+        return lotRepo.findAll(specifications, pageable);
+    }
 }

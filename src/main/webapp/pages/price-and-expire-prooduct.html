@@ -131,7 +131,7 @@
                 <th style="width: 10%" class="table-department">รอบสินค้า</th>
                 <th style="width: 15%" class="table-department">ชื่อสินค้า</th>
                 <th style="width: 10%" class="table-department">จำนวนสินค้า</th>
-               <th style="width: 10%" class="table-department">ยอดคงเหลือ</th>
+                <th style="width: 10%" class="table-department">ยอดคงเหลือ</th>
                 <th style="width: 10%" class="table-department">ราคาซื้อ</th>
                 <th style="width: 10%"class="table-department">ราคาขาย</th>
                 <th style="width: 10%" class="table-department">วันหมดอายุ</th>
@@ -143,7 +143,7 @@
                         <td>{{paep.lot.dateIn}}</td>
                         <td>{{paep.product.name}}</td>
                         <td>{{paep.value}}</td>
-                         <td>{{paep.amountRemaining}}</td>
+                        <td>{{paep.amountRemaining}}</td>
                         <td>{{paep.priceBuy}}</td>
                         <td>{{paep.priceSell}}</td>
                         <td>{{paep.expire}}</td>
@@ -199,7 +199,6 @@
                     <select class="browser-default" id="searchby" ng-model="searchDataLot.searchBy" ng-init="searchDataLot.searchBy = 'Name'"> 
                         <option value="Name">คนเซ็นชื่อกำกับ</option>
                         <option value="DateIn">วันที่นำเข้า</option>
-                        <option value="DateOut">วันที่นำออก</option>
                     </select> 
                 </div>
                 <label class="active">ค้นหาจาก</label>
@@ -215,7 +214,6 @@
                         <th style="width: 10px;">ลำดับ</th>
                         <th style="width: 30px;">คนเซ็นชื่อกำกับ</th>
                         <th style="width: 20px;">วันที่นำเข้า</th>
-                        <th style="width: 20px;">วันที่นำออก</th>
                         <th style="width: 30px;">จัดการ</th>
                     </tr>
                 </thead>
@@ -224,7 +222,6 @@
                         <td>{{lo.id}}</td>
                         <td>{{lo.nameStaffReam}}</td>
                         <td>{{lo.dateIn}}</td>
-                        <td>{{lo.dateOut}}</td>
                         <th><a class="modal-close btn-best btn-edit" ng-click="selectLot(lo)">เลือก</a></th>
                     </tr>
                 </tbody>                  

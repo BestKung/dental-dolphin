@@ -49,7 +49,7 @@ public class PriceAndExpireProduct implements Serializable {
 
     @Column(name = "NOTIFICATIONSVALUE", nullable = false)
     @NotNull(message = "กรุณาระบุกำหนดการแจ้งเตือนจำนวนสินค้า")
-    private Integer notificationsValue;
+    private Double notificationsValue;
 
     @Column(name = "PRICEBUY", nullable = false)
     @NotNull(message = "กรุณาระบุราคาซื้อ")
@@ -60,7 +60,6 @@ public class PriceAndExpireProduct implements Serializable {
     private Double priceSell;
 
     private Double amountRemaining;
-
     private String status;
 
     @ManyToOne
@@ -73,7 +72,14 @@ public class PriceAndExpireProduct implements Serializable {
     @NotNull(message = "กรุณาระบุชื่อสินค้าด้วยครับ")
     private Product product;
 
+    @Temporal(TemporalType.DATE)
+    private Date nontificationDateExpire;
+
     private String statusNontificationValue;
+
+    private String stopNontificationValue;
+
+    private String stopNontificationExpire;
 
     private String statusNontificationExpire;
 
@@ -101,11 +107,11 @@ public class PriceAndExpireProduct implements Serializable {
         this.notificationsExpire = notificationsExpire;
     }
 
-    public Integer getNotificationsValue() {
+    public Double getNotificationsValue() {
         return notificationsValue;
     }
 
-    public void setNotificationsValue(Integer notificationsValue) {
+    public void setNotificationsValue(Double notificationsValue) {
         this.notificationsValue = notificationsValue;
     }
 
@@ -179,6 +185,30 @@ public class PriceAndExpireProduct implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStopNontificationValue() {
+        return stopNontificationValue;
+    }
+
+    public void setStopNontificationValue(String stopNontificationValue) {
+        this.stopNontificationValue = stopNontificationValue;
+    }
+
+    public String getStopNontificationExpire() {
+        return stopNontificationExpire;
+    }
+
+    public void setStopNontificationExpire(String stopNontificationExpire) {
+        this.stopNontificationExpire = stopNontificationExpire;
+    }
+
+    public Date getNontificationDateExpire() {
+        return nontificationDateExpire;
+    }
+
+    public void setNontificationDateExpire(Date nontificationDateExpire) {
+        this.nontificationDateExpire = nontificationDateExpire;
     }
 
     @Override

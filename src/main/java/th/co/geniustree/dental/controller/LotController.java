@@ -93,6 +93,12 @@ public class LotController {
     public Page<Lot> loadLot(Pageable pageable) {
         return lotRepo.findAll(pageable);
     }
+    
+      @RequestMapping(value = "/loadlotnondateout")
+    public Page<Lot> loadLotNonDateut(Pageable pageable) {
+          System.out.println("----------------------------->"+lotRepo.findByDateOutIsNull().size());
+        return lotRepo.findByDateOutIsNull(pageable);
+    }
 
     @RequestMapping(value = "/savelot", method = RequestMethod.POST)
     public void saveLot(@Validated @RequestBody Lot lot) {
@@ -123,6 +129,11 @@ public class LotController {
     public Long getTotalLot() {
         return lotRepo.count();
     }
+    
+     @RequestMapping(value = "/totallotnondateout", method = RequestMethod.GET)
+    public Integer getTotalLotNonDateOut() {
+        return lotRepo.findByDateOutIsNull().size();
+    }
 
     @Autowired
     private LotService lotService;
@@ -146,6 +157,26 @@ public class LotController {
         }
         return lots;
     }
+    
+        @RequestMapping(value = "/loadlot/searchlotnondateout", method = RequestMethod.POST)
+    public Page<Lot> searchLotNonDateOut(@RequestBody SearchData searchData, Pageable pageable) throws ParseException {
+        String keyword = searchData.getKeyword();
+        String searchBy = searchData.getSearchBy();
+        Page<Lot> lots = null;
+        DateFormat df = new SimpleDateFormat("yyy-MM-dd", Locale.US);
+        if ("Name".equals(searchBy)) {
+            lots = lotService.searchByNameStaffReamNonDateOut(keyword, pageable);
+        }
+        if ("DateIn".equals(searchBy)) {
+            Date keywordDate = df.parse(keyword);
+            lots = lotService.searchByDateInNonDateOut(keywordDate, pageable);
+        }
+        if ("DateOut".equals(searchBy)) {
+            Date keywordDate = df.parse(keyword);
+            lots = lotService.searchByDateOutNonDateOut(keywordDate, pageable);
+        }
+        return lots;
+    }
 
     @RequestMapping(value = "/countsearchlot", method = RequestMethod.POST)
     public long countSearchLot(@RequestBody SearchData searchData) throws ParseException {
@@ -164,6 +195,27 @@ public class LotController {
         if ("DateOut".equals(searchBy)) {
             Date keywordDate = df.parse(keyword);
             count = lotRepo.count(LotSpec.dateOutBetween(keywordDate));
+        }
+        return count;
+    }
+    
+     @RequestMapping(value = "/countsearchlotnondateout", method = RequestMethod.POST)
+    public long countSearchLotNonDateOut(@RequestBody SearchData searchData) throws ParseException {
+        long count = 0;
+        String keyword = searchData.getKeyword();
+        String searchBy = searchData.getSearchBy();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        if ("Name".equals(searchBy)) {
+            count = lotRepo.count(LotSpec.nameStaffReamLikeNonDateOut("%" + keyword + "%"));
+        }
+        if ("DateIn".equals(searchBy)) {
+            Date keywordDate = df.parse(keyword);
+            count = lotRepo.count(LotSpec.dateInBetweenNonDateOut(keywordDate));
+        }
+        if ("DateOut".equals(searchBy)) {
+            Date keywordDate = df.parse(keyword);
+            count = lotRepo.count(LotSpec.dateOutBetweenNonDateOut(keywordDate));
         }
         return count;
     }

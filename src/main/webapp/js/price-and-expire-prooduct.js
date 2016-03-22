@@ -44,8 +44,9 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
 
 //paginLot
     function loadLot() {
-        $http.get('/loadlot', {params: {page: $scope.pageLot, size: $scope.rowLot}}).success(function (data) {
+        $http.get('/loadlotnondateout', {params: {page: $scope.pageLot, size: $scope.rowLot}}).success(function (data) {
             $scope.lots = data;
+            console.log(data.content + '-------------------------------');
         }).error(function (data) {
         });
     }
@@ -67,7 +68,7 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
     };
 
     function getTotalListLot() {
-        $http.get('/totallot').success(function (data) {
+        $http.get('/totallotnondateout').success(function (data) {
             totalListLot = data;
             totalPagesLot();
         });
@@ -180,14 +181,14 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
     };
 
     function searcDataContentLot() {
-        $http.post('/loadlot/searchlot', $scope.searchDataLot, {params: {page: $scope.pageLot, size: $scope.rowLot}}).success(function (data) {
+        $http.post('/loadlot/searchlotnondateout', $scope.searchDataLot, {params: {page: $scope.pageLot, size: $scope.rowLot}}).success(function (data) {
             $scope.lots = data;
             countSearchLot();
         });
     }
 
     function countSearchLot() {
-        $http.post('/countsearchlot', $scope.searchDataLot).success(function (data) {
+        $http.post('/countsearchlotnondateout', $scope.searchDataLot).success(function (data) {
             totalListLot = data;
             if (!data) {
                 totalListLot = 0;
@@ -369,6 +370,9 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
     $scope.savePriceAndExpireProduct = function () {
         if (!$scope.priceAndExpireProduct.statusNontificationValue) {
             $scope.priceAndExpireProduct.statusNontificationValue = '1';
+        }
+        if (!$scope.priceAndExpireProduct.statusNontificationExpire) {
+            $scope.priceAndExpireProduct.statusNontificationExpire = '1';
         }
         $http.post('/savepriceandexpireproduct', $scope.priceAndExpireProduct).success(function (data) {
             loadPriceAndExpireProduct();
@@ -554,7 +558,7 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
 
             if (data.content.length === 0 || $scope.searchDataPriceAndExpireProduct.keyword === "") {
                 $('#modal-notfont').openModal();
-                 loadPriceAndExpireProduct();
+                loadPriceAndExpireProduct();
             } else {
                 $scope.priceAndExpireProducts = data;
                 countSearchPriceAndExpireProduct();

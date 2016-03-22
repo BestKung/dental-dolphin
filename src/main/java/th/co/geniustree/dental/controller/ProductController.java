@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import th.co.geniustree.dental.model.Product;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.repo.PriceAndExpireProductRepo;
 import th.co.geniustree.dental.repo.ProductRepo;
 import th.co.geniustree.dental.service.ProductService;
 import th.co.geniustree.dental.spec.ProductSpec;
@@ -85,4 +86,7 @@ public class ProductController {
         }
         return count;
     }
+    
+    
+    
 }

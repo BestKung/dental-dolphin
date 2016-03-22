@@ -257,7 +257,7 @@ angular.module('bill').controller('billController', function ($scope, $http) {
             getBill();
         }
     }
-
+    findTotalPageBill();
     function findTotalPageBill() {
         var totalpages = parseInt(totalBill / $scope.row);
         if ((totalBill % $scope.row) != 0) {

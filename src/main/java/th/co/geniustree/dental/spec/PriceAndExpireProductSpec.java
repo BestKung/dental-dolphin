@@ -57,8 +57,7 @@ public class PriceAndExpireProductSpec {
 
             @Override
             public Predicate toPredicate(Root<PriceAndExpireProduct> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-//                return cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.value), root.get(PriceAndExpireProduct_.notificationsValue));
-                return null;
+                return cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.amountRemaining), root.get(PriceAndExpireProduct_.notificationsValue)), root.get(PriceAndExpireProduct_.stopNontificationValue).isNull());
             }
         };
     }
@@ -68,8 +67,25 @@ public class PriceAndExpireProductSpec {
 
             @Override
             public Predicate toPredicate(Root<PriceAndExpireProduct> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-//                return cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.value), root.get(PriceAndExpireProduct_.notificationsValue)), cb.like(root.get(PriceAndExpireProduct_.statusNontificationValue), "1"));
-                return null;
+                return cb.and(cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.amountRemaining), root.get(PriceAndExpireProduct_.notificationsValue)), cb.like(root.get(PriceAndExpireProduct_.statusNontificationValue), "1")), root.get(PriceAndExpireProduct_.stopNontificationValue).isNull());
+            }
+        };
+    }
+
+    public static Specification<PriceAndExpireProduct> expireProductAndStatus(final Date date) {
+        return new Specification<PriceAndExpireProduct>() {
+            @Override
+            public Predicate toPredicate(Root<PriceAndExpireProduct> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.nontificationDateExpire), date), root.get(PriceAndExpireProduct_.stopNontificationExpire).isNull());
+            }
+        };
+    }
+    
+    public static Specification<PriceAndExpireProduct> expireProductAndStatusCount(final Date date) {
+        return new Specification<PriceAndExpireProduct>() {
+            @Override
+            public Predicate toPredicate(Root<PriceAndExpireProduct> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.and(cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.nontificationDateExpire), date), cb.equal(root.get(PriceAndExpireProduct_.statusNontificationExpire), "1")), root.get(PriceAndExpireProduct_.stopNontificationExpire).isNull());
             }
         };
     }

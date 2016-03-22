@@ -40,8 +40,16 @@ public class PriceAndExpireProductController {
     }
 
     @RequestMapping(value = "/savepriceandexpireproduct", method = RequestMethod.POST)
-    public void savePriceAndExpireProduct(@Validated @RequestBody PriceAndExpireProduct priceAndExpireProduct) {
+    public void savePriceAndExpireProduct(@Validated @RequestBody PriceAndExpireProduct priceAndExpireProduct) throws ParseException {
         priceAndExpireProduct.setAmountRemaining(priceAndExpireProduct.getValue());
+        if (priceAndExpireProduct.getExpire() != null) {
+            DateFormat df = new SimpleDateFormat("yyy-MM-dd", Locale.US);
+            long numberOfDate = Long.parseLong(priceAndExpireProduct.getNotificationsExpire().substring(0, 2));
+            Date d = new Date(priceAndExpireProduct.getExpire().getTime() - (numberOfDate * 24l * 60l * 60l * 1000l));
+            String keywordDate = df.format(d);
+            Date dateNontification = df.parse(keywordDate);
+            priceAndExpireProduct.setNontificationDateExpire(dateNontification);
+        }
         priceAndExpireProductRepo.save(priceAndExpireProduct);
     }
 
@@ -98,7 +106,7 @@ public class PriceAndExpireProductController {
         return count;
     }
 
-    @RequestMapping(value = "/countoutproduct" , method = RequestMethod.GET)
+    @RequestMapping(value = "/countoutproduct", method = RequestMethod.GET)
     public Long countOutProduct() {
         long count = 0;
         long sizeAllProduct = priceAndExpireProductRepo.findAll().size();
@@ -111,11 +119,40 @@ public class PriceAndExpireProductController {
         }
         return count;
     }
-    
+
     @RequestMapping(value = "/getoutproduct", method = RequestMethod.GET)
-    public Page<PriceAndExpireProduct> getOutProduct(Pageable pageable){
+    public Page<PriceAndExpireProduct> getOutProduct(Pageable pageable) {
         return priceAndExpireProductService.searchByvalueLessThanOrEqualNontificationValue(pageable);
     }
-    
-    
+
+    @RequestMapping(value = "/getoutproductnonacknowledge", method = RequestMethod.GET)
+    public Integer getoutProductNotAcKnowledge(Pageable pageable) {
+        return priceAndExpireProductService.searchByvalueLessThanOrEqualNontificationValueAndStatusList().size();
+    }
+
+    @RequestMapping(value = "/getnontificationexpiredate", method = RequestMethod.GET)
+    public Page<PriceAndExpireProduct> getNontificationExpireDate(Pageable pageable) {
+        Date date = new Date();
+        try {
+            System.out.println("=================================================>" + priceAndExpireProductService.searcbByNontificationDateExpire(date, pageable).getNumberOfElements());
+            return priceAndExpireProductService.searcbByNontificationDateExpire(date, pageable);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    @RequestMapping(value = "/countnontificationexpiredate", method = RequestMethod.GET)
+    public Long countNontificationExpireDate() {
+        Date date = new Date();
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            String strDate = df.format(date);
+            Date d = df.parse(strDate);
+            return priceAndExpireProductRepo.count(PriceAndExpireProductSpec.expireProductAndStatusCount(date));
+        } catch (Exception e) {
+        }
+        return 0l;
+    }
+
 }

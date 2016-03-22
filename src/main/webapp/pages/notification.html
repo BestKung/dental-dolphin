@@ -41,7 +41,7 @@
                     </div> 
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">local_shipping</i>เตือนสินค้าใกล้หมด</div>
+                    <div class="collapsible-header"><i class="material-icons">local_shipping</i>เตือนสินค้าใกล้หมด<span class="right" style="color: red;font-weight: 900" ng-if="totalNontificationAcKnowLedge > 0" >จำนวนเเจ้งเตือน : {{totalNontificationAcKnowLedge}}</span></div>
                     <div class="collapsible-body">
                         <table class="bordered hoverable responsive-table">
                             <thead>
@@ -54,24 +54,71 @@
                             <tbody>
                                 <tr ng-repeat="nonOut in outProducts.content">
                                     <td><input ng-show="nonOut.statusNontificationValue == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="รับทราบ">
-                                        <input ng-show="nonOut.statusNontificationValue != 0"type="submit" class="btn-group btn-gray" value="รับทราบ" ng-click="">
+                                        <input ng-show="nonOut.statusNontificationValue != 0"type="submit" class="btn-group btn-gray" value="รับทราบ" ng-click="clickAcknowledge(nonOut)">
                                         <input ng-show="nonOut.statusNontificationValue == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ">
-                                        <input ng-show="nonOut.statusNontificationValue != 1" type="submit" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ" ng-click="">
-                                     </td>
+                                        <input ng-show="nonOut.statusNontificationValue != 1" type="submit" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ" ng-click="clickNotAcknowledge(nonOut)">
+                                    </td>
                                     <td>{{nonOut.lot.dateIn}}</td>
                                     <td>{{nonOut.product.name}}</td>
-                                    <td>{{nonOut.value}}</td>
+                                    <td>{{nonOut.amountRemaining}}</td>
                                     <td>
-                                        <a id="moredetail">หยุดเเจ้งเตือน</a>
+                                        <a id="moredetail" ng-click="stopNontification(nonOut)">หยุดเเจ้งเตือน</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="row" id="card-employee">
+                            <div class="col m12">
+                                <ul class="pagination right" style="margin-top: 10px;">
+                                    <li class="btn btn-pagination" id="first-page-value" ng-click="firstPageValue()">&Lt;</li>
+                                    <li class="btn btn-pagination" id="pre-page-value" ng-click="prePageValue()">&LT;</li>
+                                    <li class="btn btn-pagination">{{currentPageValueNontification + 1}}</li>
+                                    <li class="btn btn-pagination" id="next-page-value" ng-click="nextPageValue()">&GT;</li>
+                                    <li class="btn btn-pagination" id="final-page-value" ng-click="finalPageValue()">&Gt;</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="material-icons">today</i>เตือนวันหมดอายุ</div>
-                    <div class="collapsible-body"><p>หมดเวลาแล้วที่เธอต้องไป</p></div>
+                    <div class="collapsible-body">
+                        <table class="bordered hoverable responsive-table">
+                            <thead>
+                            <th style="width: 20px">สถานะ</th>
+                            <th style="width: 20px">รอบสินค้า</th>
+                            <th style="width: 25px;">ชื่อสินค้า</th>
+                            <th style="width: 10px">วันหมดอายุ</th>
+                            <th style="width: 20px;">หยุดเเจ้งเตือน</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ex in expire.content">
+                                    <td><input ng-show="ex.statusNontificationExpire == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="นำออกเเล้ว">
+                                        <input ng-show="ex.statusNontificationExpire != 0"type="submit" class="btn-group btn-gray" value="นำออกเเล้ว" ng-click="clickOutExpire(ex)">
+                                        <input ng-show="ex.statusNontificationExpire == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่นำออก">
+                                        <input ng-show="ex.statusNontificationExpire != 1" type="submit" class="btn-group btn-gray" value="ยังไม่นำออก" ng-click="clickNotOutExpire(ex)">
+                                    </td>
+                                    <td>{{ex.lot.dateIn}}</td>
+                                    <td>{{ex.product.name}}</td>
+                                    <td>{{ex.expire}}</td>
+                                    <td>
+                                        <a id="moredetail" ng-click="stopNontificationExpire(ex)">หยุดเเจ้งเตือน</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" id="card-employee">
+                            <div class="col m12">
+                                <ul class="pagination right" style="margin-top: 10px;">
+                                    <li class="btn btn-pagination" id="first-page-expire" ng-click="firstPageExpire()">&Lt;</li>
+                                    <li class="btn btn-pagination" id="pre-page-expire" ng-click="prePageExpire()">&LT;</li>
+                                    <li class="btn btn-pagination">{{currentPageExpireNontification + 1}}</li>
+                                    <li class="btn btn-pagination" id="next-page-expire" ng-click="nextPageExpire()">&GT;</li>
+                                    <li class="btn btn-pagination" id="final-page-expire" ng-click="finalPageExpire()">&Gt;</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
 

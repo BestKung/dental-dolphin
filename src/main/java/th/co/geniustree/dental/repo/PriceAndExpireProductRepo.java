@@ -21,6 +21,10 @@ public interface PriceAndExpireProductRepo extends JpaRepository<PriceAndExpireP
 
 //    public Page<PriceAndExpireProduct> findByValueLessThanOrEqualToNotificationsValue(Integer value , Integer nonValue , Pageable pageable);
     public Page<PriceAndExpireProduct> findByStatusIsNull(Pageable pageable);
-     public List<PriceAndExpireProduct> findByStatusIsNull();
+
+    public List<PriceAndExpireProduct> findByStatusIsNull();
+
     public List<PriceAndExpireProduct> findByLot(Lot lot);
+
+    public List<PriceAndExpireProduct> findByStatusNontificationValue(String key);
 }
