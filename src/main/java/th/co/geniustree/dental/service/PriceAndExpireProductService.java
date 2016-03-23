@@ -56,7 +56,7 @@ public class PriceAndExpireProductService {
     }
 
     public List<PriceAndExpireProduct> searchByvalueLessThanOrEqualNontificationValueAndStatusList() {
-        Specifications<PriceAndExpireProduct> specifications = Specifications.where(PriceAndExpireProductSpec.outProductAndStatus());
+        Specifications<PriceAndExpireProduct> specifications = Specifications.where(PriceAndExpireProductSpec.outProductAndStatuscount());
         return priceAndExpireProductRepo.findAll(specifications);
     }
 

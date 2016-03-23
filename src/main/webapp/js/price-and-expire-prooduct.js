@@ -582,7 +582,6 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
 $scope.moreDetail = function (paep) {
     $scope.preScroll = $(window).scrollTop();
     $scope.priceAndExpireProductsDetail = paep;
-     
 };
 
 

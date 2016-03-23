@@ -55,8 +55,15 @@ app.controller('homeController', function ($scope, $http) {
 
     getOutProduct();
     function getOutProduct() {
-        $http.get('/countoutproduct').success(function (data) {
+        $http.get('/getoutproductnonacknowledge').success(function (data) {
             console.log(data + ' total nontification');
+            $scope.totalNontification = $scope.totalNontification + data;
+        });
+    }
+
+    getExpiredate();
+    function getExpiredate() {
+        $http.get('/countnontificationexpiredate').success(function (data) {
             $scope.totalNontification = $scope.totalNontification + data;
         });
     }
@@ -65,13 +72,12 @@ app.controller('homeController', function ($scope, $http) {
     $scope.showNontification = function () {
         if ($scope.totalNontification > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     };
 
- $(document).ready(function () {
+    $(document).ready(function () {
         $('.slider').slider({full_width: true});
     });
 
@@ -152,6 +158,18 @@ app.config(function ($routeProvider) {
     }).when('/calendardoctor', {
         controller: 'calendarDoctorController',
         templateUrl: 'pages/calendardoctor.html'
+    }).when('/reportemployee', {
+        controller: 'reportEmployeeController',
+        templateUrl: 'pages/reportemployee.html'
+    }).when('/reportdoctor', {
+        controller: 'reportDoctorController',
+        templateUrl: 'pages/reportdoctor.html'
+    }).when('/reportcustomer', {
+        controller: 'reportcCustomerController',
+        templateUrl: 'pages/reportcustomer.html'
+    }).when('/reportproduct', {
+        controller: 'reportProductController',
+        templateUrl: 'pages/reportproduct.html'
     }).otherwise({
         redirectTo: '/'
     });

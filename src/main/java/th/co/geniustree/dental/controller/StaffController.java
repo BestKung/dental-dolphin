@@ -6,6 +6,14 @@
 package th.co.geniustree.dental.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartRequest;
+import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Employee;
 import th.co.geniustree.dental.model.Staff;
 import th.co.geniustree.dental.model.StaffPicture;
@@ -44,11 +53,11 @@ public class StaffController {
 
     @RequestMapping(value = "/savestaff", method = RequestMethod.POST)
     public void saveStaff(@Validated @RequestBody Staff staff) {
-        if(staff.getStaffPicture() == null){
-        StaffPicture picture = staffPictureRepo.findOne(1);
-        staff.setStafPicture(picture);
+        if (staff.getStaffPicture() == null) {
+            StaffPicture picture = staffPictureRepo.findOne(1);
+            staff.setStafPicture(picture);
+            staffRepo.save(staff);
         }
-        staffRepo.save(staff);
     }
 
     @RequestMapping(value = "/savestaffimage", method = RequestMethod.POST)
@@ -67,7 +76,8 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/staffs", method = RequestMethod.GET)
-    public Page<Staff> getStaff(Pageable pageable) {
+    public Page<Staff> getStaff(Pageable pageable
+    ) {
         return staffRepo.findAll(pageable);
     }
 
@@ -77,7 +87,8 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/searchstaff/count", method = RequestMethod.POST)
-    public Long getTotalSearch(@RequestBody SearchData searchData) {
+    public Long getTotalSearch(@RequestBody SearchData searchData
+    ) {
         String searchBy = searchData.getSearchBy();
         String keyword = searchData.getKeyword();
         Long count = null;
@@ -100,7 +111,8 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/searchstaff", method = RequestMethod.POST)
-    public Page<Staff> search(@RequestBody SearchData searchData, Pageable pageable) {
+    public Page<Staff> search(@RequestBody SearchData searchData, Pageable pageable
+    ) {
         String keyword = searchData.getKeyword();
         String searchBy = searchData.getSearchBy();
         Page<Staff> staff = null;
@@ -124,12 +136,14 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/getstaffimage", method = RequestMethod.GET)
-    public StaffPicture getStaffPicture(Integer id) {
+    public StaffPicture getStaffPicture(Integer id
+    ) {
         return staffPictureRepo.findOne(id);
     }
 
     @RequestMapping(value = "/deletestaff", method = RequestMethod.POST)
-    public void deleteStaff(@RequestBody Staff staff) {
+    public void deleteStaff(@RequestBody Staff staff
+    ) {
         staffRepo.delete(staff);
     }
 
@@ -138,5 +152,20 @@ public class StaffController {
         Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer id = employeeRepo.findByEmail(employee.getEmail()).getId();
         return employeeRepo.findOne(id);
+    }
+
+    @RequestMapping(value = "/personalinformationstaff", method = RequestMethod.POST)
+    public void printPersonalInformationStaff(@RequestBody Integer id
+    ) {
+        InputStream inputStream = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("");
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("id", id + "");
+            JasperPrint viewer = JasperFillManager.fillReport(inputStream, param, new H2Con().getH2Connection());
+            JasperViewer jasperViewer = new JasperViewer(viewer, false);
+            jasperViewer.setVisible(true);
+        } catch (Exception e) {
+        }
     }
 }

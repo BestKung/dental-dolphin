@@ -41,7 +41,9 @@ public class PriceAndExpireProductController {
 
     @RequestMapping(value = "/savepriceandexpireproduct", method = RequestMethod.POST)
     public void savePriceAndExpireProduct(@Validated @RequestBody PriceAndExpireProduct priceAndExpireProduct) throws ParseException {
-        priceAndExpireProduct.setAmountRemaining(priceAndExpireProduct.getValue());
+        if (priceAndExpireProduct.getAmountRemaining() == null) {
+            priceAndExpireProduct.setAmountRemaining(priceAndExpireProduct.getValue());
+        }
         if (priceAndExpireProduct.getExpire() != null) {
             DateFormat df = new SimpleDateFormat("yyy-MM-dd", Locale.US);
             long numberOfDate = Long.parseLong(priceAndExpireProduct.getNotificationsExpire().substring(0, 2));
@@ -122,7 +124,8 @@ public class PriceAndExpireProductController {
 
     @RequestMapping(value = "/getoutproduct", method = RequestMethod.GET)
     public Page<PriceAndExpireProduct> getOutProduct(Pageable pageable) {
-        return priceAndExpireProductService.searchByvalueLessThanOrEqualNontificationValue(pageable);
+        System.out.println("--------------------------------------->" + priceAndExpireProductService.searchByvalueLessThanOrEqualNontificationValueAndStatus(pageable).getTotalElements());
+        return priceAndExpireProductService.searchByvalueLessThanOrEqualNontificationValueAndStatus(pageable);
     }
 
     @RequestMapping(value = "/getoutproductnonacknowledge", method = RequestMethod.GET)

@@ -133,9 +133,11 @@
                 <!--                <th style="width: 10%" class="table-department">จำนวนสินค้า</th>-->
                 <th style="width: 10%" class="table-department">ยอดคงเหลือ</th>
                 <!--                <th style="width: 10%" class="table-department">ราคาซื้อ</th>-->
-                <th style="width: 10%"class="table-department">ราคาขาย</th>
+                <th style="width: 10%" class="table-department">ราคาขาย</th>
                 <th style="width: 10%" class="table-department">วันหมดอายุ</th>
-                <th style="width: 25%"class="table-department">จัดการ</th>
+                <th style="width: 25%" class="table-department">จัดการ</th>
+
+
                 </thead>
                 <tbody>
                     <tr ng-repeat="paep in priceAndExpireProducts.content">
@@ -183,13 +185,13 @@
                         <label class="right topic-detail">รอบสินค้า : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{priceAndExpireProductsDetail.permitNo}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.lot.dateIn}}</label>
                     </div>
-                    <div class="col m2 s6">
+                    <div class="col m3 s6">
                         <label class="right topic-detail">ชื่อสินค้า : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.product.name}}</label>
                     </div>
                 </div>
                 <div class="row margin-top">
@@ -197,21 +199,21 @@
                         <label class="right topic-detail">จำนวนสินค้า : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.value}}</label>
                     </div>
-                    <div class="col m2 s6">
+                    <div class="col m3 s6">
                         <label class="right topic-detail">ยอดคงเหลือ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.amountRemaining}}</label>
                     </div>
                 </div>
                 <div class="row margin-top">
                     <div class="col m3 s6">
-                        <label class="right topic-detail">กำหนดการแจ้งเตือนจำนวนสินค้า : </label>
+                        <label class="right topic-detail">แจ้งเตือนจำนวนสินค้า : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.notificationsValue}}</label>
                     </div>
                 </div>
                 <div class="row margin-top">
@@ -219,13 +221,13 @@
                         <label class="right topic-detail">ราคาซื้อ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.priceBuy}}</label>
                     </div>
-                    <div class="col m2 s6">
+                    <div class="col m3 s6">
                         <label class="right topic-detail">ราคาขาย : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.priceSell}}</label>
                     </div>
                 </div>
                  <div class="row margin-top">
@@ -233,13 +235,13 @@
                         <label class="right topic-detail">วันหมดอายุ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
-                    </div>
-                    <div class="col m2 s6">
-                        <label class="right topic-detail">กำหนดการแจ้งเตือนวันหมดอายุ : </label>
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.expire}}</label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                        <label class="right topic-detail">แจ้งเตือนวันหมดอายุ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.notificationsExpire}}</label>
                     </div>
                 </div>
             </div>

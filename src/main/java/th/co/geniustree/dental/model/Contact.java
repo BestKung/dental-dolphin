@@ -26,11 +26,11 @@ public class Contact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "NAME")
+    @Column(name = "CONTACT_NAME")
     private String name;
     @Column(name = "RELATION")
     private String relation;
-    @Column(name = "TEL")
+    @Column(name = "CONTACT_TEL")
     private String tel;
 
     public Integer getId() {

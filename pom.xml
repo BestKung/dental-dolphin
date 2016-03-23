@@ -41,19 +41,28 @@
             <artifactId>h2</artifactId>
             <version>1.4.190</version>
         </dependency>
-        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>     
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.5.0</version>
         </dependency>
-<!--        <dependency>
-            <groupId>th.co.geniustree.jasperreport</groupId>
-            <artifactId>th-sarabanpsk-font</artifactId>
-            <version>1.0</version>
-        </dependency>-->
-        
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+
         <!--        ของโอนะ-->
         <dependency>
             <groupId>com.google.guava</groupId>
