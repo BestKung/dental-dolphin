@@ -48,11 +48,11 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>th.co.geniustree.jasperreport</groupId>
             <artifactId>th-sarabanpsk-font</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency>-->
         
         <!--        ของโอนะ-->
         <dependency>

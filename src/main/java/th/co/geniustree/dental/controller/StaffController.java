@@ -44,6 +44,10 @@ public class StaffController {
 
     @RequestMapping(value = "/savestaff", method = RequestMethod.POST)
     public void saveStaff(@Validated @RequestBody Staff staff) {
+        if(staff.getStaffPicture() == null){
+        StaffPicture picture = staffPictureRepo.findOne(1);
+        staff.setStafPicture(picture);
+        }
         staffRepo.save(staff);
     }
 

@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartRequest;
 import th.co.geniustree.dental.model.Doctor;
 import th.co.geniustree.dental.model.DoctorPicture;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.model.StaffPicture;
 import th.co.geniustree.dental.repo.DoctorRepo;
+import th.co.geniustree.dental.repo.StaffPictureRepo;
 import th.co.geniustree.dental.service.DoctorSearchService;
 import th.co.geniustree.dental.spec.DoctorSpec;
 
@@ -35,9 +37,20 @@ public class DoctorController {
 
     @Autowired
     private DoctorSearchService doctorSearchService;
+    
+    @Autowired
+    private StaffPictureRepo pictureRepo;
 
     @RequestMapping(value = "/savedoctor", method = RequestMethod.POST)
     private void saveDoctor(@Validated @RequestBody Doctor doctor) {
+         if(doctor.getDoctorPicture() == null){
+        StaffPicture picture = pictureRepo.findOne(1);
+        DoctorPicture doctorPicture = new DoctorPicture();
+        doctorPicture.setContent(picture.getContentImage());
+        doctorPicture.setMimeType(picture.getType());
+        doctorPicture.setName(picture.getName());
+        doctor.setDoctorPicture(doctorPicture);
+        }
         doctorRepo.save(doctor);
     }
 

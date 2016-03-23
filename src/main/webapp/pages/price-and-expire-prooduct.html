@@ -130,24 +130,25 @@
                 <th style="width: 5%" class="table-department">ลำดับ</th>
                 <th style="width: 10%" class="table-department">รอบสินค้า</th>
                 <th style="width: 15%" class="table-department">ชื่อสินค้า</th>
-                <th style="width: 10%" class="table-department">จำนวนสินค้า</th>
+                <!--                <th style="width: 10%" class="table-department">จำนวนสินค้า</th>-->
                 <th style="width: 10%" class="table-department">ยอดคงเหลือ</th>
-                <th style="width: 10%" class="table-department">ราคาซื้อ</th>
+                <!--                <th style="width: 10%" class="table-department">ราคาซื้อ</th>-->
                 <th style="width: 10%"class="table-department">ราคาขาย</th>
                 <th style="width: 10%" class="table-department">วันหมดอายุ</th>
-                <th style="width: 10%"class="table-department">จัดการ</th>
+                <th style="width: 25%"class="table-department">จัดการ</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="paep in priceAndExpireProducts.content">
                         <td>{{paep.id}}</td>
                         <td>{{paep.lot.dateIn}}</td>
                         <td>{{paep.product.name}}</td>
-                        <td>{{paep.value}}</td>
+                        <!--                        <td>{{paep.value}}</td>-->
                         <td>{{paep.amountRemaining}}</td>
-                        <td>{{paep.priceBuy}}</td>
+                        <!--                        <td>{{paep.priceBuy}}</td>-->
                         <td>{{paep.priceSell}}</td>
                         <td>{{paep.expire}}</td>
                         <td>
+                            <a href="" ng-click="moreDetail(paep)" class="activator btn-custom-radius btn-moredetail">ดูรายละเอียด</a>
                             <a class="btn-custom-radius btn-edit" ng-click="updatePriceAndExpireProduct(paep)"><i class="mdi-content-create"></i></a>
                             <a class="btn-custom-radius btn-delete" ng-click="actionDelete(paep)"><i class="mdi-action-delete"></i></a>
                         </td>
@@ -163,6 +164,83 @@
                         <li class="btn btn-pagination" id="next-page-priceandexpireproducts" ng-click="nextPagePriceAndExpireProduct()"><p style="margin-top: 2px;">&GT;</p></li>
                         <li class="btn btn-pagination" id="final-page-priceandexpireproducts" ng-click="finalPagePriceAndExpireProduct()"><p style="margin-top: 2px;">&Gt;</p></li>
                     </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4" id="close-card">ตารางข้อมูลจัดการรายละเอียดสินค้า<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+            <div style="margin-top: 20px;">
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ลำดับ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.id}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">รอบสินค้า : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{priceAndExpireProductsDetail.permitNo}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ชื่อสินค้า : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">จำนวนสินค้า : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ยอดคงเหลือ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">กำหนดการแจ้งเตือนจำนวนสินค้า : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ราคาซื้อ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ราคาขาย : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                    </div>
+                </div>
+                 <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">วันหมดอายุ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitNo}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">กำหนดการแจ้งเตือนวันหมดอายุ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{doctorDetail.permitType}}</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -321,3 +399,5 @@
         </div>
     </div>
 </div>
+
+

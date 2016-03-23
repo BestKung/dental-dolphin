@@ -577,6 +577,15 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
     }
 
 //===========================================================================================
+ $scope.preScroll;
+ $scope.priceAndExpireProductsDetail = {};
+$scope.moreDetail = function (paep) {
+    $scope.preScroll = $(window).scrollTop();
+    $scope.priceAndExpireProductsDetail = paep;
+     
+};
+
+
 
     $('.datepicker').pickadate({
         selectMonths: true,

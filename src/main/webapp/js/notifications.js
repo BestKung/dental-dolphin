@@ -274,8 +274,9 @@ angular.module('notifications').controller('notificationsController', function (
     getNontificationExpire();
     function getNontificationExpire() {
         $http.get('/getnontificationexpiredate').success(function (data) {
-            console.log(data.content[0] + '-----------------00');
             $scope.expire = data;
+//            console.log( $scope.expire.content[0].statusNontificationExpire);
+            
         });
     }
 
@@ -342,7 +343,7 @@ angular.module('notifications').controller('notificationsController', function (
         if (!$('#first-page-expire').hasClass('disabled')) {
             pageExpireNontification = 0;
             $scope.currentPageExpireNontification = pageExpireNontification;
-             getNontificationExpire();
+            getNontificationExpire();
             if (pageExpireNontification == 0) {
                 $('#first-page-expire').addClass('disabled');
                 $('#pre-page-expire').addClass('disabled');
