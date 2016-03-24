@@ -278,7 +278,6 @@ angular.module('notifications').controller('notificationsController', function (
         $http.get('/getnontificationexpiredate', {params: {page: pageExpireNontification, size: 10}}).success(function (data) {
             $scope.expire = data;
 //            console.log( $scope.expire.content[0].statusNontificationExpire);
-
         });
     }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html ng-app="app">
     <head>
         <title>Dolphain</title>
@@ -184,14 +184,15 @@
 
                         <li><a href="#" class="dropdown-button text-sky" data-activates="calendar" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-today"></i><span>บิล</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                         <ul class="dropdown-content" id="calendar">
-                            <li class="li-height"><a href="#/bill">จัดการบิลล์</a></li>                   
+                            <li class="li-height"><a href="#/bill">จัดการบิล</a></li>                   
                         </ul>
 
-                        <li><a href="#" class="dropdown-button text-sky" data-activates="print" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-print"></i><span>ออกรายงาน</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
-                        <ul id="print" class="dropdown-content">
-                            <li><a href="#">Print Customer Card</a></li>
-                            <li><a href="#">Print Applointment</a></li>
-                            <li><a href="#">Print Work schedule for Doctor</a></li>
+                        <li><a href="#" class="dropdown-button text-sky" data-activates="print" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-print"></i><span>รายงาน</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
+                        <ul class="dropdown-content" id="print">
+                            <li class="li-height" ><a href="#/reportemployee">พนักงาน</a></li>
+                            <li class="li-height" ><a href="#/reportdoctor">ทันตแพทย์</a></li>
+                            <li class="li-height" ><a href="#/reportcustomer">ลูกค้า</a></li>
+                            <li class="li-height" ><a href="#/reportproduct">สินค้า</a></li>
                         </ul>
                     </ul>
                 </div>
@@ -246,5 +247,9 @@
         <script src="js/fullcalendar.js"></script>
         <script src="js/calendarpatient.js"></script>
         <script src="js/calendardoctor.js"></script>
+        <script src="js/reportemployee.js"></script>
+        <script src="js/reportdoctor.js"></script>
+        <script src="js/reportcustomer.js"></script>
+        <script src="js/reportproduct.js"></script>
     </body>
 </html>
