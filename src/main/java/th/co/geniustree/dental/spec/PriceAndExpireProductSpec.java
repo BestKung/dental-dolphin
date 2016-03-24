@@ -62,12 +62,22 @@ public class PriceAndExpireProductSpec {
         };
     }
 
-    public static Specification<PriceAndExpireProduct> outProductAndStatus() {
+    public static Specification<PriceAndExpireProduct> outProductAndStatuscount() {
         return new Specification<PriceAndExpireProduct>() {
 
             @Override
             public Predicate toPredicate(Root<PriceAndExpireProduct> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 return cb.and(cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.amountRemaining), root.get(PriceAndExpireProduct_.notificationsValue)), cb.like(root.get(PriceAndExpireProduct_.statusNontificationValue), "1")), root.get(PriceAndExpireProduct_.stopNontificationValue).isNull());
+            }
+        };
+    }
+
+    public static Specification<PriceAndExpireProduct> outProductAndStatus() {
+        return new Specification<PriceAndExpireProduct>() {
+
+            @Override
+            public Predicate toPredicate(Root<PriceAndExpireProduct> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                return cb.and(cb.lessThanOrEqualTo(root.get(PriceAndExpireProduct_.amountRemaining), root.get(PriceAndExpireProduct_.notificationsValue)), root.get(PriceAndExpireProduct_.stopNontificationValue).isNull());
             }
         };
     }
@@ -80,7 +90,7 @@ public class PriceAndExpireProductSpec {
             }
         };
     }
-    
+
     public static Specification<PriceAndExpireProduct> expireProductAndStatusCount(final Date date) {
         return new Specification<PriceAndExpireProduct>() {
             @Override

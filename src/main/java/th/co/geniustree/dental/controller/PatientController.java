@@ -12,6 +12,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.method.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,10 @@ import th.co.geniustree.dental.model.PatientPictureBefore;
 import th.co.geniustree.dental.model.PatientPictureCurrent;
 import th.co.geniustree.dental.model.PatientPictureXray;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.model.StaffPicture;
 import th.co.geniustree.dental.repo.MedicalHistoryRepo;
 import th.co.geniustree.dental.repo.PatientRepo;
+import th.co.geniustree.dental.repo.StaffPictureRepo;
 import th.co.geniustree.dental.service.PatientSearchService;
 import th.co.geniustree.dental.spec.PatientSpec;
 
@@ -47,6 +50,9 @@ public class PatientController {
     @Autowired
     private PatientSearchService patientSearchService;
 
+    @Autowired
+    private StaffPictureRepo pictureRepo;
+
     @RequestMapping(value = "/getmedicalhistory", method = RequestMethod.GET)
     private Page<MedicalHistory> getmedicalHistory(Pageable pageable) {
         return medicalHistoryRepo.findAll(pageable);
@@ -54,6 +60,38 @@ public class PatientController {
 
     @RequestMapping(value = "/savepatient", method = RequestMethod.POST)
     private void savePatient(@Validated @RequestBody Patient patient) {
+        if (patient.getPatientPictureXray() == null) {
+            StaffPicture picture = pictureRepo.findOne(1);
+            PatientPictureXray patientPictureXray = new PatientPictureXray();
+            patientPictureXray.setContentXrayFilm(picture.getContentImage());
+            patientPictureXray.setMimeTypeXrayFilm(picture.getType());
+            patientPictureXray.setNameXrayFilm(picture.getName());
+            patient.setPatientPictureXray(patientPictureXray);
+        }
+        if (patient.getPatientPictureAfter() == null) {
+            StaffPicture picture = pictureRepo.findOne(1);
+            PatientPictureAfter patientPictureAfter = new PatientPictureAfter();
+            patientPictureAfter.setContentAfter(picture.getContentImage());
+            patientPictureAfter.setMimeTypeAfter(picture.getType());
+            patientPictureAfter.setNameAfter(picture.getName());
+            patient.setPatientPictureAfter(patientPictureAfter);
+        }
+        if (patient.getPatientPictureCurrent() == null) {
+            StaffPicture picture = pictureRepo.findOne(1);
+            PatientPictureCurrent patientPictureCurrent = new PatientPictureCurrent();
+            patientPictureCurrent.setContentCurrent(picture.getContentImage());
+            patientPictureCurrent.setMimeTypeCurrent(picture.getType());
+            patientPictureCurrent.setNameCurrent(picture.getName());
+            patient.setPatientPictureCurrent(patientPictureCurrent);
+        }
+        if (patient.getPatientPictureBefore() == null) {
+            StaffPicture picture = pictureRepo.findOne(1);
+            PatientPictureBefore patientPictureBefore = new PatientPictureBefore();
+            patientPictureBefore.setContentBefore(picture.getContentImage());
+            patientPictureBefore.setMimeTypeBefore(picture.getType());
+            patientPictureBefore.setNameBefore(picture.getName());
+            patient.setPatientPictureBefore(patientPictureBefore);
+        }
         patientRepo.save(patient);
     }
 
@@ -63,7 +101,7 @@ public class PatientController {
         picture.setNameXrayFilm(multipartRequest.getFile("xray").getOriginalFilename());
         picture.setContentXrayFilm(multipartRequest.getFile("xray").getBytes());
         picture.setMimeTypeXrayFilm(multipartRequest.getFile("xray").getName());
-        
+
         return picture;
     }
 

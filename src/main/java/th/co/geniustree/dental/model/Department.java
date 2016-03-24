@@ -34,7 +34,7 @@ public class Department implements Serializable {
     private Integer id;
 
 //    @DepartmentNameUnique
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "DEPARTMENT_NAME", nullable = false)
     @NotBlank(message = "กรุณากรอกชื่อเเผนก")
     private String name;
 

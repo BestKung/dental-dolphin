@@ -149,14 +149,15 @@ angular.module('notifications').controller('notificationsController', function (
     function getOutProduct() {
         $http.get('/getoutproduct', {params: {page: pageValueNontification, size: 10}}).success(function (data) {
             $scope.outProducts = data;
+            console.log(data);
         });
     }
+    ;
     getoutProductNotAcKnowledge();
 
     function getoutProductNotAcKnowledge() {
         $http.get("/getoutproductnonacknowledge").success(function (data) {
             $scope.totalNontificationAcKnowLedge = data;
-            console.log(data);
         });
     }
     ;
@@ -166,6 +167,7 @@ angular.module('notifications').controller('notificationsController', function (
         var outProduct = {};
         outProduct = out;
         outProduct.statusNontificationValue = '0';
+        console.log(outProduct);
         $http.post('/savepriceandexpireproduct', outProduct).success(function (data) {
             getOutProduct();
             getoutProductNotAcKnowledge();
@@ -273,9 +275,10 @@ angular.module('notifications').controller('notificationsController', function (
     //Expire
     getNontificationExpire();
     function getNontificationExpire() {
-        $http.get('/getnontificationexpiredate').success(function (data) {
-            console.log(data.content[0] + '-----------------00');
+        $http.get('/getnontificationexpiredate', {params: {page: pageExpireNontification, size: 10}}).success(function (data) {
             $scope.expire = data;
+//            console.log( $scope.expire.content[0].statusNontificationExpire);
+
         });
     }
 
@@ -342,7 +345,7 @@ angular.module('notifications').controller('notificationsController', function (
         if (!$('#first-page-expire').hasClass('disabled')) {
             pageExpireNontification = 0;
             $scope.currentPageExpireNontification = pageExpireNontification;
-             getNontificationExpire();
+            getNontificationExpire();
             if (pageExpireNontification == 0) {
                 $('#first-page-expire').addClass('disabled');
                 $('#pre-page-expire').addClass('disabled');
