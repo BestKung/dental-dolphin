@@ -233,4 +233,9 @@ angular.module('employee-information').controller('employeeInformationController
     };
 
 
+$scope.printEmployee = function (id){
+console.log(id);
+    location.href='/personalinformationstaff/'+id;
+};
+
 });

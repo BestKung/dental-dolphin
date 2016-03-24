@@ -5,20 +5,26 @@
  */
 package th.co.geniustree.dental.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartRequest;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Employee;
+import th.co.geniustree.dental.model.FileExport;
 import th.co.geniustree.dental.model.Staff;
 import th.co.geniustree.dental.model.StaffPicture;
 import th.co.geniustree.dental.model.SearchData;
@@ -149,17 +156,27 @@ public class StaffController {
         return employeeRepo.findOne(id);
     }
 
-    @RequestMapping(value = "/personalinformationstaff", method = RequestMethod.POST)
-    public void printPersonalInformationStaff(@RequestBody Integer id) {
+    @RequestMapping(value = "/personalinformationstaff/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
         try {
-            inputStream = App.class.getClassLoader().getResourceAsStream("");
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\employee.jasper");
             Map<String, Object> param = new HashMap<String, Object>();
-            param.put("id", id + "");
-            JasperPrint viewer = JasperFillManager.fillReport(inputStream, param, new H2Con().getH2Connection());
-            JasperViewer jasperViewer = new JasperViewer(viewer, false);
-            jasperViewer.setVisible(true);
+            param.put("id", id);
+            H2ConnectAndExport h2Con = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2Con.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+
+            H2ConnectAndExport export = new H2ConnectAndExport();
+            ResponseEntity<InputStreamResource> response = export.exportReportToClientBrowser(content, "emloyee-" + id, "pdf");
+            h2Con.getH2Connection();
+            return response;
         } catch (Exception e) {
+            e.printStackTrace();
         }
+        System.out.println("------------->null");
+        return null;
     }
 }
