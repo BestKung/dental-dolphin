@@ -35,6 +35,9 @@
             <div class="row">
                 <div class="col m6">
                     <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางข้อมูลพนักงาน</span>
+                    <div class="margin-top-20">
+                        <a class="btn-custom-radius btn-download-all">ดาวโหลด PDF</a>
+                    </div>
                 </div>
                 <div class="col m6">
                     <div class="right">
@@ -303,9 +306,9 @@
                         <label class=" topic-detail">{{employeeDetail.contact.tel}}</label>
                     </div>
                 </div>
-                <button ng-click="printEmployee(employeeDetail.id)">hi</button>
                 <div class="row margin-top-20 center" style="margin-right: 10px">
                     <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                    <a class="btn-custom-radius btn-download" ng-click="printEmployee(employeeDetail.id)"><i class="mdi-action-description"></i> PDF</a>
                     <a class="btn-custom-radius btn-edit" ng-click="updateEmployee(employeeDetail)"><i class="mdi-content-create"></i></a>
                     <a class="btn-custom-radius btn-delete" ng-click="clickDelete(employeeDetail)"><i class="mdi-action-delete"></i></a>
                 </div>
@@ -317,9 +320,9 @@
 <div id="modal-delete" class="modal" style="border-radius: 10px;">
     <div class="modal-content">
         <div class="row center">
-            <h4 style="background: #FF6D6D;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">Delete Employee</h4>
+            <h4 style="background: #FF6D6D;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบพนักงาน</h4>
         </div>
-        <h5 class="margin-left-20">Delete Employee : {{selectEmployee.nameTh}}</h5>
+        <label style="font-size: 25px ;color: black" class="margin-left-20"> ลบ {{selectEmployee.nameTh}}</label>
     </div>
     <div class="model-footer right">
         <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>

@@ -232,3 +232,27 @@
     background-color: #9E9E9E;
     opacity: 0.7;
 }
+.btn-download{
+    background-color: #1e88e5;
+    color: white;
+}
+.btn-download:hover{
+    background-color: #1e88e5;
+    opacity: 0.7;
+}
+.btn-download:active{
+    background-color: #1e88e5;
+    opacity: 0.7;
+}
+.btn-download-all{
+    background-color: #37474f;
+    color: white;
+}
+.btn-download-all:hover{
+    background-color: #37474f;
+    opacity: 0.7;
+}
+.btn-download-all:active{
+    background-color: #37474f;
+    opacity: 0.7;
+}

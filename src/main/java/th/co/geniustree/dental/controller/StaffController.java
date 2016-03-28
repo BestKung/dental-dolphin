@@ -63,8 +63,8 @@ public class StaffController {
         if (staff.getStaffPicture() == null) {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStafPicture(picture);
-            staffRepo.save(staff);
         }
+        staffRepo.save(staff);
     }
 
     @RequestMapping(value = "/savestaffimage", method = RequestMethod.POST)
@@ -83,8 +83,7 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/staffs", method = RequestMethod.GET)
-    public Page<Staff> getStaff(Pageable pageable
-    ) {
+    public Page<Staff> getStaff(Pageable pageable) {
         return staffRepo.findAll(pageable);
     }
 
@@ -94,8 +93,7 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/searchstaff/count", method = RequestMethod.POST)
-    public Long getTotalSearch(@RequestBody SearchData searchData
-    ) {
+    public Long getTotalSearch(@RequestBody SearchData searchData) {
         String searchBy = searchData.getSearchBy();
         String keyword = searchData.getKeyword();
         Long count = null;
@@ -118,8 +116,7 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/searchstaff", method = RequestMethod.POST)
-    public Page<Staff> search(@RequestBody SearchData searchData, Pageable pageable
-    ) {
+    public Page<Staff> search(@RequestBody SearchData searchData, Pageable pageable) {
         String keyword = searchData.getKeyword();
         String searchBy = searchData.getSearchBy();
         Page<Staff> staff = null;
@@ -143,14 +140,12 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/getstaffimage", method = RequestMethod.GET)
-    public StaffPicture getStaffPicture(Integer id
-    ) {
+    public StaffPicture getStaffPicture(Integer id) {
         return staffPictureRepo.findOne(id);
     }
 
     @RequestMapping(value = "/deletestaff", method = RequestMethod.POST)
-    public void deleteStaff(@RequestBody Staff staff
-    ) {
+    public void deleteStaff(@RequestBody Staff staff) {
         staffRepo.delete(staff);
     }
 
@@ -161,27 +156,25 @@ public class StaffController {
         return employeeRepo.findOne(id);
     }
 
-    
+    @RequestMapping(value = "/personalinformationstaff/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
         byte[] content = null;
         JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
         try {
             inputStream = App.class.getClassLoader().getResourceAsStream("report\\employee.jasper");
             Map<String, Object> param = new HashMap<String, Object>();
             param.put("id", id);
-            H2ConnectAndExport h2Con = new H2ConnectAndExport();
-            fill = JasperFillManager.fillReport(inputStream, param, h2Con.getH2Connection());
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
             content = JasperExportManager.exportReportToPdf(fill);
-
-            H2ConnectAndExport export = new H2ConnectAndExport();
-            ResponseEntity<InputStreamResource> response = export.exportReportToClientBrowser(content, "emloyee-" + id, "pdf");
-            h2Con.getH2Connection();
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "emloyee-" + id, "pdf");
+            h2ConnectAndExport.getH2Connection();
             return response;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("------------->null");
-        return null;
+        return response;
     }
 }

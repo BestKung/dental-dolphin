@@ -211,14 +211,14 @@ where s.id = $P{id}]]>
 				<textFieldExpression><![CDATA[$F{NAME_ENG}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="32ef4488-8c44-40dd-940f-96f245fee163" x="58" y="226" width="119" height="20"/>
+				<reportElement uuid="32ef4488-8c44-40dd-940f-96f245fee163" x="58" y="226" width="148" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\BestKung\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[รหัสบัตรประจำตัวชาชน]]></text>
+				<text><![CDATA[รหัสบัตรประจำตัวประชาชน]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="25311ab2-cbe3-4bd7-b2e1-69dd8b8ac6eb" x="177" y="226" width="134" height="20"/>
+				<reportElement uuid="25311ab2-cbe3-4bd7-b2e1-69dd8b8ac6eb" x="206" y="226" width="134" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\BestKung\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -281,14 +281,14 @@ where s.id = $P{id}]]>
 				<textFieldExpression><![CDATA[$F{RACE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="69890f86-c09a-46ff-9ca0-cbc6aaaef2de" x="311" y="227" width="40" height="20"/>
+				<reportElement uuid="69890f86-c09a-46ff-9ca0-cbc6aaaef2de" x="340" y="226" width="40" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\BestKung\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[วันเกิด]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="9e19d4ee-bfa9-4ac0-b14b-252922a5249c" x="352" y="227" width="100" height="20"/>
+				<reportElement uuid="9e19d4ee-bfa9-4ac0-b14b-252922a5249c" x="380" y="226" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\BestKung\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
