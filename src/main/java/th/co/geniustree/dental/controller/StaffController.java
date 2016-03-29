@@ -170,7 +170,27 @@ public class StaffController {
             fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
             content = JasperExportManager.exportReportToPdf(fill);
             response = h2ConnectAndExport.exportReportToClientBrowser(content, "emloyee-" + id, "pdf");
-            h2ConnectAndExport.getH2Connection();
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/printemployees", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printemployees() {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\employees.jasper");
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, null, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "emloyees", "pdf");
+            h2ConnectAndExport.getH2Connection().close();
             return response;
         } catch (Exception e) {
             e.printStackTrace();

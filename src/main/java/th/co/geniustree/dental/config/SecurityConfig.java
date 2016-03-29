@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login").usernameParameter("email").passwordParameter("password")
                 .defaultSuccessUrl("/index.html")
                 .permitAll()
+                .failureUrl("/pages/login-error.html")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -56,6 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/materialize/**")
                 .antMatchers("/image/**")
                 .antMatchers("/bootstrap-3.3.6-dist/**");
-      }
+    }
 
 }
