@@ -6,6 +6,8 @@ var app = angular.module('app');
 
 app.controller('homeController', function ($scope, $http) {
     $scope.login = {};
+    $scope.image;
+    $scope.clinic = {};
     checkMobile();
     $scope.totalNontification = 0;
 
@@ -81,6 +83,51 @@ app.controller('homeController', function ($scope, $http) {
         $('.slider').slider({full_width: true});
     });
 
+    $scope.clickClinicInformation = function () {
+        $('#modal-clinic-information').openModal({dismissible: false});
+    };
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#logo').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#input-clinic-picture').change(function () {
+        readURL(this);
+    });
+
+    $scope.saveFile = function () {
+        var fd = new FormData();
+        fd.append('file', $scope.image);
+        $http.post('/saveclinicimage', fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function (data) {
+        });
+    };
+
+    $scope.saveClinic = function () {
+        $http.post('/saveClinicInformation', $scope.clinic).success(function (data) {
+
+        });
+    };
+
+    getClinic();
+    function getClinic() {
+        $http.get('/getclinic').success(function (data) {
+            $scope.clinic = data;
+            document.getElementById('logo').src = "data:image/jpg;base64," + data.logo;
+        });
+    }
+
+
+
 });
 
 app.factory('employeeService', function () {
@@ -99,11 +146,9 @@ app.config(function ($routeProvider) {
     $routeProvider.when('/', {
         controller: 'homeController',
         templateUrl: 'pages/home.html'
-
     }).when('/employee', {
         controller: 'employeeController',
         templateUrl: 'pages/employee.html'
-
     }).when('/department', {
         controller: 'departmentController',
         templateUrl: 'pages/department.html'
@@ -173,4 +218,29 @@ app.config(function ($routeProvider) {
     }).otherwise({
         redirectTo: '/'
     });
+});
+
+app.directive('fileModel', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+});
+
+app.directive('customOnChange', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var onChangeHandler = scope.$eval(attrs.customOnChange);
+            element.bind('change', onChangeHandler);
+        }
+    };
 });

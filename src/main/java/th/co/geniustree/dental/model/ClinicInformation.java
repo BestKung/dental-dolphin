@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 /**
  *
@@ -22,12 +23,14 @@ public class ClinicInformation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String ClinicName;
-    private String ClinicAddress;
+    private String clinicName;
+    private String clinicAddress;
     private String taxId;
     private String tel;
-    private String mobile;
     private String email;
+    private String openTime;
+    private String closeTime;
+    @Lob
     private byte[] logo;
 
     public Integer getId() {
@@ -39,19 +42,19 @@ public class ClinicInformation implements Serializable {
     }
 
     public String getClinicName() {
-        return ClinicName;
+        return clinicName;
     }
 
-    public void setClinicName(String ClinicName) {
-        this.ClinicName = ClinicName;
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
     }
 
     public String getClinicAddress() {
-        return ClinicAddress;
+        return clinicAddress;
     }
 
-    public void setClinicAddress(String ClinicAddress) {
-        this.ClinicAddress = ClinicAddress;
+    public void setClinicAddress(String clinicAddress) {
+        this.clinicAddress = clinicAddress;
     }
 
     public String getTaxId() {
@@ -70,14 +73,6 @@ public class ClinicInformation implements Serializable {
         this.tel = tel;
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -92,6 +87,22 @@ public class ClinicInformation implements Serializable {
 
     public void setLogo(byte[] logo) {
         this.logo = logo;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
     }
 
     @Override

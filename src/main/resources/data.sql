@@ -1,5 +1,4 @@
-INSERT INTO AUTHORITY VALUES('จัดการข้อมูลพนักงาน');
-INSERT INTO AUTHORITY VALUES('จัดการข้อมูลทันตเเพทย์');
+INSERT INTO AUTHORITY VALUES('ผู้ดูเเลระบบ');
 INSERT INTO AUTHORITY VALUES('จัดการข้อมูลคนไข้');
 INSERT INTO AUTHORITY VALUES('จัดการข้อมูลเวชภัณฑ์');
 INSERT INTO AUTHORITY VALUES('จัดการข้อมูลการนัด');

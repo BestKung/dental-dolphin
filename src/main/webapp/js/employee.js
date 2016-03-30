@@ -226,7 +226,6 @@ var app = angular.module('employee')
                     reader.readAsDataURL(input.files[0]);
                 }
             }
-
             $('#input-employee-picture').change(function () {
                 readURL(this);
             });
