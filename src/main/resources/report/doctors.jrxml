@@ -5,8 +5,8 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select * from employee e
-join staff s on(s.id = e.id)
-join department d on(d.id = s.department_id)]]>
+join doctor d on(d.id = e.id)
+]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -53,6 +53,12 @@ join department d on(d.id = s.department_id)]]>
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="PERMITNO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERMITTYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="PERSONAL_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -83,13 +89,7 @@ join department d on(d.id = s.department_id)]]>
 	<field name="CONTACT_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DEPARTMENT_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="STAFF_PICTURE_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DEPARTMENT_NAME" class="java.lang.String">
+	<field name="DOCTOR_PICTURE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="count_row" class="java.lang.Integer"/>
@@ -106,7 +106,7 @@ join department d on(d.id = s.department_id)]]>
 				<textElement textAlignment="Center">
 					<font fontName="TH SarabunPSK" size="36" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[พนักงานทั้งหมด]]></text>
+				<text><![CDATA[ทันตแพทย์ทั้งหมด]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="bd10421e-00e1-4b51-b3a0-a38fa1823079" x="507" y="5" width="48" height="20"/>
@@ -155,14 +155,7 @@ join department d on(d.id = s.department_id)]]>
 				<text><![CDATA[อีเมล]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="79065b72-0059-435e-b17b-fb3ba92c28c4" x="399" y="22" width="81" height="20"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[เเผนก]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6f5aebc6-db5b-4f17-a3e6-1d98decb767d" x="480" y="22" width="100" height="20"/>
+				<reportElement uuid="6f5aebc6-db5b-4f17-a3e6-1d98decb767d" x="399" y="22" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -201,14 +194,7 @@ join department d on(d.id = s.department_id)]]>
 				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7b6f9071-b7b7-4e95-a0ca-ed09263b50aa" x="399" y="0" width="81" height="20"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{DEPARTMENT_NAME}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="b15444c4-0d3e-41a6-ba28-cbb3f744cab0" x="480" y="0" width="100" height="20"/>
+				<reportElement uuid="b15444c4-0d3e-41a6-ba28-cbb3f744cab0" x="399" y="0" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -236,7 +222,7 @@ join department d on(d.id = s.department_id)]]>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[จำนวนพนักงานทั้งหมด]]></text>
+				<text><![CDATA[จำนวนทันตแพทย์ทั้งหมด]]></text>
 			</staticText>
 		</band>
 	</summary>

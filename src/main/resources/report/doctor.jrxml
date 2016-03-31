@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="440ea817-26f8-416d-9fd0-8730675f806a">
-	<property name="ireport.zoom" value="0.5257408492220886"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="8"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="id" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select * from employee e
-join staff s on (e.id = s.id)
-join staff_picture sp on (s.staff_picture_id = sp.id)
-left outer join contact c on (s.contact_id = c.id)
-left outer join bank b on (s.bank_id = b.id)
-join department d on (d.id = s.department_id)
-where s.id = $P{id}]]>
+join doctor d on (e.id = d.id)
+join doctor_picture dp on (d.doctor_picture_id = dp.id)
+left outer join contact c on (d.contact_id = c.id)
+left outer join bank b on (d.bank_id = b.id)
+where d.id = $P{id}]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -60,6 +59,12 @@ where s.id = $P{id}]]>
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="PERMITNO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERMITTYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="PERSONAL_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -90,13 +95,13 @@ where s.id = $P{id}]]>
 	<field name="CONTACT_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DEPARTMENT_ID" class="java.lang.Integer">
+	<field name="DOCTOR_PICTURE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="STAFF_PICTURE_ID" class="java.lang.Integer">
+	<field name="CONTENT" class="java.awt.Image">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="CONTENT_IMAGE" class="java.awt.Image">
+	<field name="MIME_TYPE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="NAME" class="java.lang.String">
@@ -123,9 +128,6 @@ where s.id = $P{id}]]>
 	<field name="BANK_NAME" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DEPARTMENT_NAME" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -145,17 +147,17 @@ where s.id = $P{id}]]>
 				<graphicElement>
 					<pen lineWidth="1.0" lineStyle="Double"/>
 				</graphicElement>
-				<imageExpression><![CDATA[$F{CONTENT_IMAGE}]]></imageExpression>
+				<imageExpression><![CDATA[$F{CONTENT}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement uuid="aaa31467-7b83-47ed-bb60-a31b73b0f544" x="58" y="146" width="48" height="20"/>
+				<reportElement uuid="aaa31467-7b83-47ed-bb60-a31b73b0f544" x="58" y="81" width="48" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ลำดับที่]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="b6531833-d459-47dd-acb5-7e6417853327" x="106" y="146" width="46" height="20"/>
+				<reportElement uuid="b6531833-d459-47dd-acb5-7e6417853327" x="106" y="81" width="46" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -351,20 +353,6 @@ where s.id = $P{id}]]>
 				<textFieldExpression><![CDATA[$F{SOLDER_STATUS}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="4d1d0988-d0cf-45ca-b597-e20764e1d651" x="401" y="332" width="37" height="20"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[เเผนก]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="8870bbcc-9660-40b1-8dcb-8e2bd7dc715c" x="438" y="332" width="111" height="20"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{DEPARTMENT_NAME}]]></textFieldExpression>
-			</textField>
-			<staticText>
 				<reportElement uuid="cd2cd93d-7703-4000-b749-69f6844d0670" x="59" y="380" width="91" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -545,6 +533,34 @@ where s.id = $P{id}]]>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONTACT_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="58" y="141" width="92" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ประเภทใบอนุญาต]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6917a58d-4c96-4efc-95e9-1498f83122a2" x="58" y="111" width="80" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[เลขที่ใบอนุญาต]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="05fb51c5-5723-44ba-952d-236cffa322f9" x="138" y="111" width="81" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PERMITNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="150" y="141" width="78" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PERMITTYPE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

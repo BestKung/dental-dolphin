@@ -34,6 +34,9 @@
             <div class="row">
                 <div class="col m6">
                     <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางข้อมูลทันตแพทย์</span>
+                    <div class="margin-top-20"ng-click="printDoctors()">
+                        <a class="btn-custom-radius btn-download-all" >ดาวโหลด PDF</a>
+                    </div>
                 </div>
                 <div class="col m6">
                     <div class="right">
@@ -299,6 +302,7 @@
 
             <div class="row margin-top-20 center" style="margin-right: 10px">
                 <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                <a class="btn-custom-radius btn-download" ng-click="printDoctor(doctorDetail.id)"><i class="mdi-action-description"></i> PDF</a>
                 <a class="btn-custom-radius btn-edit" ng-click="UpdateDoctor(doctorDetail)"><i class="mdi-content-create"></i></a>
                 <a class="btn-custom-radius btn-delete" ng-click="clickDelete(doctorDetail)"><i class="mdi-action-delete"></i></a>
             </div>

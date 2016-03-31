@@ -206,6 +206,12 @@ angular.module('doctor-information').controller('doctorInformationController', f
         }
     };
 
+    $scope.printDoctor = function (id) {
+        location.href = '/personalinformationdoctor/' + id;
+    };
 
+    $scope.printDoctors = function () {
+        location.href = '/printedoctors';
+    };
 
 });
