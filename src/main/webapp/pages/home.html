@@ -22,63 +22,75 @@
         <div class="row center" style="height: 150px;">
             <div class="row">
                 <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix">label</i>
+                    <i class="material-icons prefix clear-prefix clinic">label</i>
                     <input type="text" id="clinic-name" ng-model="clinic.clinicName">
                     <label for="clinic-name" class="update">ชื่อคลินิก</label>
                 </div>
                 <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix">home</i>
+                    <i class="material-icons prefix clear-prefix clinic">home</i>
                     <textarea type="text" id="clinic-address" class="materialize-textarea" ng-model="clinic.clinicAddress"></textarea>
                     <label for="clinic-address" class="update">ที่อยู่</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix" id="id">label</i>
+                    <i class="material-icons prefix clear-prefix clinic">call</i>
                     <input type="text" id="clinic-tel" ng-model="clinic.tel">
                     <label for="clinic-tel" class="update">เบอร์โทร</label>
                 </div>
                 <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix">email</i>
+                    <i class="material-icons prefix clear-prefix clinic">email</i>
                     <input type="text" id="clinic-email" ng-model="clinic.email">
                     <label for="clinic-email" class="update">อีเมล</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix" id="id">label</i>
-                    <input type="text" id="clinic-opentime" ng-model="clinic.openTime">
-                    <label for="clinic-opentime" class="update">เวลาเปิด</label>
+                <div id="time-opentime">
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix clinic">schedule</i>
+                        <input type="text" id="clinic-opentime" ng-model="clinic.openTime">
+                        <label for="clinic-opentime" class="update">เวลาเปิด</label>
+                    </div>
                 </div>
-                <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix">email</i>
-                    <input type="text" id="clinic-closetime" ng-model="clinic.closeTime">
-                    <label for="clinic-closetime" class="update">เวลาปิด</label>
+                <div id="time-closetime">
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix clinic">schedule</i>
+                        <input type="text" id="clinic-closetime" ng-model="clinic.closeTime">
+                        <label for="clinic-closetime" class="update">เวลาปิด</label>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col m6 s12 input-field">
-                    <i class="material-icons prefix clear-prefix" id="id">label</i>
+                <div class="col m6 s12 input-field" id="id">
+                    <i class="material-icons prefix clear-prefix clinic">class</i>
                     <input type="text" id="clinic-taxId" ng-model="clinic.taxId">
                     <label for="clinic-taxId" class="update">หมายเลขผู้เสียภาษี</label>
                 </div>
             </div>
-            <div class="row">   
+            <div class="row"> 
+                <font class="center" size="5">โลโก้คลินิก</font>
                 <div style="margin: 0px auto" class="center">
-                    <img id="logo" class="responsive-img" ng-src="">
+                    <img id="logo" style="max-width: 400px" class="responsive-img" ng-src="">
+
                 </div>
                 <div class="center">
                     <input type="file" id="input-clinic-picture" custom-on-change="saveFile" file-model="image" style="margin-top: 20px">
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div class="row center margin-top">
+                <span class="right" style="margin-top: -25px">
                     <a class="btn-custom-radius btn-cancelv2 modal-close">ปิด</a>
                     <a class="btn-custom-radius btn-edit" ng-click="saveClinic()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
-                </div>
+                </span>
             </div>
+            <!--
+                        <div class="row right">
+                            <a class="btn-custom-radius btn-cancelv2 modal-close">ปิด</a>
+                            <a class="btn-custom-radius btn-edit" ng-click="saveClinic()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                        </div>-->
+
         </div>
     </div>
+</div>
+<div id="warp-toast">
 </div>
 
 <style>

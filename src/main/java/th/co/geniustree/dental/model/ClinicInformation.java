@@ -21,7 +21,6 @@ import javax.persistence.Lob;
 public class ClinicInformation implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String clinicName;
     private String clinicAddress;
