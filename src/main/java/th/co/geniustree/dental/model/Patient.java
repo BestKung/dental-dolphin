@@ -32,48 +32,59 @@ public class Patient implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "PATIENT_ID")
     private Integer id;
+//    @Column(name = "PATIENT_HN")
     private String hn;
+//    @Column(name = "PATIENT_PID")
     private String pid;
+    @Column(name = "PATIENT_NAME")
     @NotBlank(message = "กรุณากรอกชื่อ")
     private String name;
-    
-    @Column(name="BIRTHDATE")
+    @Column(name = "BIRTHDATE")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+//    @Column(name = "PATIENT_SEX")
     private String sex;
+//    @Column(name = "PATIENT_BLOOD")
     private String blood;
+//    @Column(name = "PATIENT_NATION")
     private String nation;
+//    @Column(name = "PATIENT_RACE")
     private String race;
+//    @Column(name = "PATIENT_ADDRESS")
     private String address;
+//    @Column(name = "PATIENT_TEL")
     private String tel;
+//    @Column(name = "PATIENT_MOBILE")
     private String mobile;
     private String job;
+//    @Column(name = "PATIENT_EMAIL")
     private String email;
-    
+
     @ManyToMany
     private List<MedicalHistory> medicalHistory;
 
     @OneToOne(cascade = CascadeType.ALL)
-   private PatientPictureXray patientPictureXray;
-   
+    private PatientPictureXray patientPictureXray;
+
     @OneToOne(cascade = CascadeType.ALL)
     private PatientPictureBefore patientPictureBefore;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     private PatientPictureCurrent patientPictureCurrent;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     private PatientPictureAfter patientPictureAfter;
 
-    @OneToMany(mappedBy = "patient" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<DetailHeal> detailHeals;
-    
+
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     private List<Appointment> appointments;
-    
+
     public Integer getId() {
         return id;
     }
@@ -242,7 +253,6 @@ public class Patient implements Serializable {
         this.appointments = appointments;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -264,8 +274,5 @@ public class Patient implements Serializable {
         }
         return true;
     }
-    
-    
-    
-   
+
 }
