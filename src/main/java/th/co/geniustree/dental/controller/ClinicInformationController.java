@@ -35,6 +35,7 @@ public class ClinicInformationController {
     @RequestMapping(value = "/saveClinicInformation", method = RequestMethod.POST)
     public void saveClinic(@RequestBody ClinicInformation clinicInformation) {
         clinicInformation.setLogo(imageContent);
+        clinicInformation.setId(1);
         clinicInformationRepo.save(clinicInformation);
     }
 

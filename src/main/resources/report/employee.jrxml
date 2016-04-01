@@ -10,8 +10,8 @@
 		<![CDATA[select * from employee e
 join staff s on (e.id = s.id)
 join staff_picture sp on (s.staff_picture_id = sp.id)
-join contact c on (s.contact_id = c.id)
-join bank b on (s.bank_id = b.id)
+left outer join contact c on (s.contact_id = c.id)
+left outer join bank b on (s.bank_id = b.id)
 join department d on (d.id = s.department_id)
 where s.id = $P{id}]]>
 	</queryString>

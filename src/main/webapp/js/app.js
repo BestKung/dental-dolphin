@@ -84,6 +84,7 @@ app.controller('homeController', function ($scope, $http) {
     });
 
     $scope.clickClinicInformation = function () {
+        getClinic();
         $('#modal-clinic-information').openModal({dismissible: false});
     };
 
@@ -114,20 +115,46 @@ app.controller('homeController', function ($scope, $http) {
 
     $scope.saveClinic = function () {
         $http.post('/saveClinicInformation', $scope.clinic).success(function (data) {
-
+            getClinic();
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('บันทึกสำเร็จ', 3000, 'rounded');
         });
     };
 
-    getClinic();
+
     function getClinic() {
         $http.get('/getclinic').success(function (data) {
             $scope.clinic = data;
-            document.getElementById('logo').src = "data:image/jpg;base64," + data.logo;
+            console.log('iiiiiiiii' + !data.logo);
+            if (!!data.logo) {
+                document.getElementById('logo').src = "data:image/jpg;base64," + data.logo;
+            } else {
+                document.getElementById('logo').src = '../image/nologo.png';
+            }
+            console.log(!!data);
+            if (!!data) {
+                $('.update').addClass('active');
+                $('.clinic').css('color', '#00bcd4');
+            }
         });
     }
 
-
-
+    $('#time-opentime input').ptTimeSelect({
+        zIndex: 3000,
+        onClose: function (i) {
+            $scope.clinic.openTime = $(i).val() + "";
+            $('#label-starttime').addClass('active');
+            $('#prefix-starttime').addClass('active');
+        }
+    });
+    $('#time-closetime input').ptTimeSelect({
+        zIndex: 3000,
+        onClose: function (i) {
+            $scope.clinic.closeTime = $(i).val() + "";
+            $('#label-starttime').addClass('active');
+            $('#prefix-starttime').addClass('active');
+        }
+    });
 });
 
 app.factory('employeeService', function () {
