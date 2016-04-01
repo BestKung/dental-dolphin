@@ -1,7 +1,7 @@
 var app = angular.module('app', ['checklist-model', 'ngRoute', 'employee', 'department'
             , 'employee-information', 'doctor', 'doctor-information', 'patient'
             , 'bill', 'detailHeal', 'listSelectHeal', 'priceAndExpireProduct', 'product', 'typeProduct', 'unitProduct', 'lot',
-    'patient-information', 'appointment', 'notifications', 'calendarPatient', 'calendarDoctor']);
+    'patient-information', 'appointment', 'notifications', 'calendarPatient', 'calendarDoctor','reportproduct']);
 var app = angular.module('app');
 
 app.controller('homeController', function ($scope, $http) {
