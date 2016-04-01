@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-content">
             <span class="card-title" style="color: black"><h4>รายงานการนัดหมาย</h4></span>
-            <div style="margin: 20px;" ng-click="printProducts()">
+            <div style="margin: 20px;" ng-click="printAppointments()">
                 <a class="btn-custom-radius btn-download-all" >ดาวโหลด PDF</a>
             </div>
             <div class="row">
@@ -40,10 +40,12 @@
             <div class="row">
                 <table class="responsive-table hoverable">
                     <thead>
-                    <th style="width:15%" class="table-department" >Id</th>
+                    <th style="width:5%" class="table-department" >Id</th>
                     <th style="width:20%" class="table-department" >ชื่อคนไข้</th>
-                    <th style="width:20%" class="table-department" >ชื่อหมอ</th>
+                    <th style="width:20%" class="table-department" >ชื่อทันตแพทย์</th>
                     <th style="width:15%" class="table-department" >วันที่</th>
+                    <th style="width:15%" class="table-department" >เบอร์โทร</th>
+                    <th style="width:15%" class="table-department" >เวลา</th>                 
                     <th style="width:30%" class="table-department" >จัดการ</th>
                     </thead>
                     <tbody>
@@ -52,6 +54,8 @@
                             <td>{{app.patient.name}}</td>
                             <td>{{app.doctor.nameTh}}</td>
                             <td>{{app.appointDay}}</td>
+                            <td>{{app.mobile}}</td>
+                            <td>{{app.startTime}}</td>
                             <td>
                                 <a href="" ng-click="moreDetail(app)" class="activator btn-custom-radius btn-moredetail brown">ข้อมูลก่อนดาวโหลด</a>
                             </td>
@@ -132,7 +136,7 @@
                 </div>
                 <div class="row margin-top-20 center" style="margin-right: 10px">
                     <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
-                    <a class="btn-custom-radius btn-download" ng-click="printProduct(priceAndExpireProductsDetail.id)"><i class="mdi-action-description"></i> PDF</a>
+                    <a class="btn-custom-radius btn-download" ng-click="printAppointment(appointmentDetail.id)"><i class="mdi-action-description"></i> PDF</a>
                 </div>
             </div>
         </div>

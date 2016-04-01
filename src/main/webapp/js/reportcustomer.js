@@ -1,6 +1,6 @@
 angular.module('reportcustomer', []);
 angular.module('reportcustomer').controller('reportcCustomerController', function ($scope, $http) {
-    
+
     $scope.appointments = {};
     $scope.appointmentDetail = {};
     $scope.searchDataAppointment = {};
@@ -146,7 +146,7 @@ angular.module('reportcustomer').controller('reportcCustomerController', functio
             $('#first-page-appointment').removeClass('disabled');
         }
     };
-  
+
     $scope.moreDetail = function (app) {
         $scope.preScroll = $(window).scrollTop();
         $('body,html').animate({scrollTop: 400}, "400");
@@ -174,7 +174,15 @@ angular.module('reportcustomer').controller('reportcCustomerController', functio
 
     $scope.toPreScroll = function () {
         toPreScroll();
-    };  
+    };
+
+    $scope.printAppointment = function (id) {
+        location.href = '/informationappointment/' + id;
+    };
+
+    $scope.printAppointments = function () {
+        location.href = '/appointments';
+    };
 });
 
 

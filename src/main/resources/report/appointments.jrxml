@@ -5,72 +5,143 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT * FROM APPOINTMENT a
-join Patient p
-on (a.patient_id = p.id)
-left outer join doctor d
-on (a.doctor_id = d.id)]]>
+join Patient p on (a.patient_id = p.id)
+left outer join doctor d on (a.doctor_id = d.id)
+join employee e on (e.id = d.id)]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="BARCODE_MAIN" class="java.lang.String">
+	<field name="APPOINT_DAY" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="BARCODE_SUB" class="java.lang.String">
+	<field name="END_TIME" class="java.sql.Time">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="NAME" class="java.lang.String">
+	<field name="MOBILE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="TYPEPRODUCT_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="UNIT_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="AMOUNT_REMAINING" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="EXPIRE" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NONTIFICATION_DATE_EXPIRE" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NOTIFICATIONSEXPIRE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NOTIFICATIONSVALUE" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PRICEBUY" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PRICESELL" class="java.lang.Double">
+	<field name="START_TIME" class="java.sql.Time">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="STATUS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="STATUS_NONTIFICATION_EXPIRE" class="java.lang.String">
+	<field name="TREATMENT_LIST" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="STATUS_NONTIFICATION_VALUE" class="java.lang.String">
+	<field name="DOCTOR_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="STOP_NONTIFICATION_EXPIRE" class="java.lang.String">
+	<field name="PATIENT_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="STOP_NONTIFICATION_VALUE" class="java.lang.String">
+	<field name="ADDRESS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="VALUE" class="java.lang.Double">
+	<field name="BIRTHDATE" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="LOT_ID" class="java.lang.Integer">
+	<field name="BLOOD" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PRODUCT_ID" class="java.lang.Integer">
+	<field name="EMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="HN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="JOB" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NATION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RACE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SEX" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_BEFORE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_CURRENT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_XRAY_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDRESS_OF_PID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BIRTH_DATE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CURRENT_ADDRESS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="END_WORK" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARRY_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME_ENG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERMITNO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERMITTYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERSONAL_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SALARY" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SOLDER_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="START_WORK" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="WORK_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BANK_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CONTACT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DOCTOR_PICTURE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENABLE" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME_TH" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PASSWORD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TYPE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="count_row" class="java.lang.Integer"/>
@@ -87,7 +158,7 @@ on (a.doctor_id = d.id)]]>
 				<textElement textAlignment="Center">
 					<font fontName="TH SarabunPSK" size="36" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[สินค้าทั้งหมด]]></text>
+				<text><![CDATA[รายการนัดหมายทั้งหมด]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="bd10421e-00e1-4b51-b3a0-a38fa1823079" x="507" y="5" width="48" height="20"/>
@@ -119,35 +190,35 @@ on (a.doctor_id = d.id)]]>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[รอบสินค้า]]></text>
+				<text><![CDATA[ชื่อคนไข้]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="d1bb85a7-dafc-4b5a-99c5-4c255bc606a0" x="234" y="22" width="113" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[ยอดคงเหลือ]]></text>
+				<text><![CDATA[วันที่]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="d6016a32-d564-45be-9e3e-dc714d9ebd44" x="136" y="22" width="98" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[ชื่อสินค้า]]></text>
+				<text><![CDATA[ชื่อทันตแพทย์]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="6f5aebc6-db5b-4f17-a3e6-1d98decb767d" x="347" y="22" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[ราคาขาย]]></text>
+				<text><![CDATA[เบอร์โทร]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="0c19d0ed-106e-4a37-ac2e-33f780900468" x="447" y="22" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[วันหมดอายุ]]></text>
+				<text><![CDATA[เวลา]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -165,35 +236,35 @@ on (a.doctor_id = d.id)]]>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{LOT_ID}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="ffaaea49-9734-4604-8c7a-7e5fbaac3f4b" x="234" y="0" width="113" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMOUNT_REMAINING}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{APPOINT_DAY}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="b91430d6-2b51-4caa-b568-b5adbf1687c6" x="136" y="0" width="98" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NAME_TH}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="b15444c4-0d3e-41a6-ba28-cbb3f744cab0" x="347" y="0" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PRICESELL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MOBILE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="df9da933-bf0b-49ae-a7ae-25aa89348c3d" x="447" y="0" width="100" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{EXPIRE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{START_TIME}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

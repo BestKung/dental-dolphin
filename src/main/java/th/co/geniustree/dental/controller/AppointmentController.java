@@ -5,22 +5,32 @@
  */
 package th.co.geniustree.dental.controller;
 
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import static org.hibernate.criterion.Projections.count;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Appointment;
 import th.co.geniustree.dental.model.SearchData;
 import th.co.geniustree.dental.repo.AppointmentRepo;
@@ -161,6 +171,47 @@ public class AppointmentController {
         String tomorrowString = sdf.format(tomorrow);
         Date date = sdf.parse(tomorrowString);
         return appointmentRepo.count(AppointmentSpec.appointmentDate(date));
+    }
+    
+      @RequestMapping(value = "/informationappointment/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\appointment.jasper");
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("id", id);
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "appointment-" + id, "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+    @RequestMapping(value = "/appointments", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printemployees() {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\appointments.jasper");
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, null, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "appointments", "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
 }
