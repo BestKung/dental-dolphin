@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="440ea817-26f8-416d-9fd0-8730675f806a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from priceandexpireproduct pap
+join product p on(pap.product_id = p.id)
+join lot l on(l.id = pap.lot_id)
+where pap.id = $P{id}]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMOUNT_REMAINING" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EXPIRE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NONTIFICATION_DATE_EXPIRE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOTIFICATIONSEXPIRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOTIFICATIONSVALUE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRICEBUY" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRICESELL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS_NONTIFICATION_EXPIRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS_NONTIFICATION_VALUE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STOP_NONTIFICATION_EXPIRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STOP_NONTIFICATION_VALUE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VALUE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRODUCT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BARCODE_MAIN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BARCODE_SUB" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TYPEPRODUCT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UNIT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATEIN" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATEOUT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAMESAFFREAM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="671" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="aaa31467-7b83-47ed-bb60-a31b73b0f544" x="58" y="81" width="80" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ลำดับที่]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b6531833-d459-47dd-acb5-7e6417853327" x="138" y="81" width="46" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5f393534-4b8c-4186-a6ea-414ec91091f8" x="141" y="12" width="277" height="51"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH SarabunPSK" size="36" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ข้อมูลสินค้า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aea14d7a-6f82-4bc1-a915-a7bf305d713b" x="58" y="145" width="78" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนสินค้า]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="407312e6-8c8f-4ca6-9801-7b6979d98401" x="136" y="145" width="94" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="76d1ac43-7f18-4b75-9282-ee6b87345589" x="519" y="12" width="36" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fbee63dd-0061-4058-9f65-04ebfd5f9da6" x="491" y="12" width="28" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[หน้า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b958f499-0c54-4090-943d-73acfc95794a" x="259" y="145" width="92" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ยอดคงเหลือ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ed52b576-45c4-472b-81b7-5e9c5fa2ab32" x="351" y="145" width="140" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AMOUNT_REMAINING}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="32ef4488-8c44-40dd-940f-96f245fee163" x="58" y="175" width="110" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[แจ้งเตือนจำนวนสินค้า]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="25311ab2-cbe3-4bd7-b2e1-69dd8b8ac6eb" x="168" y="175" width="131" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOTIFICATIONSVALUE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="69890f86-c09a-46ff-9ca0-cbc6aaaef2de" x="59" y="206" width="80" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันหมดอายุ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8fe90fb9-de26-49f5-aa7f-486d0c7da40e" x="259" y="206" width="92" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[แจ้งเตืนวันหมดอายุ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="259" y="111" width="92" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ชื่อสินค้า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6917a58d-4c96-4efc-95e9-1498f83122a2" x="58" y="111" width="80" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รอบสินค้า]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="05fb51c5-5723-44ba-952d-236cffa322f9" x="138" y="111" width="121" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{DATEIN})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="351" y="111" width="78" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="135202e1-36fa-4ad5-91eb-c099cd9fc56a" x="139" y="206" width="120" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{EXPIRE})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c3b92e3b-32ba-46ce-81a0-011e75ecd877" x="351" y="206" width="156" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{NONTIFICATION_DATE_EXPIRE})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,34 +1,46 @@
 <div class="container">
     <div class="card">
         <div class="card-content">
-            <span class="card-title" style="color: black"><h4>รายงานการนัดหมาย</h4></span>
-            <div style="margin: 20px;" ng-click="printAppointments()">
-                <a class="btn-custom-radius btn-download-all" >ดาวโหลด PDF</a>
-            </div>
+            <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ค้นหาคนไข้</span>
             <div class="row">
-                <div class="col m5 input-field">
+                <div class="col m6 input-field">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search" ng-model="searchDataAppointment.keyword">
+                    <input type="text" id="search" ng-model="search.keyword">
                     <label for="search" >ค้นหา : </label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col m3">
                     <span><h6>ค้นหาโดย : </h6></span>
                     <div class="select-custom">
-                        <select class="browser-default" id="select-searchby" ng-model="searchDataAppointment.searchBy" ng-init="searchDataAppointment.searchBy = 'ชื่อคนไข้'">
-                            <option value="ชื่อคนไข้">ชื่อคนไข้</option>
-                            <option value="ชื่อทันคเเพทย์">ชื่อทันคเเพทย์</option>
-                            <option value="เบอร์โทรศัพท์">เบอร์โทรศัพท์</option>
-                            <option value="วันที่นัด">วันที่นัด (ปปปป-ดด-วว)</option>
+                        <select class="browser-default" id="select-searchby" ng-model="search.searchBy" ng-init="search.searchBy = 'ชื่อ'">
+                            <option value="H/N">H/N</option>
+                            <option value="ชื่อ">ชื่อ</option>
+                            <option value="อีเมลล์">อีเมลล์</option>
                         </select>
                     </div>
                 </div>
-                <div class="col m2" style="margin-top: 40px;">
-                    <a class="btn-best btn-search green" ng-click="searchAppointment()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search green" style="margin-left:calc(3.8rem)" ng-click="selectGetOrSearch()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
                 </div>
-                <div class="col m2">
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางรายงานข้อมูลคนไข้</span>
+                    <div class="margin-top-20"ng-click="printPatients()">
+                        <a class="btn-custom-radius btn-download-all" >ดาวโหลด PDF</a>
+                    </div>
+                </div>
+                <div class="col m6">
                     <div class="right">
-                        <span class="">เเสดงการนัด : </span>
-                        <select class="browser-default" ng-change="selectGetOrSearchAppointment()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="sizeAppointment" ng-init="sizeAppointment = '10'">
+                        <span class="">เเสดงผู้ป่วย : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="size" ng-init="size = '10'">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
@@ -37,111 +49,194 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <table class="responsive-table hoverable">
-                    <thead>
-                    <th style="width:5%" class="table-department" >Id</th>
-                    <th style="width:20%" class="table-department" >ชื่อคนไข้</th>
-                    <th style="width:20%" class="table-department" >ชื่อทันตแพทย์</th>
-                    <th style="width:15%" class="table-department" >วันที่</th>
-                    <th style="width:15%" class="table-department" >เบอร์โทร</th>
-                    <th style="width:15%" class="table-department" >เวลา</th>                 
-                    <th style="width:30%" class="table-department" >จัดการ</th>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="app in appointments.content">
-                            <td>{{app.id}}</td>
-                            <td>{{app.patient.name}}</td>
-                            <td>{{app.doctor.nameTh}}</td>
-                            <td>{{app.appointDay}}</td>
-                            <td>{{app.mobile}}</td>
-                            <td>{{app.startTime}}</td>
-                            <td>
-                                <a href="" ng-click="moreDetail(app)" class="activator btn-custom-radius btn-moredetail brown">ข้อมูลก่อนดาวโหลด</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col m12">
-                        <ul class="pagination right" style="margin-top: 10px;">
-                            <li class="btn btn-pagination" id="first-page-appointment" ng-click="firstPageAppointment()()"><p style="margin-top: 2px;">&Lt;</p></li>
-                            <li class="btn btn-pagination" id="pre-page-appointment" ng-click="prePageAppointment()()"><p style="margin-top: 2px;">&LT;</p></li>
-                            <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
-                            <li class="btn btn-pagination" id="next-page-appointment" ng-click="nextPageAppointment()()"><p style="margin-top: 2px;">&GT;</p></li>
-                            <li class="btn btn-pagination" id="final-page-appointment" ng-click="finalPageAppointment()()"><p style="margin-top: 2px;">&Gt;</p></li>
-                        </ul>
-                    </div>
+            <table class="hoverable responsive-table" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 20%">ชื่อ</th>
+                        <th style="width: 10%">H/N</th>
+                        <th style="width: 15%">เลขประชาชน</th>
+                        <th style="width: 20%">อีเมลล์</th>
+                        <th style="width: 30%">จัดการ</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr ng-repeat="patient in patients.content">
+                        <td>{{patient.id}}</td>
+                        <td>{{patient.name}}</td>
+                        <td>{{patient.hn}}</td>
+                        <td>{{patient.pid}}</td>
+                        <td>{{patient.email}}</td>
+                        <td>
+                            <a href="" ng-click="clickMoreDetail(patient);alert(patient.patientPictureXray.nameXrayFilm)" class="activator btn-custom-radius btn-moredetail brown">ข้อมูลก่อนดาวโหลด</a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn waves-effect btn-pagination" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p>;</li>
+                        <li class="btn waves-effect btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
+                        <li class="btn waves-effect btn-pagination" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
                 </div>
             </div>
         </div>
+
         <div class="card-reveal">
-            <div id="card-height" class="card-height">
-                <span class="card-title grey-text text-darken-4" id="close-card">ข้อมูลการนัด<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+            <span class="card-title grey-text text-darken-4" id="close-card">รายละเอียคคนไข้<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+            <div style="margin-top: 40px;" class="center">
+                <img class="responsive-img" src="" id="img-employee">
+            </div>
+            <div style="margin-top: 20px;">
                 <div class="row">
                     <div class="col m3 s6">
-                        <label class="right topic-detail">ID : </label>
+                        <label class="right topic-detail">ลำดับ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.id}}</label>
+                        <label class=" topic-detail">{{patientDetail.id}}</label>
                     </div>
                     <div class="col m2 s6">
-                        <label class="right topic-detail">รายการรักษา : </label>
+                        <label class="right topic-detail">H/N : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail" style="word-wrap: break-word">{{appointmentDetail.treatmentList}}</label>
+                        <label class=" topic-detail">{{patientDetail.hn}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เลขประจำตัวประชาชน : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.pid}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ชื่อ/สกุล : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.name}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">วันเกิด : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.birthDate}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">อายุ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.age}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เพศ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.sex}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">กรุ๊ปเลือด : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.blood}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">สัญชาติ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.nation}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">เชื้อชาติ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{patientDetail.race}}</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col m3 s6">
-                        <label class="right topic-detail">ชื่อคนไข้ : </label>
+                        <label class="right topic-detail">ที่อยู่ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.patient.name}}</label>
+                        <label class=" topic-detail">{{patientDetail.address}}</label>
                     </div>
                     <div class="col m2 s6">
-                        <label class="right topic-detail">ชื่อทันตเเพทย์ : </label>
+                        <label class="right topic-detail">เบอร์โทร : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.doctor.nameTh}}</label>
+                        <label class=" topic-detail">{{patientDetail.tel}}</label>
                     </div>
-                </div>
+                </div> 
                 <div class="row">
                     <div class="col m3 s6">
-                        <label class="right topic-detail">เบอร์ติดต่อ : </label>
+                        <label class="right topic-detail">เบอร์โทรศัพท์มือถือ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.mobile}}</label>
+                        <label class=" topic-detail">{{patientDetail.mobile}}</label>
                     </div>
                     <div class="col m2 s6">
-                        <label class="right topic-detail">วันที่ : </label>
+                        <label class="right topic-detail">อาชีพ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.appointDay}}</label>
+                        <label class=" topic-detail">{{patientDetail.job}}</label>
                     </div>
-                </div>
+                </div> 
                 <div class="row">
                     <div class="col m3 s6">
-                        <label class="right topic-detail">เวลาเริ่ม : </label>
+                        <label class="right topic-detail">อีเมล : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.startTime}}</label>
+                        <label class=" topic-detail">{{patientDetail.email}}</label>
                     </div>
-                    <div class="col m2 s6">
-                        <label class="right topic-detail">เวลาสิ้นสุด : </label>
-                    </div>
-                    <div class="col m3 s6">
-                        <label class=" topic-detail">{{appointmentDetail.endTime}}</label>
-                    </div>
+                </div> 
+            </div>
+
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">ประวัติทางการเเพทย์</span>
+            <div class="row">
+                <div class="col m3 s6" ng-repeat="me in patientDetail.medicalHistory">
+                    <label class="topic-detail">{{me.disease}}</label>
                 </div>
-                <div class="row margin-top-20 center" style="margin-right: 10px">
-                    <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
-                    <a class="btn-custom-radius btn-download" ng-click="printAppointment(appointmentDetail.id)"><i class="mdi-action-description"></i> PDF</a>
-                </div>
+            </div>
+
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">รูปภาพ ฟิล์มเอ็กเรย์</span>
+            <div style="margin-top: 40px;" class="center">
+                <img class="responsive-img" src="" id="img-patientxray">
+            </div>
+
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">รูปภาพ ก่อนจัดฟัน</span>
+            <div style="margin-top: 40px;" class="center">
+                <img class="responsive-img" src="" id="img-patientbefore">
+            </div>
+
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">รูปภาพ ระหว่างจัดฟัน</span>
+            <div style="margin-top: 40px;" class="center">
+                <img class="responsive-img" src="" id="img-patientcurrent">
+            </div>
+
+            <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">รูปภาพ หลังจัดฟัน</span>
+            <div style="margin-top: 40px;" class="center">
+                <img class="responsive-img" src="" id="img-patientafter">
+            </div>
+
+
+            <div class="row margin-top-20 center" style="margin-right: 10px">
+                <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                <a class="btn-custom-radius btn-download" ng-click="printPatient(patientDetail.id)"><i class="mdi-action-description"></i> PDF</a>
             </div>
         </div>
     </div>
 </div>
+
 <div id="modal-notfont" class="modal" style="border-radius: 10px;">
     <div class="modal-content">
         <div class="row center" style="height: 150px;">
@@ -151,3 +246,6 @@
         </div>
     </div>
 </div>
+
+
+

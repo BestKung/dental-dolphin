@@ -1,8 +1,326 @@
 <div class="container">
     <div class="card">
         <div class="card-content">
-            <span class="card-title" style="color: black;"><h4>ReportEmployee</h4></span>
+            <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ค้นหาพนักงาน</span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchData.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาจาก : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchData.searchBy" ng-init="searchData.searchBy = 'ชื่อ'">
+                            <option value="อีเมล">อีเมล</option>
+                            <option value="ชื่อ">ชื่อ</option>
+                            <option value="รหัสประชาชน">รหัสประชาชน</option>
+                            <option value="หมายเลขโทรศัพท์">หมายเลขโทรศัพท์</option>
+                            <option value="ลำดับ">ลำดับ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search green" style="margin-left:calc(3.8rem)" ng-click="searcEmployee()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="card" id="card-employee-detail">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางข้อมูลพนักงาน</span>
+                    <div class="margin-top-20"ng-click="printEmployees()">
+                        <a class="btn-custom-radius btn-download-all" >ดาวโหลด PDF</a>
+                    </div>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">เเสดงพนักงาน : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="row" ng-init="row = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
+            <table class="hoverable responsive-table" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">ลำดับ</th>
+                        <th style="width: 20%">ชื่อ</th>
+                        <th style="width: 20%">อีเมลล์</th>
+                        <th style="width: 10%">สังกัดแผนก</th>
+                        <th style="width: 10%">สถานะ</th>
+                        <th style="width: 25%">จัดการ</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr ng-repeat="emp in employees.content">
+                        <td>{{emp.id}}</td>
+                        <td>{{emp.nameTh}}</td>
+                        <td>{{emp.email}}</td>
+                        <td>{{emp.department.name}}</td>
+                        <td>{{emp.workStatus}}</td>
+                        <td>
+                            <a href="" ng-click="detailEmployee(emp)" class="activator btn-custom-radius btn-moredetail brown">ข้อมุลก่อนดาวโหลด</a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn waves-effect btn-pagination" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p>;</li>
+                        <li class="btn waves-effect btn-pagination"><p style="margin-top: 2px;">{{currentPage}}</p></li>
+                        <li class="btn waves-effect btn-pagination" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-reveal">
+            <div id="card-height" class="card-height">
+                <span class="card-title grey-text text-darken-4" id="close-card" style="font-size: 30px; font-weight:400;color: black">ตารางรายงานข้อมูลพนักงาน<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+                <div style="margin-top: 40px;" class="center">
+                    <img class="responsive-img" src="" id="img-employee">
+                </div>
+                <div style="margin-top: 20px;">
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">ลำดับ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.id}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">อีเมล : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.email}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">รหัสประชาชน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.pid}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">ชื่อ (ภาษาไปย) : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.nameTh}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">ชื่อ (ภาษาอังกฤษ) : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.nameEng}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">วันเกิด : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.birthDate}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">อายุ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.age}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">เพศ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.sex}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">กรุ๊ปเลือด : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.blood}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">สถานภาพสมรส : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.marryStatus}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">สัญชาติ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.nation}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">เชื้อชาติ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.race}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">สถานะทางทหาร : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.soldierStatus}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">ที่อยู่ตามบัตรประชาชน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.addressOfPid}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">ที่อยู่ปัจจุบัน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.currentAddress}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">เบอร์โทร : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.tel}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">เบอร์โทรศัพมือถือ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.mobile}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">เเผนก : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.department.name}}</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">วันที่เริ่มทำงาน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.startWork}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">วันที่สิ้นสุดการทำงาน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.endWork}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">สถานะการทำงาน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.workStatus}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">เงินเดือน : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{employeeDetail.salary}} บาท</label>
+                        </div>
+                    </div>
+                </div>
+                <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">Authority</span>
+                <div class="row">
+                    <div class="col m3 s6" ng-repeat="auth in employeeDetail.roles">
+                        <label class="topic-detail">{{auth.role}}</label>
+                    </div>
+                </div>
+                <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">Bank</span>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ธนาคาร : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{employeeDetail.bank.bankName}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ชื่อบัญชี : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{employeeDetail.bank.accountName}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">หมายเลขบัญชี : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{employeeDetail.bank.accountNumber}}</label>
+                    </div>
+                </div>
+                <span class="card-title grey-text text-darken-4" style="margin-top: 30px;">Contact</span>
+                <div class="row">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">ชื่อผู้ติดต่อ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{employeeDetail.contact.name}}</label>
+                    </div>
+                    <div class="col m2 s6">
+                        <label class="right topic-detail">ความสัมพันธ์ : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{employeeDetail.contact.relation}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top">
+                    <div class="col m3 s6">
+                        <label class="right topic-detail">เบอร์โทร : </label>
+                    </div>
+                    <div class="col m3 s6">
+                        <label class=" topic-detail">{{employeeDetail.contact.tel}}</label>
+                    </div>
+                </div>
+                <div class="row margin-top-20 center" style="margin-right: 10px">
+                    <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                    <a class="btn-custom-radius btn-download" ng-click="printEmployee(employeeDetail.id)"><i class="mdi-action-description"></i> PDF</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>
+
+

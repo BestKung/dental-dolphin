@@ -1,173 +1,235 @@
 angular.module('reportcustomer', []);
-angular.module('reportcustomer').controller('reportcCustomerController', function ($scope, $http) {
-
-    $scope.appointments = {};
-    $scope.appointmentDetail = {};
-    $scope.searchDataAppointment = {};
+angular.module('reportcustomer').controller('reportCustomerController', function ($scope, $http) {
+    $scope.patients = {};
+    $scope.patientDetail = {};
+    $scope.search = {};
+    $scope.patientDetail.patientPictureXray = {};
+    $scope.patientDetail.patientPictureBefore = {};
+    $scope.patientDetail.patientPictureCurrent = {};
+    $scope.patientDetail.patientPictureAfter = {};
+    $scope.totalPatient = 0;
+    $scope.size = 10;
     $scope.currentPage = 0;
-    $scope.preScroll = 0;
-    $scope.sizeAppointment = 10;
-    var totalPage = 0;
-    var totalAppointment = 0;
-    var totalPageAppointment = 0;
-    var pageAppointment = 0;
+    var totalPage;
+    var page = 0;
 
+    checkMobile();
+    function checkMobile() {
+        var $mobile = $(window).outerWidth() < 995;
+        if ($mobile) {
+            $('th').removeAttr('style');
+            $('.topic-detail').css('fontSize', 13);
+        }
+    }
 
-    getAppointment();
-    function getAppointment() {
-        $http.get('/getappointment', {params: {page: pageAppointment, size: $scope.sizeAppointment}}).success(function (data) {
-            $scope.appointments = data;
+    getPatient();
+    function getPatient() {
+        $http.get('/getpatient', {params: {size: $scope.size, page: page}}).success(function (data) {
+            $scope.patients = data;
         });
     }
-    $scope.getAppointment = function () {
-        pageAppointment = 0;
-        getAppointment();
-        $scope.currentPage = pageAppointment;
-        countAppointment();
-        findTotalPageAppointment();
+
+  
+    $scope.searchPatient = function () {
+        searchPatient();
     };
-    $scope.searchAppointment = function () {
-        searchAppointment();
-        countSearchAppointment();
-    };
-    function searchAppointment() {
-        $http.post('/searchappointment', $scope.searchDataAppointment, {params: {page: pageAppointment, size: $scope.sizeAppointment}}).success(function (data) {
-            if (data.content.length == 0 || $scope.searchDataAppointment.keyword == "") {
+
+    function searchPatient() {
+        $http.post('/searchpatient', $scope.search).success(function (data) {
+            console.log(data + "-------------->");
+            if (data.content.length == 0 || $scope.search.keyword == "") {
                 $('#modal-notfont').openModal();
-                getAppointment();
+                console.log(data);
+                getPatient();
             } else {
-                $scope.appointments = data;
+                $scope.patients = data;
+                countSearchPatient();
             }
         });
     }
-    countAppointment();
-    function countAppointment() {
-        $http.get('/countappointment').success(function (data) {
-            totalAppointment = data;
-            findTotalPageAppointment();
+
+    countPatient();
+    function countPatient() {
+        $http.get('/countpatient').success(function (data) {
+            $scope.totalPatient = data;
+            findTotalPage();
         });
     }
 
-    function countSearchAppointment() {
-        $http.post('/countsearchappointment', $scope.searchDataAppointment).success(function (data) {
-            totalAppointment = data;
-            findTotalPageAppointment();
-        });
-    }
-
-    function findTotalPageAppointment() {
-        totalPageAppointment = parseInt(totalAppointment / $scope.sizeAppointment);
-        if ((totalAppointment % $scope.sizeAppointment) != 0) {
-            totalPageAppointment++;
-        }
-        if (totalPageAppointment == 1 || totalPageAppointment == 0) {
-            $('#first-page-appointment').addClass('disabled');
-            $('#pre-page-appointment').addClass('disabled');
-            $('#next-page-appointment').addClass('disabled');
-            $('#final-page-appointment').addClass('disabled');
-        }
-        if (totalPageAppointment > 1) {
-            $('#first-page-appointment').addClass('disabled');
-            $('#pre-page-appointment').addClass('disabled');
-            $('#next-page-appointment').removeClass('disabled');
-            $('#final-page-appointment').removeClass('disabled');
-        }
-
-    }
-
-    $scope.selectGetOrSearchAppointment = function () {
-        pageAppointment = 0;
-        $scope.currentPage = pageAppointment;
-        if (!!$scope.searchDataAppointment.keyword) {
-            searchAppointment();
-            countSearchAppointment();
+    function selectGetOrSearch() {
+        if (!!$scope.search.keyword) {
+            searchPatient();
         } else {
-            getAppointment();
-            countAppointment();
-        }
-    };
-    function selectGetOrSearchAppointment() {
-        if (!!$scope.searchDataAppointment.keyword) {
-            searchAppointment();
-        } else {
-            getAppointment();
+            getPatient();
         }
     }
 
-    $scope.firstPageAppointment = function () {
-        if (!$('#first-page-appointment').hasClass('disabled')) {
-            pageAppointment = 0;
-            $scope.currentPage = pageAppointment;
-            selectGetOrSearchAppointment();
-            if (pageAppointment == 0) {
-                $('#first-page-appointment').addClass('disabled');
-                $('#pre-page-appointment').addClass('disabled');
-            }
-            $('#next-page-appointment').removeClass('disabled');
-            $('#final-page-appointment').removeClass('disabled');
-        }
-    };
-    $scope.prePageAppointment = function () {
-        if (!$('#first-page-appointment').hasClass('disabled')) {
-            pageAppointment--;
-            $scope.currentPage = pageAppointment;
-            selectGetOrSearchAppointment();
-            if (pageAppointment == 0) {
-                $('#first-page-appointment').addClass('disabled');
-                $('#pre-page-appointment').addClass('disabled');
-            }
-            $('#next-page-appointment').removeClass('disabled');
-            $('#final-page-appointment').removeClass('disabled');
-        }
-    };
-    $scope.nextPageAppointment = function () {
-        if (!$('#final-page-appointment').hasClass('disabled')) {
-            pageAppointment++;
-            $scope.currentPage = pageAppointment;
-            selectGetOrSearchAppointment();
-            if (pageAppointment == totalPageAppointment - 1) {
-                $('#next-page-appointment').addClass('disabled');
-                $('#final-page-appointment').addClass('disabled');
-            }
-            $('#pre-page-appointment').removeClass('disabled');
-            $('#first-page-appointment').removeClass('disabled');
-        }
-    };
-    $scope.finalPageAppointment = function () {
-        if (!$('#final-page-appointment').hasClass('disabled')) {
-            pageAppointment = totalPageAppointment - 1;
-            $scope.currentPage = pageAppointment;
-            selectGetOrSearchAppointment();
-            if (pageAppointment == totalPageAppointment - 1) {
-                $('#final-page-appointment').addClass('disabled');
-                $('#next-page-appointment').addClass('disabled');
-            }
-            $('#pre-page-appointment').removeClass('disabled');
-            $('#first-page-appointment').removeClass('disabled');
+
+    $scope.selectGetOrSearch = function () {
+        page = 0;
+        $scope.currentPage = page;
+        selectGetOrSearch();
+        findTotalPage();
+        console.log('total : ' + totalPage);
+        if (totalPage != 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
         }
     };
 
-    $scope.moreDetail = function (app) {
+    function countSearchPatient() {
+        $http.post('/countsearchpatient', $scope.search).success(function (data) {
+            $scope.totalPatient = data;
+            findTotalPage();
+        });
+    }
+
+    function findTotalPage() {
+        var totalpages = parseInt($scope.totalPatient / $scope.size);
+        if (($scope.totalPatient % $scope.size) != 0) {
+            totalpages++;
+        }
+        totalPage = totalpages;
+        console.log(totalPage);
+        if (totalpages == 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+        }
+        if (totalpages > 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+        }
+    }
+
+    $scope.firstPage = function () {
+        if (!$('#first-page').hasClass('disabled')) {
+            page = 0;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == 0) {
+                $('#first-page').addClass('disabled');
+                $('#pre-page').addClass('disabled');
+            }
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
+        }
+    };
+
+    $scope.prePage = function () {
+        if (!$('#first-page').hasClass('disabled')) {
+            page--;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == 0) {
+                $('#first-page').addClass('disabled');
+                $('#pre-page').addClass('disabled');
+            }
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
+        }
+    };
+
+    $scope.nextPage = function () {
+        if (!$('#final-page').hasClass('disabled')) {
+            page++;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == totalPage - 1) {
+                $('#next-page').addClass('disabled');
+                $('#final-page').addClass('disabled');
+            }
+            $('#pre-page').removeClass('disabled');
+            $('#first-page').removeClass('disabled');
+        }
+    };
+
+    $scope.finalPage = function () {
+        if (!$('#final-page').hasClass('disabled')) {
+            page = totalPage - 1;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == totalPage - 1) {
+                $('#final-page').addClass('disabled');
+                $('#next-page').addClass('disabled');
+            }
+            $('#pre-page').removeClass('disabled');
+            $('#first-page').removeClass('disabled');
+        }
+    };
+
+
+    $scope.clickMoreDetail = function (more) {
         $scope.preScroll = $(window).scrollTop();
         $('body,html').animate({scrollTop: 400}, "400");
-        $scope.appointmentDetail = app;
-        if (!!app.startTime) {
-            $scope.appointmentDetail.startTime = moment(new Date(app.appointDay + " " + app.startTime)).format('hh:mm a');
-        }
-        if (!!app.endTime) {
-            $scope.appointmentDetail.endTime = moment(new Date(app.appointDay + " " + app.endTime)).format('hh:mm a');
-        }
+        $scope.patientDetail = more;
+        $scope.patientDetail.age = new Date().getFullYear() - new Date(more.birthDate).getFullYear();
         var topic = document.getElementsByClassName('topic-detail');
         for (var i = 0; i < topic.length; i++) {
             if (topic[i].innerHTML == "") {
-                topic[i].innerHTML = '-';
+                topic[i].innerHTML = "-";
             }
         }
+        if (!!$scope.patientDetail.patientPictureXray) {
+            document.getElementById('img-patientxray').src = "data:image/jpg;base64," + $scope.patientDetail.patientPictureXray.contentXrayFilm;
+        } else {
+            NoImageXray();
+        }
+        if (!!$scope.patientDetail.patientPictureBefore) {
+            document.getElementById('img-patientbefore').src = "data:image/jpg;base64," + $scope.patientDetail.patientPictureBefore.contentBefore;
+        } else {
+            NoImageBefore();
+        }
+        if (!!$scope.patientDetail.patientPictureCurrent) {
+            document.getElementById('img-patientcurrent').src = "data:image/jpg;base64," + $scope.patientDetail.patientPictureCurrent.contentCurrent;
+        } else {
+            NoImageCurrent();
+        }
+        if (!!$scope.patientDetail.patientPictureAfter) {
+            document.getElementById('img-patientafter').src = "data:image/jpg;base64," + $scope.patientDetail.patientPictureAfter.contentAfter;
+        } else {
+            NoImageAfter();
+        }
+
     };
+
+
+    function NoImageXray() {
+        $http.get('/getnoimage').success(function (data) {
+            document.getElementById('img-patientxray').src = "data:image/jpg;base64," + data.contentImage;
+        });
+    }
+    ;
+
+    function NoImageBefore() {
+        $http.get('/getnoimage').success(function (data) {
+            document.getElementById('img-patientbefore').src = "data:image/jpg;base64," + data.contentImage;
+        });
+    }
+    ;
+
+    function NoImageCurrent() {
+        $http.get('/getnoimage').success(function (data) {
+            document.getElementById('img-patientcurrent').src = "data:image/jpg;base64," + data.contentImage;
+        });
+    }
+    ;
+
+    function NoImageAfter() {
+        $http.get('/getnoimage').success(function (data) {
+            document.getElementById('img-patientafter').src = "data:image/jpg;base64," + data.contentImage;
+        });
+    }
+    ;
+
     $scope.cancel = function () {
         toPreScroll();
         $('span#close-card').trigger('click');
     };
+
     function toPreScroll() {
         $('body,html').animate({scrollTop: $scope.preScroll}, "0");
     }
@@ -175,14 +237,14 @@ angular.module('reportcustomer').controller('reportcCustomerController', functio
     $scope.toPreScroll = function () {
         toPreScroll();
     };
-
-    $scope.printAppointment = function (id) {
-        location.href = '/informationappointment/' + id;
+    $scope.printPatient = function (id) {
+        location.href = '/personalinformationpatient/' + id;
     };
 
-    $scope.printAppointments = function () {
-        location.href = '/appointments';
+    $scope.printPatients = function () {
+        location.href = '/printpatients';
     };
+
 });
 
 
