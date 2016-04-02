@@ -714,4 +714,7 @@ angular.module('bill').controller('billController', function ($scope, $http) {
         format: 'yyyy-mm-dd',
         container: 'body'
     });
+    $scope.printBill = function (id) {
+        location.href = "/printbill/" + id;
+    };
 });
