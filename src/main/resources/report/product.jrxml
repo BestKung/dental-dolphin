@@ -2,32 +2,23 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="440ea817-26f8-416d-9fd0-8730675f806a">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="id" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from product p
-left outer join priceandexpireproduct pap
-on (p.id = pap.id)
-where p.id = $P{id}]]>
+		<![CDATA[select * from priceandexpireproduct pap
+join product p on(pap.product_id = p.id)
+join lot l on(l.id = pap.lot_id)
+where pap.id = $P{id}
+
+
+
+
+
+]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="BARCODE_MAIN" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="BARCODE_SUB" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NAME" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TYPEPRODUCT_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="UNIT_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="AMOUNT_REMAINING" class="java.lang.Double">
@@ -73,6 +64,30 @@ where p.id = $P{id}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PRODUCT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BARCODE_MAIN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BARCODE_SUB" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TYPEPRODUCT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UNIT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATEIN" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATEOUT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAMESAFFREAM" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -160,7 +175,7 @@ where p.id = $P{id}]]>
 				<text><![CDATA[แจ้งเตือนจำนวนสินค้า]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="25311ab2-cbe3-4bd7-b2e1-69dd8b8ac6eb" x="168" y="175" width="134" height="20"/>
+				<reportElement uuid="25311ab2-cbe3-4bd7-b2e1-69dd8b8ac6eb" x="168" y="175" width="131" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -195,11 +210,11 @@ where p.id = $P{id}]]>
 				<text><![CDATA[รอบสินค้า]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="05fb51c5-5723-44ba-952d-236cffa322f9" x="138" y="111" width="81" height="20"/>
+				<reportElement uuid="05fb51c5-5723-44ba-952d-236cffa322f9" x="138" y="111" width="121" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{LOT_ID}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{DATEIN})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="351" y="111" width="78" height="20"/>
@@ -209,18 +224,18 @@ where p.id = $P{id}]]>
 				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="135202e1-36fa-4ad5-91eb-c099cd9fc56a" x="139" y="206" width="94" height="20"/>
+				<reportElement uuid="135202e1-36fa-4ad5-91eb-c099cd9fc56a" x="139" y="206" width="120" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{EXPIRE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{EXPIRE})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c3b92e3b-32ba-46ce-81a0-011e75ecd877" x="351" y="206" width="140" height="20"/>
+				<reportElement uuid="c3b92e3b-32ba-46ce-81a0-011e75ecd877" x="351" y="206" width="156" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\Users\jasin\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NOTIFICATIONSEXPIRE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{NONTIFICATION_DATE_EXPIRE})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
