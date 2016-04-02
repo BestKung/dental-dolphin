@@ -9,16 +9,26 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.method.P;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartRequest;
+import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.MedicalHistory;
 import th.co.geniustree.dental.model.Patient;
 import th.co.geniustree.dental.model.PatientPicture;
@@ -188,5 +198,47 @@ public class PatientController {
     @RequestMapping(value = "/deletepatient", method = RequestMethod.POST)
     private void deletePatient(@RequestBody Patient patient) {
         patientRepo.delete(patient);
+    }
+    
+        @RequestMapping(value = "/personalinformationpatient/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") Integer id) {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\patient.jasper");
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("id", id);
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "patient-" + id, "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+    
+      @RequestMapping(value = "/printpatients", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printPatients() {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\patients.jasper");
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, null, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "patients", "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 }

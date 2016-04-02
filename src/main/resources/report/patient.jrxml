@@ -36,7 +36,7 @@ where p.id = $P{id}]]>
 	<field name="MOBILE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="NAME" class="java.lang.String">
+	<field name="PATIENT_NAME" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="NATION" class="java.lang.String">
@@ -171,7 +171,7 @@ where p.id = $P{id}]]>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\Users\BestKung\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PATIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="4313be81-c677-47d9-8e87-9eef8bbac30f" x="46" y="132" width="47" height="20"/>

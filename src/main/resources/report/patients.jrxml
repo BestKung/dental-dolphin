@@ -30,7 +30,7 @@
 	<field name="MOBILE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="NAME" class="java.lang.String">
+	<field name="PATIENT_NAME" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="NATION" class="java.lang.String">
@@ -154,7 +154,7 @@
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\Users\BestKung\Desktop\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PATIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="ac18a154-0be4-4239-8a0c-9e8701def7c4" x="174" y="6" width="52" height="20"/>

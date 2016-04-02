@@ -57,7 +57,7 @@ angular.module('patient-information').controller('patientInformationController',
 
     function searchPatient() {
         $http.post('/searchpatient', $scope.search).success(function (data) {
-            console.log(data+"-------------->");
+            console.log(data + "-------------->");
             if (data.content.length == 0 || $scope.search.keyword == "") {
                 $('#modal-notfont').openModal();
                 console.log(data);
@@ -258,5 +258,11 @@ angular.module('patient-information').controller('patientInformationController',
     $scope.toPreScroll = function () {
         toPreScroll();
     };
-
+    $scope.printPatient = function (id) {
+        location.href = '/personalinformationpatient/' + id;
+    };
+    
+    $scope.printPatients = function (){
+        location.href = '/printpatients';
+    };
 });
