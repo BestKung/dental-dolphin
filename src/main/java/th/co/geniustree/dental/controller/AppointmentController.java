@@ -54,6 +54,8 @@ public class AppointmentController {
         if ((appointment.getStatus() == null) || (" ".equals(appointment.getStatus()))) {
             appointment.setStatus("1");
         }
+        System.out.println("-------------------------------"+appointment.getStartTime());
+         System.out.println("-------------------------------"+appointment.getEndTime());
         appointmentRepo.save(appointment);
     }
 

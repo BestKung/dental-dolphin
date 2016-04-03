@@ -31,12 +31,16 @@ angular.module('appointment').controller('appointmentController', function ($sco
     var totalPageAppointment = 0;
     var pageAppointment = 0;
     $scope.saveAppointment = function () {
-        if (!!$scope.startTime) {
-            $scope.appointment.startTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.startTime)).format('YYYY-MM-d HH:mm:ss'));
-        }
-        if (!!$scope.endTime) {
-            $scope.appointment.endTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.endTime)).format('YYYY-MM-d HH:mm:ss'));
-        }
+//        if (!!$scope.startTime) {
+//            $scope.appointment.startTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.startTime)).format('YYYY-MM-d HH:mm:ss'));
+//            alert("st " + $scope.startTime);
+//        }
+//        if (!!$scope.endTime) {
+//            alert("en");
+//            $scope.appointment.endTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.endTime)).format('YYYY-MM-d HH:mm:ss'));
+//            alert("en " + $scope.endTime);
+//        }
+console.log($scope.appointment.endTime);
         if (($scope.appointment.endTime - $scope.appointment.startTime) < 0) {
             $('#modal-appointment').openModal();
         } else {
@@ -279,6 +283,7 @@ angular.module('appointment').controller('appointmentController', function ($sco
         $scope.appointment.mobile = $scope.patient.mobile;
         $('#label-mobile').addClass('active');
     };
+    
     $scope.selectDoctor = function (doctor) {
         $scope.appointment.doctor = doctor;
         $scope.doctor = $scope.appointment.doctor;
@@ -501,6 +506,7 @@ angular.module('appointment').controller('appointmentController', function ($sco
     $('#time-starttime input').ptTimeSelect({
         onClose: function (i) {
             $scope.startTime = $(i).val() + "";
+            $scope.appointment.startTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.startTime)).format('YYYY-MM-d HH:mm:ss'));
             $('#label-starttime').addClass('active');
             $('#prefix-starttime').addClass('active');
         }
@@ -508,6 +514,7 @@ angular.module('appointment').controller('appointmentController', function ($sco
     $('#time-endtime input').ptTimeSelect({
         onClose: function (i) {
             $scope.endTime = $(i).val() + "";
+            $scope.appointment.endTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.endTime)).format('YYYY-MM-d HH:mm:ss'));
             $('#label-endtime').addClass('active');
             $('#prefix-endtime').addClass('active');
         }

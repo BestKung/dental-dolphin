@@ -5,7 +5,6 @@
  */
 package th.co.geniustree.dental.controller;
 
-import com.sun.xml.internal.messaging.saaj.util.Base64;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

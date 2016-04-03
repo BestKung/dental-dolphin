@@ -50,6 +50,9 @@ angular.module('doctor').controller('doctorController', function (employeeServic
                 }
                 if (data == 1) {
                     $scope.errorEmail = 'อีเมลซ้ำ';
+                    $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                    Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                    $('body,html').animate({scrollTop: 0}, "600");
                 }
             }).error(function (data) {
                 $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
