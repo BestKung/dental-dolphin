@@ -5,9 +5,6 @@
  */
 package th.co.geniustree.dental.controller;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,7 +17,6 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,13 +27,13 @@ import org.springframework.web.multipart.MultipartRequest;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.MedicalHistory;
 import th.co.geniustree.dental.model.Patient;
-import th.co.geniustree.dental.model.PatientPicture;
 import th.co.geniustree.dental.model.PatientPictureAfter;
 import th.co.geniustree.dental.model.PatientPictureBefore;
 import th.co.geniustree.dental.model.PatientPictureCurrent;
 import th.co.geniustree.dental.model.PatientPictureXray;
 import th.co.geniustree.dental.model.SearchData;
 import th.co.geniustree.dental.model.StaffPicture;
+import th.co.geniustree.dental.repo.ClinicInformationRepo;
 import th.co.geniustree.dental.repo.MedicalHistoryRepo;
 import th.co.geniustree.dental.repo.PatientRepo;
 import th.co.geniustree.dental.repo.StaffPictureRepo;
@@ -62,6 +58,9 @@ public class PatientController {
 
     @Autowired
     private StaffPictureRepo pictureRepo;
+
+    @Autowired
+    private ClinicInformationRepo clinicInformationRepo;
 
     @RequestMapping(value = "/getmedicalhistory", method = RequestMethod.GET)
     private Page<MedicalHistory> getmedicalHistory(Pageable pageable) {
@@ -199,8 +198,8 @@ public class PatientController {
     private void deletePatient(@RequestBody Patient patient) {
         patientRepo.delete(patient);
     }
-    
-        @RequestMapping(value = "/personalinformationpatient/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/personalinformationpatient/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
         byte[] content = null;
@@ -221,8 +220,8 @@ public class PatientController {
         }
         return response;
     }
-    
-      @RequestMapping(value = "/printpatients", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/printpatients", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPatients() {
         InputStream inputStream = null;
         byte[] content = null;
@@ -234,6 +233,29 @@ public class PatientController {
             fill = JasperFillManager.fillReport(inputStream, null, h2ConnectAndExport.getH2Connection());
             content = JasperExportManager.exportReportToPdf(fill);
             response = h2ConnectAndExport.exportReportToClientBrowser(content, "patients", "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/cardpatient/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printCardPatient(@PathVariable("id") Integer id) {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\id_customer.jasper");
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("id", id);
+            param.put("clinicname", clinicInformationRepo.findOne(1).getClinicName());
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "patient-card-" + id, "pdf");
             h2ConnectAndExport.getH2Connection().close();
             return response;
         } catch (Exception e) {

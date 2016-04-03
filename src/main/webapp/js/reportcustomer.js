@@ -244,7 +244,10 @@ angular.module('reportcustomer').controller('reportCustomerController', function
     $scope.printPatients = function () {
         location.href = '/printpatients';
     };
-
+    
+     $scope.printId_card = function (id) {
+        location.href = '/cardpatient/' + id;
+    };
 });
 
 

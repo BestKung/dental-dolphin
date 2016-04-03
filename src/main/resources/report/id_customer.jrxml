@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" language="groovy" pageWidth="297" pageHeight="210" orientation="Landscape" columnWidth="257" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="440ea817-26f8-416d-9fd0-8730675f806a">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="clinicname" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from PATIENT where id = $P{id}]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDRESS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BIRTHDATE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BLOOD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="HN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="JOB" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MOBILE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NATION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RACE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SEX" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_BEFORE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_CURRENT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_PICTURE_XRAY_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="170" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b6531833-d459-47dd-acb5-7e6417853327" x="0" y="36" width="257" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH SarabunPSK" size="14" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clinicname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5f393534-4b8c-4186-a6ea-414ec91091f8" x="0" y="0" width="257" height="36"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH SarabunPSK" size="20" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[บัตรประจำตัวคนไข้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aea14d7a-6f82-4bc1-a915-a7bf305d713b" x="11" y="100" width="50" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ชื่อ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="407312e6-8c8f-4ca6-9801-7b6979d98401" x="61" y="100" width="83" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PATIENT_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="32ef4488-8c44-40dd-940f-96f245fee163" x="11" y="130" width="50" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันที่ทำบัตร]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="25311ab2-cbe3-4bd7-b2e1-69dd8b8ac6eb" x="61" y="130" width="131" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("th","TH")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="144" y="66" width="29" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[HN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6917a58d-4c96-4efc-95e9-1498f83122a2" x="11" y="66" width="50" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ลำดับ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="05fb51c5-5723-44ba-952d-236cffa322f9" x="61" y="66" width="83" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="173" y="66" width="78" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="eb2ff036-8a3c-43e5-9d68-dd2e204fcf22" x="144" y="100" width="29" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันเกิด]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e0bf3447-60eb-4ed7-9f40-5b91129da006" x="173" y="100" width="78" height="20"/>
+				<textElement textAlignment="Justified">
+					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("th","TH")).format($F{BIRTHDATE})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
