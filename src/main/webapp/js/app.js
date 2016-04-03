@@ -2,7 +2,7 @@ var app = angular.module('app', ['checklist-model', 'ngRoute', 'employee', 'depa
             , 'employee-information', 'doctor', 'doctor-information', 'patient'
             , 'bill', 'detailHeal', 'listSelectHeal', 'priceAndExpireProduct', 'product', 'typeProduct', 'unitProduct', 'lot',
     'patient-information', 'appointment', 'notifications', 'calendarPatient', 'calendarDoctor'
-    ,'reportproduct','reportappointment','reportcustomer','reportemployee','reportdoctor','workcalendar']);
+    ,'reportproduct','reportappointment','reportcustomer','reportemployee','reportdoctor','workcalendar','reportremainproduct']);
 var app = angular.module('app');
 
 app.controller('homeController', function ($scope, $http) {
@@ -249,6 +249,9 @@ app.config(function ($routeProvider) {
     }).when('/workcalendar', {
         controller: 'workcalendarControllers',
         templateUrl: 'pages/workcalendar.html'
+    }).when('/reportremainproduct', {
+        controller: 'reportremainproductController',
+        templateUrl: 'pages/reportremainproduct.html'
     }).otherwise({
         redirectTo: '/'
     });

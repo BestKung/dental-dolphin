@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหารอบการนำเข้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchDataLot.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" ng-model="searchDataLot.searchBy" ng-init="searchDataLot.searchBy = 'Name'">
+                            <option value="Name">คนเซ็นชื่อกำกับ</option>
+                            <option value="DateIn">วันที่นำเข้า</option>
+                            <option value="DateOut">วันที่นำออก</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContentLot()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางรอบการนำเข้าสินค้า</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearchLot()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="rowLot" ng-init="rowLot = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 10px;" class="table-department">ลำดับ</th>
+<!--                <th style="width: 30px;" class="table-department">คนเซ็นชื่อกำกับ</th>-->
+                <th style="width: 20px;" class="table-department">วันที่นำเข้า</th>
+                <th style="width: 20px;" class="table-department">วันที่นำออก</th>
+                <th style="width: 30px;"class="table-department">จัดการ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lo in lots.content">
+                        <td>{{lo.id}}</td>
+<!--                        <td>{{lo.nameStaffReam}}</td>-->
+                        <td>{{lo.dateIn}}</td>
+                        <td>{{lo.dateOut}}</td>
+                        <td>
+                       <a href="" ng-click="printRemainProduct(lo.id);" class="btn-custom-radius btn-moredetail brown">รายงานยอดคงเหลือสินค้า</a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page-Lot" ng-click="firstPageLot()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page-Lot" ng-click="prePageLot()"><p style="margin-top: 2px;">&LT</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageLot + 1}}</p></li>
+                        <li class="btn btn-pagination" id="next-page-Lot" ng-click="nextPageLot()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page-Lot" ng-click="finalPageLot()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
+</div>
