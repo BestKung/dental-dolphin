@@ -365,14 +365,18 @@ angular.module('detailHeal').controller('detailHealController', function ($scope
     };
     $scope.searchPatient = function () {
         $http.post('/searchpatient', $scope.searchDataPatient).success(function (data) {
-            pagePatient = 0;
-            $scope.currentPagePatient = pagePatient;
-            if (totalPagePatient > pagePatient) {
-                $('#next-page-patient').removeClass('disabled');
-                $('#final-page-patient').removeClass('disabled');
+            if (data.content.length == 0 || $scope.searchDataPatient.keyword == "") {
+                getPatient();
+            } else {
+                pagePatient = 0;
+                $scope.currentPagePatient = pagePatient;
+                if (totalPagePatient > pagePatient) {
+                    $('#next-page-patient').removeClass('disabled');
+                    $('#final-page-patient').removeClass('disabled');
+                }
+                $scope.patients = data;
+                countSearchPatient();
             }
-            $scope.patients = data;
-            countSearchPatient();
         });
     };
     function searchPatient() {
@@ -383,14 +387,18 @@ angular.module('detailHeal').controller('detailHealController', function ($scope
 
     $scope.searchDoctor = function () {
         $http.post('/searchdoctor', $scope.searchDataDoctor).success(function (data) {
-            pageDoctor = 0;
-            $scope.currentPageDoctor = pageDoctor;
-            if (totalPageDoctor > pageDoctor) {
-                $('#next-page-doctor').removeClass('disabled');
-                $('#final-page-doctor').removeClass('disabled')
+            if (data.content.length == 0 || $scope.searchDataDoctor.keyword == "") {
+                getDoctor();
+            } else {
+                pageDoctor = 0;
+                $scope.currentPageDoctor = pageDoctor;
+                if (totalPageDoctor > pageDoctor) {
+                    $('#next-page-doctor').removeClass('disabled');
+                    $('#final-page-doctor').removeClass('disabled');
+                }
+                $scope.doctors = data;
+                countSearchDctor();
             }
-            $scope.doctors = data;
-            countSearchDctor();
         });
     };
     function searchDoctor() {

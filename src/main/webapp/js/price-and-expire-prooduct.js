@@ -182,8 +182,12 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
 
     function searcDataContentLot() {
         $http.post('/loadlot/searchlotnondateout', $scope.searchDataLot, {params: {page: $scope.pageLot, size: $scope.rowLot}}).success(function (data) {
-            $scope.lots = data;
-            countSearchLot();
+            if (data.content.length == 0 || $scope.searchDataLot.keyword == "") {
+                loadLot();
+            } else {
+                $scope.lots = data;
+                countSearchLot();
+            }
         });
     }
 
@@ -340,8 +344,12 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
 
     function searcDataContentProduct() {
         $http.post('/loadlproduct/searchproduct', $scope.searchDataProduct, {params: {page: $scope.pageProduct, size: $scope.rowProduct}}).success(function (data) {
-            $scope.products = data;
-            countSearchproducts();
+            if (data.content.length == 0 || $scope.searchDataProduct.keyword == "") {
+                loadProduct();
+            } else {
+                $scope.products = data;
+                countSearchproducts();
+            }
         });
     }
 
@@ -577,12 +585,12 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
     }
 
 //===========================================================================================
- $scope.preScroll;
- $scope.priceAndExpireProductsDetail = {};
-$scope.moreDetail = function (paep) {
-    $scope.preScroll = $(window).scrollTop();
-    $scope.priceAndExpireProductsDetail = paep;
-};
+    $scope.preScroll;
+    $scope.priceAndExpireProductsDetail = {};
+    $scope.moreDetail = function (paep) {
+        $scope.preScroll = $(window).scrollTop();
+        $scope.priceAndExpireProductsDetail = paep;
+    };
 
 
 

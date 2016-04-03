@@ -209,4 +209,27 @@ public class PriceAndExpireProductController {
         return response;
     }
 
+    
+    @RequestMapping(value = "/remainproduct/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printRemainProduct(@PathVariable("id") Integer id) {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\remainproduct.jasper");
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("id", id);
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "lot-" + id, "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+    
 }

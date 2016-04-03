@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employees" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="448e602c-1eb6-4c41-a388-fdd98a02e4ec">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from priceandexpireproduct pap
+join product p on(pap.product_id = p.id)
+join lot l on(l.id = pap.lot_id)
+where l.id = $P{id}]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMOUNT_REMAINING" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EXPIRE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NONTIFICATION_DATE_EXPIRE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOTIFICATIONSEXPIRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOTIFICATIONSVALUE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRICEBUY" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRICESELL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS_NONTIFICATION_EXPIRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STATUS_NONTIFICATION_VALUE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STOP_NONTIFICATION_EXPIRE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="STOP_NONTIFICATION_VALUE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VALUE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRODUCT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BARCODE_MAIN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BARCODE_SUB" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TYPEPRODUCT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UNIT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATEIN" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATEOUT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAMESAFFREAM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="count_row" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="28a5cbce-330e-454f-9a8b-56219cb39437" x="136" y="0" width="301" height="56"/>
+				<textElement textAlignment="Center">
+					<font fontName="TH SarabunPSK" size="36" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รายงานยอดคงเหลือสินค้า]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8adec9e9-934d-4c32-90fd-044e89591682" x="507" y="0" width="48" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7a95f14f-14a4-45c5-9e14-725a31511067" x="466" y="0" width="41" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[หน้าที่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b6a642f1-0dc5-4536-97db-c9512313a58a" x="173" y="56" width="100" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รอบนำเข้าวันที่]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8a2b2db6-b4a6-4ee2-b069-f6c60b014df3" x="273" y="56" width="100" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{DATEIN})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32">
+			<staticText>
+				<reportElement uuid="d30e4f19-c03c-44d0-89f5-92f2efbbd8d3" x="51" y="11" width="77" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ชื่อสินค้า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7987a272-3b68-488e-bf46-7f2aeca0c10e" x="320" y="11" width="64" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ราคาซื้อ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75d0de82-d453-4107-90d9-90cefe676c13" x="384" y="11" width="64" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ราคาขาย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0d5e5c9-36a9-4753-b662-759ea3db59d0" x="128" y="11" width="79" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ae112a30-b12a-4d63-8270-ff011398fe1b" x="448" y="11" width="100" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันหมดอายุ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e93372d-fa7c-4650-b8b3-edc4d50572df" x="207" y="11" width="113" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ยอดคงเหลือ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="928ac037-87a3-47b2-8620-8e266cc5b78a" x="11" y="11" width="40" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ลำดับ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4578b88a-3acf-4ec9-8cb3-03583975b74d" x="51" y="0" width="77" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ffaaea49-9734-4604-8c7a-7e5fbaac3f4b" x="207" y="1" width="113" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AMOUNT_REMAINING}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b91430d6-2b51-4caa-b568-b5adbf1687c6" x="128" y="0" width="79" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b15444c4-0d3e-41a6-ba28-cbb3f744cab0" x="320" y="1" width="64" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRICEBUY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="df9da933-bf0b-49ae-a7ae-25aa89348c3d" x="448" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{EXPIRE})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7b4ce248-f30a-464f-b0a2-5d057a81ab90" x="384" y="1" width="64" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRICESELL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="628ea64b-2ed5-4bef-b568-3860ee588b0a" x="11" y="1" width="40" height="20"/>
+				<textElement>
+					<font pdfFontName="C:\font\THSarabun.ttf"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="29e56aa3-fc4e-4e44-b9f3-3c8c10d7e0d9" x="507" y="22" width="48" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dd2b279d-f4a7-43dc-a565-94ca0e2aa324" x="392" y="22" width="115" height="20"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนสินค้าทั้งหมด]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
