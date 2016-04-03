@@ -15,8 +15,8 @@
                     <i class="material-icons prefix clear-prefix email">email</i>
                     <input type="text" id="email" ng-model="doctor.email" ng-change="setBackgroundPrefixId();
                                     error.violations.email.message = '';
-                                    changePrefix('.email')">
-                    <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}</span></label>
+                                    changePrefix('.email');errorEmail = ''">
+                    <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}{{errorEmail}}</span></label>
                 </div>
             </div>
             <div class="row">

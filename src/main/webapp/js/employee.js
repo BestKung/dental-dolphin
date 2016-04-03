@@ -11,6 +11,7 @@ var app = angular.module('employee')
             $scope.image;
             $scope.error = {};
             $scope.password = "";
+            $scope.errorEmail = "";
             checkMobile();
             function  checkMobile() {
                 var $mobile = $(window).outerWidth() < 995;
@@ -120,9 +121,18 @@ var app = angular.module('employee')
                 if (confirmPassword()) {
                     $http.post('/savestaff', $scope.employee)
                             .success(function (data) {
-                                clearData();
-                                $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-                                Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                                if (data == 200) {
+                                    clearData();
+                                    $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                                    Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                                }
+                                if (data == 1) {
+                                    $scope.errorEmail = "อีเมลซ้ำ";
+                                    $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                                    Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                                    $scope.error = data;
+                                    $('body,html').animate({scrollTop: 0}, "600");
+                                }
                             }).error(function (data) {
                         $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
                         Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');

@@ -7,6 +7,7 @@ angular.module('employee-information').controller('employeeInformationController
     $scope.preScroll = 0;
     $scope.employeeDetail = {};
     $scope.selectEmployee = {};
+    $scope.page = 0;
     var page = 0;
     var totalPage = 0;
     var preCard = 0;
@@ -24,7 +25,7 @@ angular.module('employee-information').controller('employeeInformationController
 
     getEmployees();
     function getEmployees() {
-        $http.get('/staffs', {params: {page: page, size: $scope.row}}).success(function (data) {
+        $http.get('/staffs', {params: {page: $scope.page, size: $scope.row}}).success(function (data) {
             $scope.employees = data;
         });
     }
@@ -204,6 +205,7 @@ angular.module('employee-information').controller('employeeInformationController
     };
 
     $scope.nextPage = function () {
+
         if (!$('#final-page').hasClass('disabled')) {
             $scope.page++;
             selectGetOrSearch();

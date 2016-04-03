@@ -59,12 +59,19 @@ public class StaffController {
     private StaffSearchService employeeSearchService;
 
     @RequestMapping(value = "/savestaff", method = RequestMethod.POST)
-    public void saveStaff(@Validated @RequestBody Staff staff) {
+    public Integer saveStaff(@Validated @RequestBody Staff staff) {
+        Employee employee = employeeRepo.findByEmail(staff.getEmail());
+        if ((employee != null) && (staff.getId() == null)) {
+            return 1;
+        }
+
         if (staff.getStaffPicture() == null) {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStafPicture(picture);
         }
         staffRepo.save(staff);
+
+        return 200;
     }
 
     @RequestMapping(value = "/savestaffimage", method = RequestMethod.POST)
@@ -146,6 +153,16 @@ public class StaffController {
 
     @RequestMapping(value = "/deletestaff", method = RequestMethod.POST)
     public void deleteStaff(@RequestBody Staff staff) {
+        System.out.println("============================================================00000000000000000000000000000000");
+        if (staff.getStaffPicture() != null) {
+            System.out.println("----------------------------------------------------11111111111111111111111111111111111111111");
+            if (staff.getStaffPicture().getId() != 1) {
+                staffPictureRepo.delete(staff.getStaffPicture().getId());
+            } else {
+                staff.setStafPicture(null);
+                staffRepo.save(staff);
+            }
+        }
         staffRepo.delete(staff);
     }
 

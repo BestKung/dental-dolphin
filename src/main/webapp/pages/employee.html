@@ -10,8 +10,8 @@
                     </div>
                     <div class="col m6 s12 input-field">
                         <i class="material-icons prefix clear-prefix">email</i>
-                        <input type="text" id="email" ng-model="employee.email" ng-change="error.violations.email.message = '';setBackgroundPrefixId()">
-                        <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}</span></label>
+                        <input type="text" id="email" ng-model="employee.email" ng-change="error.violations.email.message = '';setBackgroundPrefixId();errorEmail = ''">
+                        <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}{{errorEmail}}</span></label>
                     </div>
                 </div>
                 <div class="row">

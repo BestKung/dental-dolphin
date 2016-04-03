@@ -28,9 +28,12 @@ import org.springframework.web.multipart.MultipartRequest;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Doctor;
 import th.co.geniustree.dental.model.DoctorPicture;
+import th.co.geniustree.dental.model.Employee;
 import th.co.geniustree.dental.model.SearchData;
 import th.co.geniustree.dental.model.StaffPicture;
+import th.co.geniustree.dental.repo.DoctorPictureRepo;
 import th.co.geniustree.dental.repo.DoctorRepo;
+import th.co.geniustree.dental.repo.EmployeeRepo;
 import th.co.geniustree.dental.repo.StaffPictureRepo;
 import th.co.geniustree.dental.service.DoctorSearchService;
 import th.co.geniustree.dental.spec.DoctorSpec;
@@ -47,21 +50,35 @@ public class DoctorController {
 
     @Autowired
     private DoctorSearchService doctorSearchService;
-    
+
     @Autowired
     private StaffPictureRepo pictureRepo;
 
+    @Autowired
+    private DoctorPictureRepo doctorPictureRepo;
+
+    @Autowired
+    private EmployeeRepo employeeRepo;
+
     @RequestMapping(value = "/savedoctor", method = RequestMethod.POST)
-    private void saveDoctor(@Validated @RequestBody Doctor doctor) {
-         if(doctor.getDoctorPicture() == null){
-        StaffPicture picture = pictureRepo.findOne(1);
-        DoctorPicture doctorPicture = new DoctorPicture();
-        doctorPicture.setContent(picture.getContentImage());
-        doctorPicture.setMimeType(picture.getType());
-        doctorPicture.setName(picture.getName());
-        doctor.setDoctorPicture(doctorPicture);
+    private Integer saveDoctor(@Validated @RequestBody Doctor doctor) {
+
+        Employee employee = employeeRepo.findByEmail(doctor.getEmail());
+        if ((employee != null) && (doctor.getId() == null)) {
+            return 1;
+        }
+
+        if (doctor.getDoctorPicture() == null) {
+            StaffPicture picture = pictureRepo.findOne(1);
+            DoctorPicture doctorPicture = new DoctorPicture();
+            doctorPicture.setContent(picture.getContentImage());
+            doctorPicture.setMimeType(picture.getType());
+            doctorPicture.setName(picture.getName());
+            doctor.setDoctorPicture(doctorPicture);
         }
         doctorRepo.save(doctor);
+        return 200;
+
     }
 
     @RequestMapping(value = "/selectpicture", method = RequestMethod.POST)
@@ -137,7 +154,7 @@ public class DoctorController {
     private void deleteDoctor(@RequestBody Doctor doctor) {
         doctorRepo.delete(doctor);
     }
-    
+
     @RequestMapping(value = "/personalinformationdoctor/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
@@ -159,6 +176,7 @@ public class DoctorController {
         }
         return response;
     }
+
     @RequestMapping(value = "/printedoctors", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printemployees() {
         InputStream inputStream = null;

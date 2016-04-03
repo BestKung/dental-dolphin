@@ -7,7 +7,7 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     $scope.doctor.endWork = new Date(employeeService.doctorUpdate.endWork);
     $scope.password = "";
     $scope.image;
-
+    $scope.errorEmail = "";
 
     checkMobile();
     function  checkMobile() {
@@ -25,7 +25,7 @@ angular.module('doctor').controller('doctorController', function (employeeServic
 
     checkDate();
     function checkDate() {
-         if (!!$scope.doctor.birthDate) {
+        if (!!$scope.doctor.birthDate) {
             $scope.doctor.birthDate = new Date();
             $('#label-birthdate').addClass('active');
             console.log($('#label-birthdate'));
@@ -43,9 +43,14 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     $scope.saveDoctor = function () {
         if (confirmPassword()) {
             $http.post('/savedoctor', $scope.doctor).success(function (data) {
-                $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-                Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
-                clearData();
+                if (data == 200) {
+                    $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                    Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                    clearData();
+                }
+                if (data == 1) {
+                    $scope.errorEmail = 'อีเมลซ้ำ';
+                }
             }).error(function (data) {
                 $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
                 Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
