@@ -2,7 +2,7 @@ var app = angular.module('app', ['checklist-model', 'ngRoute', 'employee', 'depa
             , 'employee-information', 'doctor', 'doctor-information', 'patient'
             , 'bill', 'detailHeal', 'listSelectHeal', 'priceAndExpireProduct', 'product', 'typeProduct', 'unitProduct', 'lot',
     'patient-information', 'appointment', 'notifications', 'calendarPatient', 'calendarDoctor'
-    ,'reportproduct','reportappointment','reportcustomer','reportemployee','reportdoctor','workcalendar','reportremainproduct']);
+            , 'reportproduct', 'reportappointment', 'reportcustomer', 'reportemployee', 'reportdoctor', 'workcalendar', 'reportremainproduct']);
 var app = angular.module('app');
 
 app.controller('homeController', function ($scope, $http) {
@@ -11,6 +11,15 @@ app.controller('homeController', function ($scope, $http) {
     $scope.clinic = {};
     checkMobile();
     $scope.totalNontification = 0;
+    $scope.manageEmployee = false;
+    $scope.manageDoctor = false;
+    $scope.managePatient = false;
+    $scope.manageHeal = false;
+    $scope.manageProduct = false;
+    $scope.manageBill = false;
+    $scope.viewWorkCalendar = true;
+    $scope.isAdmin = false;
+    $scope.employeeOrAdmin = false;
 
     function  checkMobile() {
         var $mobile = $(window).outerWidth() < 995;
@@ -25,7 +34,15 @@ app.controller('homeController', function ($scope, $http) {
     function startPageStaff() {
         $http.get('/startpagestaff').success(function (data) {
             $scope.login = data;
-            hasLogin();
+            hasLogin(data);
+            manageEmployee(data);
+            manageDoctor(data);
+            managePatient(data);
+            manageProduct(data);
+            manageBill(data);
+            viewWorkCalendar(data);
+            isAdmin(data);
+            employeeOrAdmin(data);
         });
     }
 
@@ -51,7 +68,6 @@ app.controller('homeController', function ($scope, $http) {
     getAppointment();
     function getAppointment() {
         $http.get('/appointmentnontificationcount').success(function (data) {
-            console.log(data + ' total nontification');
             $scope.totalNontification = $scope.totalNontification + data;
         });
     }
@@ -59,7 +75,6 @@ app.controller('homeController', function ($scope, $http) {
     getOutProduct();
     function getOutProduct() {
         $http.get('/getoutproductnonacknowledge').success(function (data) {
-            console.log(data + ' total nontification');
             $scope.totalNontification = $scope.totalNontification + data;
         });
     }
@@ -126,13 +141,11 @@ app.controller('homeController', function ($scope, $http) {
     function getClinic() {
         $http.get('/getclinic').success(function (data) {
             $scope.clinic = data;
-            console.log('iiiiiiiii' + !data.logo);
             if (!!data.logo) {
                 document.getElementById('logo').src = "data:image/jpg;base64," + data.logo;
             } else {
                 document.getElementById('logo').src = '../image/nologo.png';
             }
-            console.log(!!data);
             if (!!data) {
                 $('.update').addClass('active');
                 $('.clinic').css('color', '#00bcd4');
@@ -156,6 +169,68 @@ app.controller('homeController', function ($scope, $http) {
             $('#prefix-starttime').addClass('active');
         }
     });
+
+    function manageEmployee(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.manageEmployee = true;
+            }
+        }
+
+    }
+    function manageDoctor(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.manageDoctor = true;
+            }
+        }
+    }
+    function managePatient(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลคนไข้'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.managePatient = true;
+            }
+        }
+    }
+    function manageHeal(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลการรักษา'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.manageHeal = true;
+            }
+        }
+    }
+    function manageProduct(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลเวชภัณฑ์'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.manageProduct = true;
+            }
+        }
+    }
+    function manageBill(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลบิล'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.manageBill = true;
+            }
+        }
+    }
+       function viewWorkCalendar(data){
+        if(data.roles.length > 0){
+            $scope.viewWorkCalendar = false;
+        }
+    }
+    function isAdmin(data){
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                $scope.isAdmin = true;
+            }
+        }
+    }
+    function employeeOrAdmin(data){
+        if(data.roles.length > 0){
+            $scope.employeeOrAdmin = true;
+        }
+    }
+
 });
 
 app.factory('employeeService', function () {

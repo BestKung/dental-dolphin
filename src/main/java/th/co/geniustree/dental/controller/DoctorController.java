@@ -7,14 +7,17 @@ package th.co.geniustree.dental.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -189,6 +192,39 @@ public class DoctorController {
             fill = JasperFillManager.fillReport(inputStream, null, h2ConnectAndExport.getH2Connection());
             content = JasperExportManager.exportReportToPdf(fill);
             response = h2ConnectAndExport.exportReportToClientBrowser(content, "doctors", "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/printworkcalendar/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printWorkCalendar(@PathVariable("id") String id) {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\workcalendar.jasper");
+            Map<String, Object> param = new HashMap<String, Object>();
+            System.out.println("--------------------------------------------------------------------"+id);
+            String[] str = id.split("&&");
+            DateFormat sim = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+           
+//            Date startDate = sim.parse(str[1]);
+//            Date endDate = sim.parse(str[2]);
+           
+            param.put("doctorId", str[0]);
+            param.put("startDate", new Date(str[1]));
+            param.put("endDate", new Date(str[2]));
+            String start = new SimpleDateFormat("dd/MM/yyyy").format(new Date(str[1]));
+            String end = new SimpleDateFormat("dd/MM/yyyy").format(new Date(str[2]));
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            fill = JasperFillManager.fillReport(inputStream, param, h2ConnectAndExport.getH2Connection());
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "work-" + start + "-" + end, "pdf");
             h2ConnectAndExport.getH2Connection().close();
             return response;
         } catch (Exception e) {

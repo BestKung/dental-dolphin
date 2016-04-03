@@ -22,7 +22,7 @@
                     <div class="right margin-right hide-on-med-and-down">
                         <a href="#"><i class="margin-right-3 small mdi-action-lock-open waves-effect waves-light" ng-click="clickLogout()"></i><span></span><i></i></a>
                     </div>
-                    <div class="right margin-right hide-on-med-and-down">                      
+                    <div ng-show="employeeOrAdmin" class="right margin-right hide-on-med-and-down">                      
                         <a href="#/notification"><i class=" margin-right-3 small mdi-social-notifications-on waves-effect waves-light">                           
                             </i><span ng-show="showNontification()" style="padding: 2px 10px;background: red;color:  white;position: relative;left:-8px;top: -8px;border-radius: 5px;">
                                 {{totalNontification}}
@@ -30,7 +30,7 @@
                         </a>  
                     </div>
                     <div class="right margin-right hide-on-med-and-down">
-                        <a href="#/workcalendar"><i class=" margin-right-3 small mdi-notification-event-note waves-effect waves-light"> 
+                        <a ng-show="viewWorkCalendar" href="#/workcalendar"><i class=" margin-right-3 small mdi-notification-event-note waves-effect waves-light"> 
                             </i><span style="color: red ; font-weight: bold;"><b></b></span><i></i></a>
                     </div>
                     <div class="right margin-right hide-on-med-and-down">
@@ -144,23 +144,23 @@
         </div>
 
         <div class="fixed-navbar">
-            <nav style="background: #ffffff;position: fixed;z-index: 1000; " id="nav-topic">
+            <nav style="background: #ffffff;position: fixed;z-index: 1000; " id="nav-topic"  ng-controller="homeController">
                 <div class="container">
                     <ul class="hide-on-med-and-down">
-                        <li><a href="" class="dropdown-button text-sky" data-activates="employee" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-social-person"></i><span>พนักงาน</span><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
+                        <li ng-show="manageEmployee"><a href="" class="dropdown-button text-sky" data-activates="employee" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-social-person"></i><span>พนักงาน</span><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
                         <ul id="employee" class="dropdown-content" >
                             <li><a href="#/employee">เพิ่มพนักงาน</a></li>
                             <li><a href="#/employee/information">ตารางข้อมูลพนักงาน</a></li>
                             <li><a href="#/department">จัดการแผนกพนักงาน</a></li>
                         </ul>
 
-                        <li><a class="dropdown-button text-sky" href="#" data-activates="doctor" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-face-unlock"></i><span>ทันตแพทย์</span><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
+                        <li ng-show="manageDoctor"><a class="dropdown-button text-sky" href="#" data-activates="doctor" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-face-unlock"></i><span>ทันตแพทย์</span><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
                         <ul id="doctor" class="dropdown-content">
                             <li><a href="#/doctor">เพิ่มทันตแพทย์</a></li>
                             <li><a href="#/doctor/information">ตารางข้อมูลทันตแพทย์</a></li>
                         </ul>
 
-                        <li><a href="#" class="dropdown-button text-sky" data-activates="customer" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-social-people"></i><span>ลูกค้า</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
+                        <li ng-show="managePatient"><a href="#" class="dropdown-button text-sky" data-activates="customer" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-social-people"></i><span>ลูกค้า</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                         <ul id="customer" class="dropdown-content">
                             <li><a href="#/patient">เพิ่มลูกค้า</a></li>
                             <li><a href="#/patient/information">ตารางข้อมูลลูกค้า</a></li>
@@ -169,7 +169,7 @@
 
 
 
-                        <li><a href="#" class="dropdown-button text-sky" data-activates="Heal" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-maps-local-hospital"></i><span>รักษา</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
+                        <li ng-show="manageHeal"><a href="#" class="dropdown-button text-sky" data-activates="Heal" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-maps-local-hospital"></i><span>รักษา</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                         <ul class="dropdown-content" id="Heal">
                             <li><a href="#/listselectheal">จัดการชนิดการรักษา</a></li>
                             <li><a href="#/detailheal">บันทึกการรักษาและเลือกชนิดที่รักษา</a></li>
@@ -177,7 +177,7 @@
 
 
 
-                        <li><a href="#" class="dropdown-button text-sky" data-activates="stock" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-shopping-cart"></i><span>สินค้า</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
+                        <li ng-show="manageProduct"><a href="#" class="dropdown-button text-sky" data-activates="stock" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-shopping-cart"></i><span>สินค้า</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                         <ul class="dropdown-content" id="stock">
                             <li class="li-height"><a href="#/unitproduct">จัดการหน่วยสินค้า</a></li>
                             <li class="li-height"><a href="#/typeproduct">จัดการประเภทสินค้า</a></li>
@@ -186,15 +186,15 @@
                             <li class="li-height"><a href="#/price-and-expire-prooduct">จัดการราคาสินค้าและวันหมดอายุ</a></li>
                         </ul>
 
-                        <li><a href="#" class="dropdown-button text-sky" data-activates="calendar" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-today"></i><span>บิล</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
+                        <li><a ng-show="manageBill" href="#" class="dropdown-button text-sky" data-activates="calendar" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-today"></i><span>บิล</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                         <ul class="dropdown-content" id="calendar">
                             <li class="li-height"><a href="#/bill">จัดการบิล</a></li>                   
                         </ul>
 
                         <li><a href="#" class="dropdown-button text-sky" data-activates="print" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-print"></i><span>รายงาน</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                         <ul class="dropdown-content" id="print">
-                            <li class="li-height" ><a href="#/reportemployee">พนักงาน</a></li>
-                            <li class="li-height" ><a href="#/reportdoctor">ทันตแพทย์</a></li>
+                            <li ng-show="manageEmployee" class="li-height" ><a href="#/reportemployee">พนักงาน</a></li>
+                            <li ng-show="manageDoctor" class="li-height" ><a href="#/reportdoctor">ทันตแพทย์</a></li>
                             <li class="li-height" ><a href="#/reportcustomer">ลูกค้า</a></li>
                             <li class="li-height" ><a href="#/reportappointment">การนัดหมาย</a></li>
                             <li class="li-height" ><a href="#/reportproduct">สินค้า</a></li>

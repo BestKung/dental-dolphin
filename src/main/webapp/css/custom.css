@@ -269,18 +269,32 @@
     opacity: 0.7;
     position: relative;
     top: 2px;
-    }
-    .btn-orenge-card{
-        background-color: #FF5722;
-        color: white;
-    }
-    .btn-orenge-card:hover{
-         background-color: #FF5722;
-         opacity: 0.7;
-    }
-    .btn-orenge-card:active{
-         background-color: #FF5722;
-         opacity: 0.7;
-         position: relative;
-         top: 1px;
-    }
+}
+.btn-orenge-card{
+    background-color: #FF5722;
+    color: white;
+}
+.btn-orenge-card:hover{
+    background-color: #FF5722;
+    opacity: 0.7;
+}
+.btn-orenge-card:active{
+    background-color: #FF5722;
+    opacity: 0.7;
+    position: relative;
+    top: 1px;
+}
+.btn-print{
+    background-color: #ec407a;
+    color: white;
+}
+.btn-print:hover{
+    background-color: #ec407a;
+    opacity: 0.7;
+}
+.btn-print:active{
+    background-color: #ec407a;
+    opacity: 0.7;
+    position: relative;
+    top: 1px;
+}

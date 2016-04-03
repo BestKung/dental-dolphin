@@ -3,7 +3,11 @@ INSERT INTO CLINIC_INFORMATION(id,CLINIC_NAME) VALUES(1,'Dolphain Clinic');
 INSERT INTO AUTHORITY VALUES('ผู้ดูเเลระบบ');
 INSERT INTO AUTHORITY VALUES('จัดการข้อมูลคนไข้');
 INSERT INTO AUTHORITY VALUES('จัดการข้อมูลเวชภัณฑ์');
-INSERT INTO AUTHORITY VALUES('จัดการข้อมูลการนัด');
+INSERT INTO AUTHORITY VALUES('จัดการข้อมูลบิล');
+INSERT INTO AUTHORITY VALUES('จัดการข้อมูลการรักษา');
+
+
+
 
 -- INSERT INTO AUTHORITY VALUES('Admin');
 -- INSERT INTO AUTHORITY VALUES('Employee');
@@ -117,7 +121,7 @@ VALUES('Oran06@hotmail.com','1234','นายสมชัย ใจไปไห�
 INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
 VALUES('1','1','นายจสินทร์ แสงทรวง','employee',1);
 
-
+insert into EMPLOYEE_ROLES(employee_id,roles_role) values(1,'ผู้ดูเเลระบบ');
 INSERT INTO STAFF (PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
 ,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,id,STAFF_PICTURE_ID) 
 VALUES ('1730200213521','MRS.Geamma natade','2536-12-21','ชาย','B','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','133/1 ม.2'

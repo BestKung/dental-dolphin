@@ -1,7 +1,24 @@
 <div class="container">
     <div class="card">
         <div class="card-content">
-            <span class="card-title" style="color: black;"><h4>รายงานการทำงาน</h4></span>
+            <span class="card-title" style="color: black;"><h4>ตารางการทำงาน</h4></span>
+            <div class="row">
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">insert_invitation</i>
+                    <input type="date" id="startwork" class="datepicker" ng-model="start">
+                    <label for="startwork" class="update" id="label-startwork">จากวันที่</label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix">insert_invitation</i>
+                    <input type="date" id="endwork" class="datepicker" ng-model="end">
+                    <label for="endwork" class="update" id="label-endwork">ถึงวันที่</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center">
+                    <a class="btn-custom-radius btn-print" ng-click="clickPrint()">พิมพ์ตารางการทำงาน</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
