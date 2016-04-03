@@ -5,27 +5,48 @@
  */
 package th.co.geniustree.dental.controller;
 
+import com.sun.xml.internal.messaging.saaj.util.Base64;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Bill;
+import th.co.geniustree.dental.model.BillList;
+import th.co.geniustree.dental.model.ClinicInformation;
 import th.co.geniustree.dental.model.DetailHeal;
 import th.co.geniustree.dental.model.DetailHealAndTmpProduct;
 import th.co.geniustree.dental.model.OrderProduct;
 import th.co.geniustree.dental.model.PriceAndExpireProduct;
 import th.co.geniustree.dental.model.SearchData;
 import th.co.geniustree.dental.repo.BillRepo;
+import th.co.geniustree.dental.repo.ClinicInformationRepo;
 import th.co.geniustree.dental.repo.DetailHealRepo;
 import th.co.geniustree.dental.repo.OrderBillRepo;
 import th.co.geniustree.dental.repo.OrderProductRepo;
@@ -58,6 +79,9 @@ public class BillController {
 
     @Autowired
     private PriceAndExpireProductRepo priceAndExpireProductRepo;
+
+    @Autowired
+    private ClinicInformationRepo clinicInformationRepo;
 
     @RequestMapping(value = "/savebill", method = RequestMethod.POST)
     public Integer saveBill(@Validated @RequestBody DetailHealAndTmpProduct detailHealAndTmpProduct) {
@@ -209,6 +233,74 @@ public class BillController {
     @RequestMapping(value = "/totalbill", method = RequestMethod.GET)
     public Long getTotalBill() {
         return billRepo.count();
+    }
+
+    @RequestMapping(value = "/printbill/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") Integer id) {
+        InputStream inputStream = null;
+        byte[] content = null;
+        JasperPrint fill = null;
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            inputStream = App.class.getClassLoader().getResourceAsStream("report\\bill.jasper");
+            H2ConnectAndExport h2ConnectAndExport = new H2ConnectAndExport();
+            Bill bill = billRepo.findOne(id);
+            ClinicInformation clinic = clinicInformationRepo.findOne(1);
+            Map<String, Object> param = new HashMap<String, Object>();
+            param.put("bill_id", id);
+            param.put("totalprice", bill.getSumPrice());
+            param.put("date_bill", bill.getDateBill());
+            if (clinic != null) {
+                param.put("clinic_name", clinic.getClinicName());
+                param.put("clinic_address", clinic.getClinicAddress());
+                InputStream logo = new ByteArrayInputStream(clinic.getLogo());
+//                BufferedImage viewerImage = ImageIO.read(viewerInputStream);
+                param.put("logo", logo);
+            }
+            int totalSize = 0;
+            int detaiHealSize = 0;
+            int ProductSize = 0;
+            if (bill.getDetailHeal() != null) {
+                detaiHealSize = bill.getDetailHeal().getOrderHealDetailHeals().size();
+            }
+            if (bill.getOrderProduct() != null) {
+                ProductSize = bill.getOrderProduct().size();
+            }
+            totalSize = detaiHealSize + ProductSize;
+            Object[] model = new Object[totalSize];
+
+            if (bill.getDetailHeal() != null) {
+                for (int i = 0; i < bill.getDetailHeal().getOrderHealDetailHeals().size(); i++) {
+                    BillList billList = new BillList();
+                    billList.setName(bill.getDetailHeal().getOrderHealDetailHeals().get(i).getListSelectHeal().getName());
+                    billList.setPrice(bill.getDetailHeal().getOrderHealDetailHeals().get(i).getListSelectHeal().getPrice());
+                    billList.setUnit(null);
+                    billList.setValue((double) (bill.getDetailHeal().getOrderHealDetailHeals().get(i).getValue()));
+                    model[i] = billList;
+                }
+            }
+            if (bill.getOrderProduct() != null) {
+                for (int i = 0; i < bill.getOrderProduct().size(); i++) {
+                    BillList billList = new BillList();
+                    billList.setName(bill.getOrderProduct().get(i).getPriceAndExpireProduct().getProduct().getName());
+                    billList.setPrice(bill.getOrderProduct().get(i).getPriceAndExpireProduct().getPriceSell());
+                    billList.setUnit(bill.getOrderProduct().get(i).getPriceAndExpireProduct().getProduct().getUnit().getName());
+                    billList.setValue((double) (bill.getOrderProduct().get(i).getValue()));
+                    model[detaiHealSize + i] = billList;
+                }
+            }
+
+            JRBeanArrayDataSource arrayDataSource = new JRBeanArrayDataSource(model);
+
+            fill = JasperFillManager.fillReport(inputStream, param, arrayDataSource);
+            content = JasperExportManager.exportReportToPdf(fill);
+            response = h2ConnectAndExport.exportReportToClientBrowser(content, "bill-" + id, "pdf");
+            h2ConnectAndExport.getH2Connection().close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
 }
