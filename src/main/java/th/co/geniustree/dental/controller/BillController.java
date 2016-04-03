@@ -253,9 +253,11 @@ public class BillController {
             if (clinic != null) {
                 param.put("clinic_name", clinic.getClinicName());
                 param.put("clinic_address", clinic.getClinicAddress());
-                InputStream logo = new ByteArrayInputStream(clinic.getLogo());
+                if (clinic.getLogo() != null) {
+                    InputStream logo = new ByteArrayInputStream(clinic.getLogo());
 //                BufferedImage viewerImage = ImageIO.read(viewerInputStream);
-                param.put("logo", logo);
+                    param.put("logo", logo);
+                }
             }
             int totalSize = 0;
             int detaiHealSize = 0;

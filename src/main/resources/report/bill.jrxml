@@ -248,7 +248,7 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="112">
+		<band height="24">
 			<rectangle>
 				<reportElement uuid="d861b2b7-d3a6-4b0a-a663-57b046433f93" x="3" y="-1" width="450" height="20"/>
 			</rectangle>
