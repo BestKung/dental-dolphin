@@ -38,6 +38,7 @@ app.controller('homeController', function ($scope, $http) {
             manageEmployee(data);
             manageDoctor(data);
             managePatient(data);
+            manageHeal(data);
             manageProduct(data);
             manageBill(data);
             viewWorkCalendar(data);
