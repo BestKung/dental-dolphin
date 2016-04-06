@@ -2,7 +2,7 @@ var app = angular.module('app', ['checklist-model', 'ngRoute', 'employee', 'depa
             , 'employee-information', 'doctor', 'doctor-information', 'patient'
             , 'bill', 'detailHeal', 'listSelectHeal', 'priceAndExpireProduct', 'product', 'typeProduct', 'unitProduct', 'lot',
     'patient-information', 'appointment', 'notifications', 'calendarPatient', 'calendarDoctor'
-            , 'reportproduct', 'reportappointment', 'reportcustomer', 'reportemployee', 'reportdoctor', 'workcalendar', 'reportremainproduct']);
+            , 'reportproduct', 'reportappointment', 'reportcustomer', 'reportemployee', 'reportdoctor', 'workcalendar', 'reportremainproduct', 'order']);
 var app = angular.module('app');
 
 app.controller('homeController', function ($scope, $http) {
@@ -34,7 +34,6 @@ app.controller('homeController', function ($scope, $http) {
     function startPageStaff() {
         $http.get('/startpagestaff').success(function (data) {
             $scope.login = data;
-            hasLogin(data);
             manageEmployee(data);
             manageDoctor(data);
             managePatient(data);
@@ -53,11 +52,7 @@ app.controller('homeController', function ($scope, $http) {
     };
 
 
-    function hasLogin() {
-        if (!!$scope.login.id) {
-            $('#login').removeClass('btn-blue').addClass('btn-red').html('Logout');
-        }
-    }
+
 
     $scope.clickLogout = function () {
         if (!!$scope.login.id) {
@@ -188,46 +183,46 @@ app.controller('homeController', function ($scope, $http) {
     }
     function managePatient(data) {
         for (var i = 0; i < data.roles.length; i++) {
-            if (data.roles[i].role == 'จัดการข้อมูลคนไข้'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+            if (data.roles[i].role == 'จัดการข้อมูลคนไข้' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
                 $scope.managePatient = true;
             }
         }
     }
     function manageHeal(data) {
         for (var i = 0; i < data.roles.length; i++) {
-            if (data.roles[i].role == 'จัดการข้อมูลการรักษา'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+            if (data.roles[i].role == 'จัดการข้อมูลการรักษา' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
                 $scope.manageHeal = true;
             }
         }
     }
     function manageProduct(data) {
         for (var i = 0; i < data.roles.length; i++) {
-            if (data.roles[i].role == 'จัดการข้อมูลเวชภัณฑ์'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+            if (data.roles[i].role == 'จัดการข้อมูลเวชภัณฑ์' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
                 $scope.manageProduct = true;
             }
         }
     }
     function manageBill(data) {
         for (var i = 0; i < data.roles.length; i++) {
-            if (data.roles[i].role == 'จัดการข้อมูลบิล'||data.roles[i].role == 'ผู้ดูเเลระบบ') {
+            if (data.roles[i].role == 'จัดการข้อมูลบิล' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
                 $scope.manageBill = true;
             }
         }
     }
-       function viewWorkCalendar(data){
-        if(data.roles.length > 0){
+    function viewWorkCalendar(data) {
+        if (data.roles.length > 0) {
             $scope.viewWorkCalendar = false;
         }
     }
-    function isAdmin(data){
+    function isAdmin(data) {
         for (var i = 0; i < data.roles.length; i++) {
             if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
                 $scope.isAdmin = true;
             }
         }
     }
-    function employeeOrAdmin(data){
-        if(data.roles.length > 0){
+    function employeeOrAdmin(data) {
+        if (data.roles.length > 0) {
             $scope.employeeOrAdmin = true;
         }
     }
@@ -328,9 +323,13 @@ app.config(function ($routeProvider) {
     }).when('/reportremainproduct', {
         controller: 'reportremainproductController',
         templateUrl: 'pages/reportremainproduct.html'
-    }).otherwise({
-        redirectTo: '/'
-    });
+    }).when('/order', {
+        controller: 'orderController',
+        templateUrl: 'pages/order.html'
+    })
+            .otherwise({
+                redirectTo: '/'
+            });
 });
 
 app.directive('fileModel', function ($parse) {

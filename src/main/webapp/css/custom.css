@@ -298,3 +298,17 @@
     position: relative;
     top: 1px;
 }
+.btn-primary-custom{
+    background-color: #64b5f6;
+    color: white;
+}
+.btn-primary-custom:hover{
+    background-color: #64b5f6;
+    opacity: 0.7;
+}
+.btn-primary-custom:active{
+    background-color: #64b5f6;
+    opacity: 0.7;
+    position: relative;
+    top: 1px;
+}

@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>สั่งซื้อสินค้า</h4></span>
+            <div class="row">  
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">label</i>
+                    <input type="text" id="id" disabled ng-model="order.id">
+                    <label class="active" for="id">ลำดับ</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">label</i>
+                    <input type="text" id="name" ng-model="medicalSupplie.name">
+                    <label for="name">ชื่อสินค้า</label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">create</i>
+                    <input type="text" name="unit" ng-model="medicalSupplie.unit">
+                    <label id="unit" >หน่วยสินค้า</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">label</i>
+                    <input type="number" id="price" ng-model="medicalSupplie.price">
+                    <label for="price">ราคา</label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">create</i>
+                    <input type="number" name="value" ng-model="medicalSupplie.value">
+                    <label id="value" >จำนวน</label>
+                </div>
+                <div class="row">
+                    <div class="col m6 center">
+                        <a class="btn-custom-radius btn-edit right btn-primary-custom" ng-click="saveTmpOrder()" type="submit">เพิ่ม</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <span style="color: black;"><h5 style="margin-left: 20px">รายการสินค้า</h5></span>
+                </div>
+                <div class="row">
+                    <span style="color: black;" class="center"><h6 style="margin-left: 20px">ราคารวม  {{order.total}}  บาท</h6></span>
+                </div>
+                <div class="row">
+                    <table class="bordered" style="margin-left: 20px;">
+                        <thead>
+                            <tr>
+                                <th style="width:30px">ชื่อสินค้า</th>
+                                <th style="width:15px">หน่วย</th>
+                                <th style="width:15px">ราคา</th>
+                                <th style="width:10px">จำนวน</th>
+                                <th style="width:20px;">รวมเป็นเงิน</th>
+                                <th style="width:10px">ลบ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="to in tmpOrders.content">
+                                <td>{{to.name}}</td>
+                                <td>{{to.unit}}</td>
+                                <td>{{to.price}}</td>
+                                <td>{{to.value}}</td>
+                                <td>{{to.sum}}</td>
+                                <td><a class="btn-custom-radius btn-delete" ng-click="deleteTmpProduct(to)"><i class="mdi-action-delete"></i></a></td>
+                            </tr>
+                        </tbody>                        
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col m6 center">
+                        <a class="btn-best btn-edit right" ng-click="saveOrder()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                        <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหาใบสั่งซื้อสินค้า</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="search">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby">
+                            <option value="หมายเลขใบสั่งซื้อ">หมายเลขใบสั่งซื้อ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searchOrder()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางใบสั่งซื้อสินค้า</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="sizeOrder" ng-init="sizeOrder = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 10px" class="table-department">เลขที่ใบสั่งซื้อ</th>
+                <th style="width: 20px" class="table-department">วันที่ออกใบสั่งซื้อ</th>
+                <th style="width: 30px;"class="table-department">จัดการ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="o in orders.content">
+                        <td>{{o.id}}</td>
+                        <td>{{o.date}}</td>
+                        <td>
+                            <a class="btn-custom-radius btn-download" ng-click="printOrder(o.id)"><i class="mdi-action-description"></i> PDF</a>
+                            <a class="btn-custom-radius btn-delete" ng-click="deleteOrder(o)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="order-first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="order-pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
+                        <li class="btn btn-pagination" id="order-next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="order-final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

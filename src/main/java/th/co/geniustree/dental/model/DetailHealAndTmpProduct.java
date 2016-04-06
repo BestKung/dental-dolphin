@@ -69,9 +69,4 @@ public class DetailHealAndTmpProduct {
         this.dateUpdate = dateUpdate;
     }
 
-    @Override
-    public String toString() {
-        return "DetailHealAndTmpProduct{" + "day=" + day + ", detailHeal=" + detailHeal + ", tmpProducts=" + tmpProducts + ", sumPrice=" + sumPrice + '}';
-    }
-
 }

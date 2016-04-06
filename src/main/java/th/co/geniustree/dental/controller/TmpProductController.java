@@ -23,36 +23,35 @@ import th.co.geniustree.dental.spec.TmpProductSpec;
  */
 @RestController
 public class TmpProductController {
-    
+
     @Autowired
     private TmpProductRepo tmpProductRepo;
-    
-    @RequestMapping(value = "/savetmpproduct" , method = RequestMethod.POST)
-    private void saveTmpProduct(@RequestBody TmpProduct tmpProduct){
-        System.out.println("------------------------------------------------------------------------>"+tmpProduct);
-    tmpProductRepo.save(tmpProduct);
+
+    @RequestMapping(value = "/savetmpproduct", method = RequestMethod.POST)
+    private void saveTmpProduct(@RequestBody TmpProduct tmpProduct) {
+        tmpProductRepo.save(tmpProduct);
     }
-    
-    @RequestMapping(value = "/deletetmpproduct" , method = RequestMethod.POST)
-    private void deleteTmpProduct(@RequestBody TmpProduct tmpProduct){
-    tmpProductRepo.delete(tmpProduct);
+
+    @RequestMapping(value = "/deletetmpproduct", method = RequestMethod.POST)
+    private void deleteTmpProduct(@RequestBody TmpProduct tmpProduct) {
+        tmpProductRepo.delete(tmpProduct);
     }
-    
-     @RequestMapping(value = "/deletetmpproductlist" , method = RequestMethod.POST)
-    private void deleteTmpProductList(@RequestBody List<TmpProduct> tmpProducts){
-    for(int i = 0 ; i<tmpProducts.size() ; i++){
-    tmpProductRepo.delete(tmpProducts.get(i));
+
+    @RequestMapping(value = "/deletetmpproductlist", method = RequestMethod.POST)
+    private void deleteTmpProductList(@RequestBody List<TmpProduct> tmpProducts) {
+        for (int i = 0; i < tmpProducts.size(); i++) {
+            tmpProductRepo.delete(tmpProducts.get(i));
+        }
     }
+
+    @RequestMapping(value = "/gettmpproduct", method = RequestMethod.POST)
+    private Page<TmpProduct> getTmpproduct(@RequestBody String user, Pageable pageable) {
+        return tmpProductRepo.findByUser(user, pageable);
     }
-    
-    @RequestMapping(value = "/gettmpproduct" , method = RequestMethod.POST)
-    private Page<TmpProduct> getTmpproduct(@RequestBody String user , Pageable pageable){
-    return tmpProductRepo.findByUser(user, pageable);
+
+    @RequestMapping(value = "/counttmpproduct", method = RequestMethod.POST)
+    private long counttmpproduct(@RequestBody String userName) {
+        return tmpProductRepo.count(TmpProductSpec.nameUser(userName));
     }
-    
-    @RequestMapping(value = "/counttmpproduct" , method = RequestMethod.POST)
-    private long counttmpproduct(@RequestBody String userName){
-    return tmpProductRepo.count(TmpProductSpec.nameUser(userName));
-    }
-    
+
 }
