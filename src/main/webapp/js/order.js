@@ -10,19 +10,25 @@ angular.module('order').controller('orderController', function ($scope, $http) {
     $scope.sizeOrder = 10;
     $scope.currentPage = 0;
     $scope.totalOrder = 0;
+    $scope.error = '';
     var totalPage;
     var page = 0;
     $scope.search;
+
     $scope.saveTmpOrder = function () {
+
         $http.get('/startpagestaff').success(function (login) {
             $scope.medicalSupplie.doctorId = login.id;
             $http.post('/savetmporder', $scope.medicalSupplie).success(function (data) {
                 getTmpOrder();
-                $scope.order.total += ($scope.medicalSupplie.price * $scope.medicalSupplie.value);
+                if ($scope.medicalSupplie.price != undefined && $scope.medicalSupplie.value != undefined) {
+                    $scope.order.total += ($scope.medicalSupplie.price * $scope.medicalSupplie.value);
+                }
                 clear();
             });
         });
     };
+
     function getTmpOrder() {
         $http.get('/startpagestaff').success(function (login) {
             $http.post('/gettmporder', login.id, {params: {size: 100, page: 0}}).success(function (data) {
@@ -37,7 +43,9 @@ angular.module('order').controller('orderController', function ($scope, $http) {
             $http.post('/gettmporder', login.id, {params: {size: 100, page: 0}}).success(function (data) {
                 $scope.tmpOrders = data;
                 for (var i = 0; i < data.content.length; i++) {
-                    $scope.order.total += (parseFloat(data.content[i].price) * parseFloat(data.content[i].value));
+                    if (data.content[i].price != undefined && data.content[i].value != undefined) {
+                        $scope.order.total += (parseFloat(data.content[i].price) * parseFloat(data.content[i].value));
+                    }
                 }
             });
         });
@@ -47,9 +55,20 @@ angular.module('order').controller('orderController', function ($scope, $http) {
         $scope.medicalSupplie = {};
     }
     ;
+    $scope.clear = function () {
+        $scope.medicalSupplie = {};
+        for (var i = 0; i < $scope.tmpOrders.content.length; i++) {
+            $http.post('/deletetmporder', $scope.tmpOrders.content[i]).success(function (data) {
+                getTmpOrder();
+            });
+        }
+        $scope.order.total = 0;
+    };
     $scope.deleteTmpProduct = function (dataProduct) {
         $http.post('/deletetmporder', dataProduct).success(function (data) {
-            $scope.order.total -= (parseFloat(dataProduct.price) * parseFloat(dataProduct.value));
+            if (dataProduct.price != undefined && dataProduct.price != undefined) {
+                $scope.order.total -= (parseFloat(dataProduct.price) * parseFloat(dataProduct.price));
+            }
             getTmpOrder();
         });
     };
