@@ -54,6 +54,7 @@ app.controller('homeController', function ($scope, $http) {
 
 
 
+
     $scope.clickLogout = function () {
         if (!!$scope.login.id) {
             location.href = "/logout";

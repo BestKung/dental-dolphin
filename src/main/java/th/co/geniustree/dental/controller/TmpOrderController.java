@@ -28,11 +28,10 @@ public class TmpOrderController {
 
     @RequestMapping(value = "/savetmporder", method = RequestMethod.POST)
     public void saveTmpOrder(@RequestBody TmpOrder tmpOrder) {
-        if (tmpOrder.getPrice() != null || tmpOrder.getValue() != null) {
+        if (tmpOrder.getPrice() != null && tmpOrder.getValue() != null) {
             tmpOrder.setSum(tmpOrder.getPrice() * tmpOrder.getValue());
         }
         tmpOrderRepo.save(tmpOrder);
-//        List<TmpOrder> tmp = tmpOrderRepo.findAllByDoctorId(1);
     }
 
     @RequestMapping(value = "/gettmporder", method = RequestMethod.POST)
