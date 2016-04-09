@@ -36,7 +36,9 @@ import th.co.geniustree.dental.model.FileExport;
 import th.co.geniustree.dental.model.Staff;
 import th.co.geniustree.dental.model.StaffPicture;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.model.StaffGennerateCode;
 import th.co.geniustree.dental.repo.EmployeeRepo;
+import th.co.geniustree.dental.repo.StaffGennerateCodeRepo;
 import th.co.geniustree.dental.repo.StaffPictureRepo;
 import th.co.geniustree.dental.repo.StaffRepo;
 import th.co.geniustree.dental.service.StaffSearchService;
@@ -57,6 +59,8 @@ public class StaffController {
     private StaffPictureRepo staffPictureRepo;
     @Autowired
     private StaffSearchService employeeSearchService;
+    @Autowired
+    private StaffGennerateCodeRepo codeRepo;
 
     @RequestMapping(value = "/savestaff", method = RequestMethod.POST)
     public Integer saveStaff(@Validated @RequestBody Staff staff) {
@@ -69,8 +73,15 @@ public class StaffController {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStafPicture(picture);
         }
+        StaffGennerateCode gennerateCode = codeRepo.save(new StaffGennerateCode());
+        int idLength = (gennerateCode.getId() + "").length();
+        String strId = gennerateCode.getId() + "";
+        for (int i = idLength; i <= 4; i++) {
+            strId = 0 + strId;
+        }
+        staff.setIdStaff("SF" + strId);
+        codeRepo.delete(gennerateCode);
         staffRepo.save(staff);
-
         return 200;
     }
 

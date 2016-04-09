@@ -26,6 +26,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "STAFF")
 public class Staff extends Employee implements Serializable {
+    
+    private String idStaff;
 
     @Column(name = "PERSONAL_ID")
     private String pid;
@@ -91,6 +93,9 @@ public class Staff extends Employee implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     private StaffPicture staffPicture;
+
+    @OneToOne
+    private StaffGennerateCode gennerateCode;
 
     private Double salary;
 
@@ -260,6 +265,22 @@ public class Staff extends Employee implements Serializable {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    public StaffGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(StaffGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
+    }
+
+    public String getIdStaff() {
+        return idStaff;
+    }
+
+    public void setIdStaff(String idStaff) {
+        this.idStaff = idStaff;
     }
 
 }
