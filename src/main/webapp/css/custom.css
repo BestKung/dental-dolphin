@@ -312,3 +312,32 @@
     position: relative;
     top: 1px;
 }
+.box{
+    width: 150px;
+    height: 150px;
+    background-color: #009900;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    padding-top: 40px;
+}
+.box1{
+    width: 150px;
+    height: 150px;
+    background-color: #ff3d00;
+    border-radius: 5px;
+    text-align: center;
+    align-items: center;
+    color: white;
+    padding-top: 40px;
+}
+.box-open-room{
+    width: 150px;
+    height: 150px;
+    background-color: #ffc107;
+    border-radius: 5px;
+    text-align: center;
+    align-items: center;
+    color: white;
+    padding-top: 40px;
+}

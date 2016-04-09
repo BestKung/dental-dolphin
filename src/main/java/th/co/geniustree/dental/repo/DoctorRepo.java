@@ -15,9 +15,10 @@ import th.co.geniustree.dental.model.Doctor;
  *
  * @author Best
  */
+public interface DoctorRepo extends JpaRepository<Doctor, Integer>, JpaSpecificationExecutor<Doctor> {
 
-public interface DoctorRepo extends JpaRepository<Doctor, Integer> , JpaSpecificationExecutor<Doctor>{
-    
     public Doctor findByEmail(String email);
-    
+
+    public Doctor findById(Integer id);
+
 }

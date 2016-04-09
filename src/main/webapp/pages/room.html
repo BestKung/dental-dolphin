@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>ห้องทันตเเพทย์</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix clear-prefix">account_balance</i>
+                    <input type="text" name="room-id" style="background-color: " ng-model="room.roomId" ng-change="errorDup = '';error = {}">
+                    <label for="room-id" id="room-id">หมายเลขห้อง<span class="necessary">*</span><span class="margin-left necessary-text">{{errorDup}}{{error.violations.roomId.message}}</span></label>
+                </div>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix clear-prefix" id="prefix-appointment-id">label</i>
+                    <input type="text" id="id"  ng-model="doctorId" ng-blur="loadDoctor()">
+                    <label for="id" class="update" id="id">รหัสทันตเเพทย์</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix clear-prefix">face</i>
+                    <input type="text" name="name-doctor" ng-model="doctorName">
+                    <label for="name-doctor" id="name-doctor">ชื่อทันตเเพทย์</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 center">
+                    <a class="btn-best btn-edit right" ng-click="saveRoom()" type="submit">บันทึก<i class="mdi-content-send right"></i></a>
+                    <a class="btn-best btn-orenge right" ng-click="clear()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>ค้นหาห้องทันตเเพทย์</h4></span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" ng-model="searchData.keyword">
+                    <label for="search" >ค้นหา : </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m3">
+                    <span><h6>ค้นหาโดย : </h6></span>
+                    <div class="select-custom">
+                        <select class="browser-default" id="select-searchby" >
+                            <option value="Name">เลขห้อง</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin-top: 20px">
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางข้อมูลห้องทันตเเพทย์</span>
+                </div>
+                <div class="col m6">
+                    <div class="right">
+                        <span class="">จำนวนแถวที่แสดง : </span>
+                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="row" ng-init="row = '10'">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="bordered hoverable responsive-table">
+                <thead>
+                <th style="width: 20px" class="table-department">หมายเลยห้อง</th>
+                <th style="width: 40px" class="table-department">ทันตเเพทย์</th>
+                <th style="width: 15px;"class="table-department">จัดการ</th>
+                <th style="width: 10px;"class="table-department">สถานะ</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="room in rooms.content">
+                        <td>{{room.roomId}}</td>
+                        <td>{{room.doc.nameTh}}</td>
+                        <td>
+                            <a class="btn-custom-radius btn-edit" ng-click="updateTpyeProduct(tp)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(tp)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                        <td>
+                            <a class="btn-custom-radius" style="background-color: #33691e" ng-click="actionDelete(tp)">เปิด</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>226</td>
+                        <td>นายสมชัย ใจไปไหม</td>
+                        <td>
+                            <a class="btn-custom-radius btn-edit" ng-click="updateTpyeProduct(tp)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(tp)"><i class="mdi-action-delete"></i></a>
+                        </td>
+                        <td>
+                            <a class="btn-custom-radius" style="background-color: #33691e" ng-click="actionDelete(tp)">เปิด</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination disabled" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination disabled" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">1</p></li>
+                        <li class="btn btn-pagination disabled" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination disabled" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-doctor-notfont" class="modal" style="border-radius: 10px;overflow-x: hidden">
+        <div class="modal-content">
+            <div class="row center" style="height: 150px;">
+                <div style="margin-top: 60px">
+                    <font size="100" color="#90a4ae"> ไม่พบทันตเเพทย์</font>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="warp-toast">
+    </div>
+
+</div>

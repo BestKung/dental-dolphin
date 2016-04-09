@@ -11,6 +11,9 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -90,7 +93,7 @@ public class Doctor extends Employee implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     private DoctorPicture doctorPicture;
-    
+
     private Double salary;
 
     public String getPermitNo() {
@@ -268,5 +271,5 @@ public class Doctor extends Employee implements Serializable {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
-    
+
 }
