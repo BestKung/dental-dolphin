@@ -1,0 +1,278 @@
+[33mcommit 28301c3931599489f49bf76950ddbb1a42da9cf8[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sat Apr 9 15:52:50 2016 +0700
+
+    merg
+
+[33mcommit f92faa895d544cede83905920f422261860d8e85[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sat Apr 9 15:17:36 2016 +0700
+
+    commit room v 1
+
+[33mcommit 416ce335d764b8fe682e650b9b9817c05ac2aa6a[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Apr 7 14:09:26 2016 +0700
+
+    commit doctor
+
+[33mcommit c1ee3e6e2f4b4b84e655d8c81e72e93164197201[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Thu Apr 7 13:59:50 2016 +0700
+
+    7-04-2559
+
+[33mcommit a2b2413a31591038f5879118dc9990e66b464e10[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Apr 7 13:12:23 2016 +0700
+
+    commit order save
+
+[33mcommit 86ae41a2e2958968d547af184f4360f3688c30f9[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Wed Apr 6 23:07:47 2016 +0700
+
+    commit debug
+
+[33mcommit 8751fbfc8c4a124256b6ccbbbb2edcdb12bfc3fc[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Wed Apr 6 21:46:54 2016 +0700
+
+    commit order
+
+[33mcommit 16bbff7ac640e12f1642d3ed252ecd33b811d270[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Mon Apr 4 14:42:14 2016 +0700
+
+    commit edit
+
+[33mcommit 2fbc1b3ff84e9bf2fd54a257005904793d08add3[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Mon Apr 4 00:54:00 2016 +0700
+
+    commit roles
+
+[33mcommit 099c15141ab4ec19692cebc94114622ac65250ec[m
+Merge: 4a317c5 517b086
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sun Apr 3 20:23:53 2016 +0700
+
+    Merge branch 'master' of https://github.com/BestKung/dental-dolphin
+
+[33mcommit 4a317c567985507f52facba1d4921474ab0358b3[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sun Apr 3 20:23:41 2016 +0700
+
+    commit
+
+[33mcommit 517b0863362e6d12b6de880478b92bc3153fb462[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sun Apr 3 18:55:14 2016 +0700
+
+    add 3-04-2559 path 3
+
+[33mcommit 8e8a4d198b4e401537d73d9c335ff65b7a9fc84b[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sun Apr 3 17:46:58 2016 +0700
+
+    solve 3-4-2559
+
+[33mcommit ac35f0ed9392e1bfda64bc16a8e366a69dfdf886[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sun Apr 3 17:02:18 2016 +0700
+
+    commit
+
+[33mcommit c18e6045508fb9e5320ec88da3fe12b48897b9a8[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sun Apr 3 13:06:00 2016 +0700
+
+    3-04-2559 path 2
+
+[33mcommit 400b1d0022483372708f15c1b2f55b7d69ab6719[m
+Merge: 61c4212 5fc4aa9
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sun Apr 3 12:58:29 2016 +0700
+
+    Merge branch 'master' of https://github.com/BestKung/dental-dolphin
+
+[33mcommit 5fc4aa99eb0fb3299830b40c2560e028121db41a[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sun Apr 3 12:57:24 2016 +0700
+
+    commit bill report 2
+
+[33mcommit 61c42128be083bc76d2a62f78cbe53000a4e2020[m
+Merge: eda032a b9db0ed
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sun Apr 3 12:46:11 2016 +0700
+
+    Merge branch 'master' of https://github.com/BestKung/dental-dolphin
+
+[33mcommit eda032acd60fe6d8afd4956e42f03b88c8fe003b[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sun Apr 3 08:09:08 2016 +0700
+
+    3-04-2559
+
+[33mcommit b9db0edf8bdc767292becdc3b38e8b160d311f3d[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sun Apr 3 04:45:06 2016 +0700
+
+    commit report bill
+
+[33mcommit 3c33facd8e6fc07537e766693aa5b3bae00c02ec[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sat Apr 2 17:42:48 2016 +0700
+
+    add 2-4-2559
+
+[33mcommit 9838fc7ee2ad808c77f63c1e14faf8a8232e702d[m
+Merge: 9e03a14 0c925fd
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sat Apr 2 15:38:15 2016 +0700
+
+    merg
+
+[33mcommit 9e03a145f8bfb912344f4dc5a24a99a9d9de0527[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Sat Apr 2 15:36:10 2016 +0700
+
+    commit patient
+
+[33mcommit 0c925fd533e5fd23c80b9aea7be1bb56c18b9518[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Sat Apr 2 15:19:20 2016 +0700
+
+    2-04-2559
+
+[33mcommit 4c48d9762435e56ccf3ba96966097a6ee2e244b9[m
+Merge: 82074a5 26449ac
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Fri Apr 1 22:43:18 2016 +0700
+
+    Merge branch 'master' of https://github.com/BestKung/dental-dolphin
+
+[33mcommit 82074a53f0288d050e2f372d0d1a4ea7885ab3c4[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Fri Apr 1 22:42:27 2016 +0700
+
+    add appointmentreport
+
+[33mcommit 26449acd8e375139466d4fcde2e6fb3be3c12bf7[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Fri Apr 1 21:14:25 2016 +0700
+
+    commit patient
+
+[33mcommit 75ef5375328a4bb6e247c08412dc0863f3985ebc[m
+Merge: 240add4 2189fc0
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Fri Apr 1 20:38:03 2016 +0700
+
+    Merge branch 'master' of https://github.com/BestKung/dental-dolphin
+
+[33mcommit 240add45e714f7e3c34873229ccc7ff8ffa16cea[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Fri Apr 1 20:37:48 2016 +0700
+
+    sasa
+
+[33mcommit abcba7bff5d2df6055bea6fcb3bfe43c0cdf8cd0[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Fri Apr 1 15:56:44 2016 +0700
+
+    1-04-2559
+
+[33mcommit 2189fc0e1461305e7ceec97281cf7d71b0947118[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 31 14:41:21 2016 +0700
+
+    commit clinic information
+
+[33mcommit 74d4b64e1b1060866509a92cad965ee048c59e14[m
+Merge: 63e6a5e 28deb4d
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 31 14:39:47 2016 +0700
+
+    merg
+
+[33mcommit 63e6a5e3f2ee8d20c40828957f3fcfb82d2e8595[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 31 14:38:24 2016 +0700
+
+    merg
+
+[33mcommit 28deb4dee407efb192b8b47c020d2180bea662a8[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Thu Mar 31 14:32:54 2016 +0700
+
+    31-03-2559
+
+[33mcommit 67b1be7447f56aac5eedd15f8536ee0cdafaa3b4[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 31 02:04:14 2016 +0700
+
+    commit clinic information
+
+[33mcommit cbad836a373f3f77c27c3184cc8e5ef52c76feb8[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Wed Mar 30 00:53:45 2016 +0700
+
+    commit login error and repore employees
+
+[33mcommit cddb0804f997bbabff0e0999e2d2fcf4c8339732[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Mon Mar 28 16:47:26 2016 +0700
+
+    commit report v1 employee
+
+[33mcommit 63acde5b985bc8f6f1e17f911445bf053a232122[m
+Merge: e258260 d14ddca
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 24 21:26:55 2016 +0700
+
+    commit report employee
+
+[33mcommit e2582600ae3d9f5ade2a7312d496cf2160008b2e[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 24 21:25:41 2016 +0700
+
+    merg
+
+[33mcommit 3c7a1b0f41746c6dc10d71b9439e822a11287c89[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Thu Mar 24 14:21:43 2016 +0700
+
+    commit nontification
+
+[33mcommit d14ddca1f79a397eea6b868f3675e5465db08feb[m
+Merge: 9ca97d9 3c7a1b0
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Wed Mar 23 15:24:11 2016 +0700
+
+    23-03-2559
+
+[33mcommit 9ca97d9e4a34eeee62ace4438643af303d1b0fc6[m
+Author: metavin007 <meta.vin@hotmail.com>
+Date:   Wed Mar 23 14:22:57 2016 +0700
+
+    ssss
+
+[33mcommit d7854e11bb918726eb043617676d0fcf67b52a88[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Tue Mar 22 23:06:09 2016 +0700
+
+    commit bill
+
+[33mcommit 24aeb4a06f50848c14e84207fbd2d7d4a89667bc[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Tue Mar 22 22:23:46 2016 +0700
+
+    commit nontification
+
+[33mcommit b476b6dafde6189c9beb2850007a507fcc547338[m
+Author: Bestkung <best.kittiporn@gmail.com>
+Date:   Mon Mar 21 15:46:49 2016 +0700
+
+    first
