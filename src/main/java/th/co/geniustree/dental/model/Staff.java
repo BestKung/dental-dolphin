@@ -8,16 +8,18 @@ package th.co.geniustree.dental.model;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.AttributeOverride;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -27,19 +29,9 @@ import javax.persistence.Table;
 @Table(name = "STAFF")
 public class Staff extends Employee implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idGen;
-
+   
     private String idStaff;
-
-    public Integer getIdGen() {
-        return idGen;
-    }
-
-    public void setIdGen(Integer idGen) {
-        this.idGen = idGen;
-    }
-
+  
     public String getIdStaff() {
         return idStaff;
     }
@@ -71,9 +63,6 @@ public class Staff extends Employee implements Serializable {
         this.staffPicture = staffPicture;
     }
 
-    @Override
-    public String toString() {
-        return "Staff{" + "idGen=" + idGen + ", idStaff=" + idStaff + ", department=" + department + ", staffPicture=" + staffPicture + '}';
-    }
+   
 
 }

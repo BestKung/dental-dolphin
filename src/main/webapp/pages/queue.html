@@ -1,0 +1,183 @@
+
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title" style="color: black;"><h4>จัดการคิว</h4></span>
+            <span class="row">
+                <div class="right">
+                    <a class="btn-best btn-search" onclick=" $('#modal-clinic-information').openModal({});" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-today" style="margin-right: 5px"></i>นัดไว้</a>
+                </div>
+            </span>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">account_balance
+                    </i>
+                    <input type="text" id="name" ng-model="medicalSupplie.name">
+                    <label for="name">HN</label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input type="text" name="unit" ng-model="medicalSupplie.unit">
+                    <label id="unit" >ชื่อผู้ป่วย</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">face
+                    </i>
+                    <input type="text" id="name" ng-model="medicalSupplie.name">
+                    <label for="name">ชื่อทันตเเพทย์</label>
+                </div>
+                <div class="col m6 input-field">
+                    <i class="material-icons prefix">content_paste</i>
+                    <textarea type="text" name="unit" class="materialize-textarea"></textarea>
+                    <label id="unit" >รายละเอียด (อาการ)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6 center">
+                    <a class="btn-best btn-edit right" ng-click="saveTpyeProduct()" type="submit">เพิ่มคิว</a>
+                    <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-content"><h4>สถานะทันตเเพทย์</h4></span>
+            <!--< style="background-color: red;width: 100px; height: 100px;"></i>-->
+            <div class="row">
+                <div class="col m3  " onclick="$('#modal1').openModal({});">
+                    <font size='4'>นายจสินทร์ แสงทรวง</font>
+                    <div class="box">
+                        <h5 style="">ห้อง 255</h5>
+                        <h5 style="">ว่าง</h5>
+                    </div>
+                </div>
+                <div class="col m3" onclick="$('#modal1').openModal({});">
+                    <font size='4'>นายสมชัย ใจไปไหม</font>
+                    <div class="box1">
+                        <h5 style="">ห้อง 256</h5>
+                        <h5 style="">ไม่ว่าง</h5>
+                    </div>
+                </div>
+                <!--                <div class="col m3">
+                                    <div class="box1">
+                                        <h5 style="">ห้อง 257</h5>
+                                        <h5 style="">ไม่ว่าง</h5>
+                                    </div>
+                                </div>
+                                <div class="col m3">
+                
+                                    <div class="box">
+                                        <h5 style="">ห้อง 258</h5>
+                                        <h5 style="">ว่าง</h5>
+                                    </div>
+                                </div>-->
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div id="modal-clinic-information" class="modal modal-fixed-footer" style="overflow-y: hidden">
+        <div class="modal-header">
+            <span class="row" >
+                <div class="center">
+                    <font class="center" style="vertical-align: middle" ><span style="margin-left: 20px;font-size: 40px;">ข้อมูลนัด</span><span class="pointer modal-close right"style="margin-right: 10px;font-size: 25px">&times;</span></font>
+                </div>
+            </span>
+        </div>
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col m6 input-field">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search" ng-model="searchData.keyword">
+                        <label for="search" >ค้นหา : </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m3">
+                        <span><h6>ค้นหาโดย : </h6></span>
+                        <div class="select-custom">
+                            <select class="browser-default" id="select-searchby" >
+                                <option value="Name">HN</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div style="margin-top: 20px">
+                        <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                    </div>
+                </div>
+
+                <div class="margin-top-20" style="margin-top: 50px">
+                    <div class="row">
+                        <font size='5'>HN : 0002</font>
+                    </div>
+                    <div class="row">
+                        <font size='5'>ชื่อผู้ป่วย : นายยินดี สบายดี</font>
+                    </div>
+                    <div class="row">
+                        <font size='5'>ชื่อทันตเเพทย์ : นายจสินทร์ แสงทรวง</font>
+                    </div>
+                    <div class="row">
+                        <font size='5'>รายการรักษา : เคลียช่องปาก</font>
+                    </div>
+                </div>
+                <div class="row right">
+                    <a class="btn-best btn-edit" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ตกลง</a>
+                </div>
+            </div>      
+
+        </div>
+
+    </div>
+
+
+    <div id="modal1" class="modal modal-fixed-footer" style="overflow-y: hidden">
+        <div class="modal-header">
+            <span class="row" >
+                <div class="center">
+                    <font class="center" style="vertical-align: middle" ><span style="margin-left: 20px;font-size: 40px;">คิวรอรับการรักษา ห้อง 256 ของทันตเเพทย์ สมชัย</span><span class="pointer modal-close right"style="margin-right: 10px;font-size: 25px">&times;</span></font>
+                </div>
+            </span>
+        </div>
+        <div class="modal-content">
+            <div class="container">
+                <table>
+                    <thead>
+                    <th>HN</th>
+                    <th>ชื่อผู้ป่วย</th>
+                    <th>รับการรักษา</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0001</td>
+                            <td>กิตติพร คำไล้</td>
+                            <td><a>รับการรักษา</a></td>
+                        </tr>
+                        <tr>
+                            <td>0002</td>
+                            <td>นายยินดี สบายดี</td>
+                            <td><a>รับการรักษา</a></td>
+                        </tr>
+                        <tr>
+                            <td>0003</td>
+                            <td>	นายกระทิง แรงช้าง</td>
+                            <td><a>รับการรักษา</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>      
+
+        </div>
+
+    </div>
+</div>

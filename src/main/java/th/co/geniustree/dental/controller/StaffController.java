@@ -69,15 +69,15 @@ public class StaffController {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStaffPicture(picture);
         }
-        Staff s = staffRepo.save(staff);
-        System.out.println("-------------------------------------------------------" + s);
-        int idLength = s.getIdGen() + "".length();
-        String strId = s.getIdGen() + "";
-        for (int i = idLength; i <= 4; i++) {
-            strId = 0 + strId;
-        }
-
-        staff.setIdStaff("SF");
+//        Staff s = staffRepo.save(staff);
+//        System.out.println("-------------------------------------------------------" + s);
+//        int idLength = s.getIdGen() + "".length();
+//        String strId = s.getIdGen() + "";
+//        for (int i = idLength; i <= 4; i++) {
+//            strId = 0 + strId;
+//        }
+//
+//        staff.setIdStaff("SF");
 
         return 200;
     }
