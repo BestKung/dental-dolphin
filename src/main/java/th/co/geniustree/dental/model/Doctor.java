@@ -27,6 +27,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Doctor extends Employee implements Serializable {
 
+
+
     @Column(name = "PERMITNO")
     private String permitNo;
 
@@ -272,4 +274,5 @@ public class Doctor extends Employee implements Serializable {
         this.salary = salary;
     }
 
+   
 }
