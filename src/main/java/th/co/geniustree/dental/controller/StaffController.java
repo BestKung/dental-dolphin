@@ -67,9 +67,17 @@ public class StaffController {
 
         if (staff.getStaffPicture() == null) {
             StaffPicture picture = staffPictureRepo.findOne(1);
-            staff.setStafPicture(picture);
+            staff.setStaffPicture(picture);
         }
-        staffRepo.save(staff);
+        Staff s = staffRepo.save(staff);
+        System.out.println("-------------------------------------------------------" + s);
+        int idLength = s.getIdGen() + "".length();
+        String strId = s.getIdGen() + "";
+        for (int i = idLength; i <= 4; i++) {
+            strId = 0 + strId;
+        }
+
+        staff.setIdStaff("SF");
 
         return 200;
     }
@@ -159,7 +167,7 @@ public class StaffController {
             if (staff.getStaffPicture().getId() != 1) {
                 staffPictureRepo.delete(staff.getStaffPicture().getId());
             } else {
-                staff.setStafPicture(null);
+                staff.setStaffPicture(null);
                 staffRepo.save(staff);
             }
         }
