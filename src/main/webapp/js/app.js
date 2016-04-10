@@ -12,15 +12,15 @@ app.controller('homeController', function ($scope, $http) {
     $scope.clinic = {};
     checkMobile();
     $scope.totalNontification = 0;
-    $scope.manageEmployee = true;
-    $scope.manageDoctor = true;
-    $scope.managePatient = true;
-    $scope.manageHeal = true;
-    $scope.manageProduct = true;
-    $scope.manageBill = true;
-    $scope.viewWorkCalendar = true;
-    $scope.isAdmin = true;
-    $scope.employeeOrAdmin = true;
+    $scope.manageEmployee = false;
+    $scope.manageDoctor = false;
+    $scope.managePatient = false;
+    $scope.manageHeal = false;
+    $scope.manageProduct = false;
+    $scope.manageBill = false;
+    $scope.viewWorkCalendar = false;
+    $scope.isAdmin = false;
+    $scope.employeeOrAdmin = false;
 
     function  checkMobile() {
         var $mobile = $(window).outerWidth() < 995;
@@ -35,15 +35,15 @@ app.controller('homeController', function ($scope, $http) {
     function startPageStaff() {
         $http.get('/startpagestaff').success(function (data) {
             $scope.login = data;
-//            manageEmployee(data);
-//            manageDoctor(data);
-//            managePatient(data);
-//            manageHeal(data);
-//            manageProduct(data);
-//            manageBill(data);
-//            viewWorkCalendar(data);
-//            isAdmin(data);
-//            employeeOrAdmin(data);
+            manageEmployee(data);
+            manageDoctor(data);
+            managePatient(data);
+            manageHeal(data);
+            manageProduct(data);
+            manageBill(data);
+            viewWorkCalendar(data);
+            isAdmin(data);
+            employeeOrAdmin(data);
         });
     }
 

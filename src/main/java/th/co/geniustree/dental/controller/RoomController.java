@@ -52,6 +52,28 @@ public class RoomController {
 
     @RequestMapping(value = "/getroom", method = RequestMethod.GET)
     public Page<Room> getRoom(Pageable pageable) {
-        return roomRepo.findAll(pageable);
+        return roomRepo.findAllByOrderByRoomIdAsc(pageable);
     }
+
+    @RequestMapping(value = "/deleteroom", method = RequestMethod.POST)
+    public void deleteRoom(@RequestBody Room room) {
+        roomRepo.delete(room);
+    }
+
+    @RequestMapping(value = "/updateroom", method = RequestMethod.POST)
+    public void updateRoom(@RequestBody Room room) {
+        roomRepo.save(room);
+
+    }
+
+    @RequestMapping(value = "/searchroom", method = RequestMethod.POST)
+    public Page<Room> searchRoom(@RequestBody Room room, Pageable pageable) {
+        return roomRepo.findAllByRoomId(room.getRoomId(), pageable);
+    }
+
+    @RequestMapping(value = "/countroom", method = RequestMethod.GET)
+    public Long countRoom() {
+        return roomRepo.count();
+    }
+
 }

@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col m6 input-field">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search" ng-model="searchData.keyword">
+                    <input type="text" id="search" ng-model="keyword">
                     <label for="search" >ค้นหา : </label>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="row">
                 <div style="margin-top: 20px">
-                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                    <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searchRoom()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 <div class="col m6">
                     <div class="right">
                         <span class="">จำนวนแถวที่แสดง : </span>
-                        <select class="browser-default" ng-change="selectGetOrSearch()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="row" ng-init="row = '10'">
+                        <select class="browser-default" ng-change="changeSize()" style="margin-top: 10px; margin-left:calc(3.8rem);width: 100px;" ng-model="sizeRoom" ng-init="sizeRoom = '10'">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
@@ -86,24 +86,14 @@
                 <tbody>
                     <tr ng-repeat="room in rooms.content">
                         <td>{{room.roomId}}</td>
-                        <td>{{room.doc.nameTh}}</td>
+                        <td>{{room.doctor.nameTh}}</td>
                         <td>
-                            <a class="btn-custom-radius btn-edit" ng-click="updateTpyeProduct(tp)"><i class="mdi-content-create"></i></a>
-                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(tp)"><i class="mdi-action-delete"></i></a>
+                            <a class="btn-custom-radius btn-edit" ng-click="clickUpdate(room)"><i class="mdi-content-create"></i></a>
+                            <a class="btn-custom-radius btn-delete" ng-click="clickDelte(room)"><i class="mdi-action-delete"></i></a>
                         </td>
                         <td>
-                            <a class="btn-custom-radius" style="background-color: #33691e" ng-click="actionDelete(tp)">เปิด</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>226</td>
-                        <td>นายสมชัย ใจไปไหม</td>
-                        <td>
-                            <a class="btn-custom-radius btn-edit" ng-click="updateTpyeProduct(tp)"><i class="mdi-content-create"></i></a>
-                            <a class="btn-custom-radius btn-delete" ng-click="actionDelete(tp)"><i class="mdi-action-delete"></i></a>
-                        </td>
-                        <td>
-                            <a class="btn-custom-radius" style="background-color: #33691e" ng-click="actionDelete(tp)">เปิด</a>
+                            <a class="btn-custom-radius btn-open" ng-show="room.roomStatus == 'เปิด'" ng-click="clickStatusClose(room)" ng-model="status">เปิด</a>
+                            <a class="btn-custom-radius btn-close-room" ng-show="room.roomStatus == 'ปิด'" ng-click="clickStatusOpen(room)" ng-model="status">ปิด</a>
                         </td>
                     </tr>
                 </tbody>
@@ -111,28 +101,50 @@
             <div class="row" id="card-employee">
                 <div class="col m12">
                     <ul class="pagination right" style="margin-top: 10px;">
-                        <li class="btn btn-pagination disabled" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
-                        <li class="btn btn-pagination disabled" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p></li>
-                        <li class="btn btn-pagination"><p style="margin-top: 2px;">1</p></li>
-                        <li class="btn btn-pagination disabled" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
-                        <li class="btn btn-pagination disabled" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="first-page-room" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="pre-page-room" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p>;</li>
+                        <li class="btn waves-effect btn-pagination"><p style="margin-top: 2px;">{{currentPage+1}}</p></li>
+                        <li class="btn waves-effect btn-pagination" id="next-page-room" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn waves-effect btn-pagination" id="final-page-room" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="modal-doctor-notfont" class="modal" style="border-radius: 10px;overflow-x: hidden">
-        <div class="modal-content">
-            <div class="row center" style="height: 150px;">
-                <div style="margin-top: 60px">
-                    <font size="100" color="#90a4ae"> ไม่พบทันตเเพทย์</font>
-                </div>
+<div id="modal-doctor-notfont" class="modal" style="border-radius: 10px;overflow-x: hidden">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบทันตเเพทย์</font>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="warp-toast">
+<div id="warp-toast">
+</div> 
+
+<div id="modal-delete" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center">
+            <h4 style="background: #FF6D6D;color: white;padding: 20px;" class="margin-top-20 magin-buttom-20">ลบห้องทันตเเพทย์</h4>
+        </div>
+        <label style="font-size: 25px ;color: black" class="margin-left-20"> ยืนยันการลบ ห้อง {{delete.roomId}}</label>
     </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+        <a href="" class="magin-button btn btn-red modal-action modal-close" ng-click="deleteRoom()">Delete</a>
+    </div>
+</div>
 
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
 </div>

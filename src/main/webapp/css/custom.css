@@ -341,3 +341,35 @@
     color: white;
     padding-top: 40px;
 }
+.btn-open{
+    background-color:  #33691e;
+    color: white;
+}
+.btn-open:hover{
+    background-color:  #33691e;
+    color: white;
+    opacity: 0.9;
+}
+.btn-open{
+    background-color:  #33691e;
+    color: white;
+    opacity: 0.9;
+    position: relative;
+    top: 2px;
+}
+.btn-close-room{
+    background-color:  #f44336;
+    color: white;
+}
+.btn-close-room:hover{
+    background-color:  #f44336;
+    color: white;
+    opacity: 0.9;
+}
+.btn-close-room:active{
+    background-color:  #f44336;
+    color: white;
+    opacity: 0.9;
+    position: relative;
+    top: 2px;
+}
