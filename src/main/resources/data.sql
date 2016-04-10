@@ -108,57 +108,57 @@ INSERT INTO CONTACT(CONTACT_NAME,CONTACT_TEL,RELATION) VALUES('นางสม�
 
 
 
-INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('admin@admin','admin','นางสาวแกรมม่า น่าตาดี','employee',1);
-INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('Kingdom@hotmail.com','1234','นางสาวมาม่า น่าหน้าตาดี','employee',1);
-INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('NANA@hotmail.com','1234','นายสาวไวไว น่าหน้าตาดี','employee',1);
-INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('Banana@hotmail.com','1234','นางสาวเบนซิน น่าหน้าตาดี','employee',1);
-INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('Oran06@hotmail.com','1234','นายสมชัย ใจไปไหม','employee',1);
-INSERT INTO EMPLOYEE(EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('1','1','นายจสินทร์ แสงทรวง','employee',1);
+INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
+VALUES('TEST001','admin@admin','admin','นางสาวแกรมม่า น่าตาดี','employee',1);
+INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
+VALUES('TEST002','Kingdom@hotmail.com','1234','นางสาวมาม่า น่าหน้าตาดี','employee',1);
+INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
+VALUES('TEST003','NANA@hotmail.com','1234','นายสาวไวไว น่าหน้าตาดี','employee',1);
+INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
+VALUES('TEST004','Banana@hotmail.com','1234','นางสาวเบนซิน น่าหน้าตาดี','employee',1);
+INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
+VALUES('TEST005','Oran06@hotmail.com','1234','นายสมชัย ใจไปไหม','employee',1);
+INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
+VALUES('TEST006','1','1','นายจสินทร์ แสงทรวง','employee',1);
 
-insert into EMPLOYEE_ROLES(employee_id,roles_role) values(1,'ผู้ดูเเลระบบ');
-INSERT INTO STAFF (PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
-,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,id,STAFF_PICTURE_ID) 
-VALUES ('1730200213521','MRS.Geamma natade','2536-12-21','ชาย','B','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','133/1 ม.2'
-,'122/3 ม.1','035909987','0921242123','2012-12-04','ทำงาน',1,1,1,1,1);
+insert into EMPLOYEE_ROLES(employee_id,roles_role) values('TEST001','ผู้ดูเเลระบบ');
+INSERT INTO STAFF (id,PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
+,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
+VALUES ('TEST001','1730200213521','MRS.Geamma natade','2536-12-21','ชาย','B','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','133/1 ม.2'
+,'122/3 ม.1','035909987','0921242123','2012-12-04','ทำงาน',1,1,1,1);
 
-INSERT INTO STAFF (PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
-,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,id,STAFF_PICTURE_ID) 
-VALUES ('1340284231245','MRS.Mama natade','2536-12-21','ชาย','A','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','144/1 ม.2'
-,'188/3 ม.2','035909987','0692341238','2012-12-04','ทำงาน',2,2,2,2,1);
+INSERT INTO STAFF (id,PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
+,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
+VALUES ('TEST002','1340284231245','MRS.Mama natade','2536-12-21','ชาย','A','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','144/1 ม.2'
+,'188/3 ม.2','035909987','0692341238','2012-12-04','ทำงาน',2,2,2,1);
 
-INSERT INTO STAFF (PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
-,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,id,STAFF_PICTURE_ID) 
-VALUES ('1453634578332','MRS.Wiwi natade','2536-12-21','ชาย','O','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','177/1 ม.2'
-,'199/3 ม.4','035909987','089422123','2012-12-04','ทำงาน',3,3,3,3,1);
+INSERT INTO STAFF (id,PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
+,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
+VALUES ('TEST003','1453634578332','MRS.Wiwi natade','2536-12-21','ชาย','O','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','177/1 ม.2'
+,'199/3 ม.4','035909987','089422123','2012-12-04','ทำงาน',3,3,3,1);
 
-INSERT INTO STAFF (PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
-,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,id,STAFF_PICTURE_ID) 
-VALUES ('1823242312536','MRS.Bensin natade','2536-12-21','ชาย','AB','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','100/1 ม.2'
-,'121/3 ม.4','035909987','0824212345','2012-12-04','ทำงาน',4,4,4,4,1);
+INSERT INTO STAFF (id,PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
+,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
+VALUES ('TEST004','1823242312536','MRS.Bensin natade','2536-12-21','ชาย','AB','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','100/1 ม.2'
+,'121/3 ม.4','035909987','0824212345','2012-12-04','ทำงาน',4,4,4,1);
 
-INSERT INTO DOCTOR(PERSONAL_ID,PERMITNO,PERMITTYPE,NAME_ENG,BIRTH_DATE,SEX,BLOOD,CURRENT_ADDRESS,TEL,MOBILE,WORK_STATUS,id,Doctor_Picture_id)
-VALUES('1242521456234','เลขcer','ใบcer','MRS.Samshie Jaypanmay','2536-12-21','ชาย','B','144/3 ม.6','032123421'
-,'0842321232','ทำงาน',5,1);
+INSERT INTO DOCTOR(id,PERSONAL_ID,PERMITNO,PERMITTYPE,NAME_ENG,BIRTH_DATE,SEX,BLOOD,CURRENT_ADDRESS,TEL,MOBILE,WORK_STATUS,Doctor_Picture_id)
+VALUES('TEST005','1242521456234','เลขcer','ใบcer','MRS.Samshie Jaypanmay','2536-12-21','ชาย','B','144/3 ม.6','032123421'
+,'0842321232','ทำงาน',1);
 
-INSERT INTO DOCTOR(PERSONAL_ID,PERMITNO,PERMITTYPE,NAME_ENG,BIRTH_DATE,SEX,BLOOD,CURRENT_ADDRESS,TEL,MOBILE,WORK_STATUS,id,Doctor_Picture_id)
-VALUES('1242521456234','เลขcer','ใบcer','MRS.Jasin Saengsuang','2536-12-21','ชาย','B','144/3 ม.6','032123421'
-,'0842321232','ทำงาน',6,1);
+INSERT INTO DOCTOR(id,PERSONAL_ID,PERMITNO,PERMITTYPE,NAME_ENG,BIRTH_DATE,SEX,BLOOD,CURRENT_ADDRESS,TEL,MOBILE,WORK_STATUS,Doctor_Picture_id)
+VALUES('TEST006','1242521456234','เลขcer','ใบcer','MRS.Jasin Saengsuang','2536-12-21','ชาย','B','144/3 ม.6','032123421'
+,'0842321232','ทำงาน',1);
 
 
 INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('อุดฟัน',400);
 INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('ถอดฟัน',600);
 INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('ขุดหินปูน',500);
 -- 
-INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันไม่ฟุมาก','2557-02-12',1,5);
-INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันผุหลายซิก','2557-02-12',2,6);
-INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันกลามฟุ','2557-02-12',3,5);
-
+INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันไม่ฟุมาก','2557-02-12',1,'TEST005');
+INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันผุหลายซิก','2557-02-12',2,'TEST006');
+INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันกลามฟุ','2557-02-12',3,'TEST005');
+ 
 INSERT INTO ORDERHEAL(VALUE,DETAILHEAL_ID,LISTSELECTHEAL_ID) VALUES(2,1,1);
 INSERT INTO ORDERHEAL(VALUE,DETAILHEAL_ID,LISTSELECTHEAL_ID) VALUES(3,1,2);
 INSERT INTO ORDERHEAL(VALUE,DETAILHEAL_ID,LISTSELECTHEAL_ID) VALUES(3,1,3);
@@ -198,6 +198,6 @@ INSERT INTO PRICEANDEXPIREPRODUCT(EXPIRE,PRICEBUY,PRICESELL,VALUE,LOT_ID,PRODUCT
 VALUES('2558-11-10',135,180,30,1,3,'2558-11-1',10,30);
 
 INSERT INTO APPOINTMENT(APPOINT_DAY,START_TIME,END_TIME,TREATMENT_LIST,MOBILE,PATIENT_ID,DOCTOR_ID)
-VALUES('2559-04-29','13:00:00','14:00:00','ถอนฟัน','0615523442',1,5);
+VALUES('2559-04-29','13:00:00','14:00:00','ถอนฟัน','0615523442',1,'TEST005');
 INSERT INTO APPOINTMENT(APPOINT_DAY,START_TIME,END_TIME,TREATMENT_LIST,MOBILE,PATIENT_ID,DOCTOR_ID)
-VALUES('2559-04-30','14:00:00','15:00:00','อุดฟัน','0614212334',2,6);
+VALUES('2559-04-30','14:00:00','15:00:00','อุดฟัน','0614212334',2,'TEST006');

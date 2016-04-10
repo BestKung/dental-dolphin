@@ -5,22 +5,18 @@
  */
 package th.co.geniustree.dental.controller;
 
-import java.io.ByteArrayInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartRequest;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Employee;
-import th.co.geniustree.dental.model.FileExport;
 import th.co.geniustree.dental.model.Staff;
 import th.co.geniustree.dental.model.StaffPicture;
 import th.co.geniustree.dental.model.SearchData;
@@ -79,7 +74,7 @@ public class StaffController {
         for (int i = idLength; i <= 4; i++) {
             strId = 0 + strId;
         }
-        staff.setIdStaff("SF" + strId);
+        staff.setId("SF" + strId);
         codeRepo.delete(gennerateCode);
         staffRepo.save(staff);
         return 200;
@@ -180,7 +175,7 @@ public class StaffController {
     @RequestMapping(value = "/startpagestaff", method = RequestMethod.GET)
     public Employee getCurrentLogin() {
         Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Integer id = employeeRepo.findByEmail(employee.getEmail()).getId();
+        String id = employeeRepo.findByEmail(employee.getEmail()).getId();
         return employeeRepo.findOne(id);
     }
 

@@ -5,7 +5,6 @@
  */
 package th.co.geniustree.dental.model;
 
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +28,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 /**
  *
  * @author Best
@@ -39,8 +37,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class Employee implements Serializable, UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name = "EMAIL")
 //    @NotBlank(message = "กรุณากรอก อีเมล")
@@ -130,11 +128,11 @@ public class Employee implements Serializable, UserDetails {
         this.nameTh = nameTh;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -180,13 +178,16 @@ public class Employee implements Serializable, UserDetails {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }

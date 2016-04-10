@@ -14,7 +14,7 @@ import th.co.geniustree.dental.model.Employee;
  *
  * @author Best
  */
-public interface EmployeeRepo extends JpaRepository<Employee, Integer>, JpaSpecificationExecutor<Employee> {
+public interface EmployeeRepo extends JpaRepository<Employee, String>, JpaSpecificationExecutor<Employee> {
 
     public Employee findByEmail(String email);
 

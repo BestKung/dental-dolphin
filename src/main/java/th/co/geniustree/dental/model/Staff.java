@@ -7,6 +7,7 @@ package th.co.geniustree.dental.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.OverridesAttribute;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -25,9 +27,9 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "STAFF")
+@AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class Staff extends Employee implements Serializable {
     
-    private String idStaff;
 
     @Column(name = "PERSONAL_ID")
     private String pid;
@@ -275,12 +277,9 @@ public class Staff extends Employee implements Serializable {
         this.gennerateCode = gennerateCode;
     }
 
-    public String getIdStaff() {
-        return idStaff;
+    public void setStaffPicture(StaffPicture staffPicture) {
+        this.staffPicture = staffPicture;
     }
 
-    public void setIdStaff(String idStaff) {
-        this.idStaff = idStaff;
-    }
-
+    
 }

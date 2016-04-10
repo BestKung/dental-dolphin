@@ -7,13 +7,10 @@ package th.co.geniustree.dental.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -25,9 +22,8 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Best
  */
 @Entity
+@AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class Doctor extends Employee implements Serializable {
-
-
 
     @Column(name = "PERMITNO")
     private String permitNo;
@@ -97,6 +93,17 @@ public class Doctor extends Employee implements Serializable {
     private DoctorPicture doctorPicture;
 
     private Double salary;
+
+    @OneToOne
+    private DoctorGennerateCode gennerateCode;
+
+    public DoctorGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(DoctorGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
+    }
 
     public String getPermitNo() {
         return permitNo;
@@ -274,5 +281,5 @@ public class Doctor extends Employee implements Serializable {
         this.salary = salary;
     }
 
-   
+
 }

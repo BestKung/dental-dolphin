@@ -419,7 +419,7 @@ app.filter('pid-varidate', function () {
                 number = value.slice(1);
         }
         number = number.slice(0, 4) + '-' + number.slice(4, 9) + '-' + number.slice(9, 11) + '-' + number.slice(11, 12);
-        return ("" + pid1 + "-" + number).trim();
+        return ( "" + pid1 + "-" + number).trim();
 
     };
 });
