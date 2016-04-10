@@ -169,7 +169,6 @@ angular.module('room').controller('roomController', function ($scope, $http) {
             $('#final-page-room').addClass('disabled');
         }
         if (totalpages > 1) {
-            console.log('do');
             $('#first-page-room').addClass('disabled');
             $('#pre-page-room').addClass('disabled');
             $('#next-page-room').removeClass('disabled');

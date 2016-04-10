@@ -15,7 +15,9 @@ import th.co.geniustree.dental.model.Patient;
  *
  * @author Best
  */
-public interface PatientRepo extends JpaRepository<Patient, Integer> , JpaSpecificationExecutor<Patient>{
-    
+public interface PatientRepo extends JpaRepository<Patient, Integer>, JpaSpecificationExecutor<Patient> {
+
     public Page<Patient> findAllByOrderByIdDesc(Pageable pageable);
+
+    public Patient findByHn(String hn);
 }
