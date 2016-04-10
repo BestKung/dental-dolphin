@@ -302,6 +302,177 @@ angular.module('patient').controller('patientController', function (patientServi
         readURLXrayFilm(this);
     });
 
+
+    ///////////////////////////////////เลือกทันตแพทย์ประจำตัว//////////////////////////////////////
+
+    $scope.doctors = {};
+    $scope.preScroll;
+    $scope.search = {};
+    $scope.currentPage = 0;
+    $scope.size = 10;
+    $scope.doctor = "";
+    var page = 0;
+    var totalDoctor = 0;
+    var totalPage = 0;
+
+
+    $scope.clickDoctor = function () {
+        getDoctor();
+        toPreScroll();
+        $('#modal-doctor').openModal();
+    };
+
+    $scope.selectDoctor = function (doc) {
+        $scope.patient.doctor = doc;
+        console.log($scope.patient.doctor);
+        $scope.doctor = doc.nameTh;
+        $('#modal-doctor').closeModal();
+        $('#doctor-label').addClass('active');
+    };
+
+
+    function getDoctor() {
+        $http.get('/getdoctor', {params: {page: page, size: $scope.size}}).success(function (data) {
+            $scope.doctors = data;
+        });
+    }
+
+    $scope.cancel = function () {
+        toPreScroll();
+        $('span#close-card').trigger('click');
+    };
+
+    function toPreScroll() {
+        $('body,html').animate({scrollTop: $scope.preScroll}, "0");
+    }
+
+    $scope.toPreScroll = function () {
+        toPreScroll();
+    };
+
+
+    $scope.searchData = function () {
+        searchData();
+    };
+
+    function searchData() {
+        $http.post('/searchdoctor', $scope.search, {params: {page: page, size: $scope.size}}).success(function (data) {
+            if (data.content.length == 0 || $scope.search.keyword == "") {
+                $('#modal-notfont').openModal();
+                getDoctor();
+            } else {
+                $scope.doctors = data;
+                countSearchDoctor();
+            }
+        });
+    }
+
+    $scope.selectGetOrSearch = function () {
+        selectGetOrSearch();
+    };
+
+    function selectGetOrSearch() {
+        if (!!$scope.search.keyword) {
+            searchData();
+        } else {
+            getDoctor();
+        }
+    }
+
+
+    function countSearchDoctor() {
+        $http.post('/countsearchdoctor', $scope.search, {params: {page: page, size: $scope.row}}).success(function (data) {
+            $scope.totalDoctor = data;
+            findTotalPage();
+
+        });
+    }
+
+    countDoctor();
+    function countDoctor() {
+        $http.get('/countdoctor').success(function (data) {
+            $scope.totalDoctor = data;
+            findTotalPage();
+        });
+    }
+
+    function findTotalPage() {
+        var totalpages = parseInt($scope.totalDoctor / $scope.size);
+        if (($scope.totalDoctor % $scope.size) != 0) {
+            totalpages++;
+        }
+        totalPage = totalpages;
+        console.log(totalPage);
+        if (totalpages == 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+        }
+        if (totalpages > 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+        }
+    }
+
+
+    $scope.firstPage = function () {
+        if (!$('#first-page').hasClass('disabled')) {
+            page = 0;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == 0) {
+                $('#first-page').addClass('disabled');
+                $('#pre-page').addClass('disabled');
+            }
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
+        }
+    };
+
+    $scope.prePage = function () {
+        if (!$('#first-page').hasClass('disabled')) {
+            page--;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == 0) {
+                $('#first-page').addClass('disabled');
+                $('#pre-page').addClass('disabled');
+            }
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
+        }
+    };
+
+    $scope.nextPage = function () {
+        if (!$('#final-page').hasClass('disabled')) {
+            page++;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == totalPage - 1) {
+                $('#next-page').addClass('disabled');
+                $('#final-page').addClass('disabled');
+            }
+            $('#pre-page').removeClass('disabled');
+            $('#first-page').removeClass('disabled');
+        }
+    };
+
+    $scope.finalPage = function () {
+        if (!$('#final-page').hasClass('disabled')) {
+            page = totalPage - 1;
+            $scope.currentPage = page;
+            selectGetOrSearch();
+            if (page == totalPage - 1) {
+                $('#final-page').addClass('disabled');
+                $('#next-page').addClass('disabled');
+            }
+            $('#pre-page').removeClass('disabled');
+            $('#first-page').removeClass('disabled');
+        }
+    };
+
+    ///////////////////////////////////เลือกทันตแพทย์ประจำตัว//////////////////////////////////////
 });
 
 app.directive('fileModel', function ($parse) {

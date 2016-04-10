@@ -16,7 +16,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -84,6 +86,18 @@ public class Patient implements Serializable {
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     private List<Appointment> appointments;
+
+    @ManyToOne
+    @JoinColumn(name = "DOCTOR_ID")
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 
     public Integer getId() {
         return id;

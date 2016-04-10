@@ -27,6 +27,7 @@ angular.module('employee-information').controller('employeeInformationController
     function getEmployees() {
         $http.get('/staffs', {params: {page: $scope.page, size: $scope.row}}).success(function (data) {
             $scope.employees = data;
+            getTotalEmployee();
         });
     }
 
@@ -59,7 +60,13 @@ angular.module('employee-information').controller('employeeInformationController
         }
         totalPage = totalPages;
         console.log("totalpage = " + totalPage);
-        if ($scope.currentPage == 1) {
+        if (totalPage == 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+        }
+        if ($scope.currentPage == 1 && totalPage != 0) {
             $('#first-page').addClass('disabled');
             $('#pre-page').addClass('disabled');
         }
@@ -145,6 +152,7 @@ angular.module('employee-information').controller('employeeInformationController
 //            toPreScroll();
             $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
             $('span#close-card').trigger('click');
+
         }).error(function (data) {
             $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
             Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');

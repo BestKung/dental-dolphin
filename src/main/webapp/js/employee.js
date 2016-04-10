@@ -55,6 +55,7 @@ var app = angular.module('employee')
 
             function clearData() {
                 employeeService.employeeUpdate = {};
+                $scope.employee.password = '';
                 $scope.employee = {};
                 $scope.password = "";
                 NoImage();
@@ -118,30 +119,36 @@ var app = angular.module('employee')
             }
 
             $scope.saveEmployee = function () {
-                if (confirmPassword()) {
-                    $http.post('/savestaff', $scope.employee)
-                            .success(function (data) {
-                                if (data == 200) {
-                                    clearData();
-                                    $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-                                    Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
-                                }
-                                if (data == 1) {
-                                    $scope.errorEmail = "อีเมลซ้ำ";
-                                    $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
-                                    Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
-                                    $scope.error = data;
-                                    $('body,html').animate({scrollTop: 0}, "600");
-                                }
-                            }).error(function (data) {
-                        $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
-                        Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
-                        $scope.error = data;
+                if (($scope.password) != undefined) {
+                    if (confirmPassword()) {
+                        $http.post('/savestaff', $scope.employee)
+                                .success(function (data) {
+                                    if (data == 200) {
+                                        clearData();
+                                        $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                                        Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                                    }
+                                    if (data == 1) {
+                                        $scope.errorEmail = "อีเมลซ้ำ";
+                                        $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                                        Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                                        $scope.error = data;
+                                        $('body,html').animate({scrollTop: 0}, "600");
+                                    }
+                                }).error(function (data) {
+                            $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                            Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                            $scope.error = data;
+                            $('body,html').animate({scrollTop: 0}, "600");
+                        });
+                        console.log('save success');
+                    } else {
+                        console.log('password error');
                         $('body,html').animate({scrollTop: 0}, "600");
-                    });
-                    console.log('save success');
+                    }
                 } else {
-                    console.log('password error');
+                    $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                    Materialize.toast('จำนวนรหัสผ่าน 8 ตัวขึ้นไป', 3000, 'rounded');
                     $('body,html').animate({scrollTop: 0}, "600");
                 }
             };
@@ -419,7 +426,7 @@ app.filter('pid-varidate', function () {
                 number = value.slice(1);
         }
         number = number.slice(0, 4) + '-' + number.slice(4, 9) + '-' + number.slice(9, 11) + '-' + number.slice(11, 12);
-        return ( "" + pid1 + "-" + number).trim();
+        return ("" + pid1 + "-" + number).trim();
 
     };
 });
