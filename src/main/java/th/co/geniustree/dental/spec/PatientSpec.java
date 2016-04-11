@@ -19,15 +19,6 @@ import th.co.geniustree.dental.model.Patient_;
  */
 public class PatientSpec {
 
-    public static Specification<Patient> hmLike(final String keyword) {
-        return new Specification<Patient>() {
-
-            @Override
-            public Predicate toPredicate(Root<Patient> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.like(cb.upper(root.get(Patient_.hn)), keyword.toUpperCase());
-            }
-        };
-    }
 
     public static Specification<Patient> nameLike(final String keyword) {
         return new Specification<Patient>() {

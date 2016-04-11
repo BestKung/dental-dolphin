@@ -24,11 +24,6 @@ public class PatientSearchService {
     @Autowired
     private PatientRepo patientRepo;
 
-    public Page<Patient> searchByHN(String keyword, Pageable pageable) {
-        Specifications<Patient> specifications = Specifications.where(PatientSpec.hmLike("%" + keyword + "%"));
-        return patientRepo.findAll(specifications, pageable);
-    }
-
     public Page<Patient> searchByName(String keyword, Pageable pageable) {
         Specifications<Patient> specifications = Specifications.where(PatientSpec.nameLike("%" + keyword + "%"));
         return patientRepo.findAll(specifications, pageable);

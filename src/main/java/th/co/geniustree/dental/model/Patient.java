@@ -33,11 +33,9 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Patient implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 //    @Column(name = "PATIENT_ID")
-    private Integer id;
-//    @Column(name = "PATIENT_HN")
-    private String hn;
+
 //    @Column(name = "PATIENT_PID")
     private String pid;
     @Column(name = "PATIENT_NAME")
@@ -91,28 +89,23 @@ public class Patient implements Serializable {
     @JoinColumn(name = "DOCTOR_ID")
     private Doctor doctor;
 
+    @OneToOne
+    private PatientGennerateCode gennerateCode;
+
+    public PatientGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(PatientGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
+    }
+
     public Doctor getDoctor() {
         return doctor;
     }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getHn() {
-        return hn;
-    }
-
-    public void setHn(String hn) {
-        this.hn = hn;
     }
 
     public String getPid() {
@@ -267,15 +260,26 @@ public class Patient implements Serializable {
         this.appointments = appointments;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }

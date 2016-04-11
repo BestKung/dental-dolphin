@@ -7,7 +7,10 @@ package th.co.geniustree.dental.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -27,6 +30,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.MedicalHistory;
 import th.co.geniustree.dental.model.Patient;
+import th.co.geniustree.dental.model.PatientGennerateCode;
 import th.co.geniustree.dental.model.PatientPictureAfter;
 import th.co.geniustree.dental.model.PatientPictureBefore;
 import th.co.geniustree.dental.model.PatientPictureCurrent;
@@ -35,6 +39,7 @@ import th.co.geniustree.dental.model.SearchData;
 import th.co.geniustree.dental.model.StaffPicture;
 import th.co.geniustree.dental.repo.ClinicInformationRepo;
 import th.co.geniustree.dental.repo.MedicalHistoryRepo;
+import th.co.geniustree.dental.repo.PatientGennerateCodeRepo;
 import th.co.geniustree.dental.repo.PatientRepo;
 import th.co.geniustree.dental.repo.StaffPictureRepo;
 import th.co.geniustree.dental.service.PatientSearchService;
@@ -61,6 +66,9 @@ public class PatientController {
 
     @Autowired
     private ClinicInformationRepo clinicInformationRepo;
+    
+    @Autowired
+    private PatientGennerateCodeRepo gennerateCodeRepo;
 
     @RequestMapping(value = "/getmedicalhistory", method = RequestMethod.GET)
     private Page<MedicalHistory> getmedicalHistory(Pageable pageable) {
@@ -101,6 +109,14 @@ public class PatientController {
             patientPictureBefore.setNameBefore(picture.getName());
             patient.setPatientPictureBefore(patientPictureBefore);
         }
+        
+        PatientGennerateCode gennerateCode = gennerateCodeRepo.save(new PatientGennerateCode());
+        int idLength = gennerateCode.getId().toString().length();
+        String strId = gennerateCode.getId().toString();
+        for(int i = idLength ; i <= 4 ; i ++) {
+          strId = 0 + strId;   
+        }
+        patient.setId("HN" + strId + new SimpleDateFormat("YY", new Locale("th","TH")).format(new Date()));
         patientRepo.save(patient);
     }
 
@@ -154,9 +170,6 @@ public class PatientController {
         String searchBy = searchData.getSearchBy();
         String keyword = searchData.getKeyword();
         Page<Patient> patients = null;
-        if ("H/N".equals(searchBy)) {
-            patients = patientSearchService.searchByHN(keyword, pageable);
-        }
         if ("ชื่อ".equals(searchBy)) {
             patients = patientSearchService.searchByName(keyword, pageable);
         }
@@ -179,9 +192,6 @@ public class PatientController {
         String searchBy = searchData.getSearchBy();
         String keyword = searchData.getKeyword();
         Long count = null;
-        if ("H/N".equals(searchBy)) {
-            count = patientRepo.count(PatientSpec.hmLike("%" + keyword + "%"));
-        }
         if ("ชื่อ".equals(searchBy)) {
             count = patientRepo.count(PatientSpec.nameLike("%" + keyword + "%"));
         }
