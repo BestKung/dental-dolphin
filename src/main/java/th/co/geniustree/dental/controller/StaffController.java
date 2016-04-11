@@ -5,7 +5,6 @@
  */
 package th.co.geniustree.dental.controller;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -68,15 +67,20 @@ public class StaffController {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStafPicture(picture);
         }
-        StaffGennerateCode gennerateCode = codeRepo.save(new StaffGennerateCode());
-        int idLength = (gennerateCode.getId() + "").length();
-        String strId = gennerateCode.getId() + "";
-        for (int i = idLength; i <= 4; i++) {
-            strId = 0 + strId;
+
+        if (staff.getId() != null) {
+            staffRepo.save(staff);
+        } else {
+            StaffGennerateCode gennerateCode = codeRepo.save(new StaffGennerateCode());
+            int idLength = (gennerateCode.getId() + "").length();
+            String strId = gennerateCode.getId() + "";
+            for (int i = idLength; i <= 4; i++) {
+                strId = 0 + strId;
+            }
+            staff.setId("SF" + strId);
+            codeRepo.delete(gennerateCode);
+            staffRepo.save(staff);
         }
-        staff.setId("SF" + strId);
-        codeRepo.delete(gennerateCode);
-        staffRepo.save(staff);
         return 200;
     }
 

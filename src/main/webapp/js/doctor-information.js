@@ -83,6 +83,17 @@ angular.module('doctor-information').controller('doctorInformationController', f
             }
         });
     }
+    $scope.selectSize = function () {
+        page = 0;
+        $scope.currentPage = 0;
+        if (!!$scope.search.keyword) {
+            searchData();
+            countSearchDoctor();
+        } else {
+            getDoctor();
+            countDoctor();
+        }
+    };
 
     $scope.selectGetOrSearch = function () {
         selectGetOrSearch();
@@ -142,6 +153,12 @@ angular.module('doctor-information').controller('doctorInformationController', f
             $('#pre-page').addClass('disabled');
             $('#next-page').addClass('disabled');
             $('#final-page').addClass('disabled');
+        }
+        if (totalpages > 1 && $scope.currentPage == 0) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
         }
         if (totalpages > 1) {
             $('#first-page').addClass('disabled');

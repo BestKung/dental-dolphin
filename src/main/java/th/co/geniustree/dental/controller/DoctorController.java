@@ -49,33 +49,33 @@ import th.co.geniustree.dental.spec.DoctorSpec;
  */
 @RestController
 public class DoctorController {
-    
+
     @Autowired
     private DoctorRepo doctorRepo;
-    
+
     @Autowired
     private DoctorSearchService doctorSearchService;
-    
+
     @Autowired
     private StaffPictureRepo pictureRepo;
-    
+
     @Autowired
     private DoctorPictureRepo doctorPictureRepo;
-    
+
     @Autowired
     private EmployeeRepo employeeRepo;
-    
+
     @Autowired
     private DoctorGennerateCodeRepo gennerateCodeRepo;
-    
+
     @RequestMapping(value = "/savedoctor", method = RequestMethod.POST)
     private Integer saveDoctor(@Validated @RequestBody Doctor doctor) {
-        
+
         Employee employee = employeeRepo.findByEmail(doctor.getEmail());
         if ((employee != null) && (doctor.getId() == null)) {
             return 1;
         }
-        
+
         if (doctor.getDoctorPicture() == null) {
             StaffPicture picture = pictureRepo.findOne(1);
             DoctorPicture doctorPicture = new DoctorPicture();
@@ -84,19 +84,24 @@ public class DoctorController {
             doctorPicture.setName(picture.getName());
             doctor.setDoctorPicture(doctorPicture);
         }
-        DoctorGennerateCode gennerateCode = gennerateCodeRepo.save(new DoctorGennerateCode());
-        int idLength = (gennerateCode.getId().toString()).length();
-        String strId = gennerateCode.getId().toString();
-        for (int i = idLength; i <= 4; i++) {
-            strId = 0 + strId;
+        if (doctor.getId() != null) {
+            doctorRepo.save(doctor);
+        } else {
+            DoctorGennerateCode gennerateCode = gennerateCodeRepo.save(new DoctorGennerateCode());
+            int idLength = (gennerateCode.getId().toString()).length();
+            String strId = gennerateCode.getId().toString();
+            for (int i = idLength; i <= 4; i++) {
+                strId = 0 + strId;
+            }
+            doctor.setId("DT" + strId);
+            gennerateCodeRepo.delete(gennerateCode);
+            doctorRepo.save(doctor);
         }
-        doctor.setId("DT" + strId);
-        gennerateCodeRepo.delete(gennerateCode);
-        doctorRepo.save(doctor);
+
         return 200;
-        
+
     }
-    
+
     @RequestMapping(value = "/selectpicture", method = RequestMethod.POST)
     private DoctorPicture selectPicture(MultipartRequest file) throws IOException {
         DoctorPicture doctorPicture = new DoctorPicture();
@@ -105,12 +110,12 @@ public class DoctorController {
         doctorPicture.setMimeType(file.getFile("file").getName());
         return doctorPicture;
     }
-    
+
     @RequestMapping(value = "/getdoctor", method = RequestMethod.GET)
     private Page<Doctor> getDoctor(Pageable pageable) {
         return doctorRepo.findAll(pageable);
     }
-    
+
     @RequestMapping(value = "/searchdoctor", method = RequestMethod.POST)
     private Page<Doctor> searchDoctor(@RequestBody SearchData searchData, Pageable pageable) {
         String keyword = searchData.getKeyword();
@@ -136,12 +141,12 @@ public class DoctorController {
         }
         return doctors;
     }
-    
+
     @RequestMapping(value = "/countdoctor", method = RequestMethod.GET)
     private Long countDoctor() {
         return doctorRepo.count();
     }
-    
+
     @RequestMapping(value = "/countsearchdoctor", method = RequestMethod.POST)
     private Long countSearchDoctor(@RequestBody SearchData searchData) {
         String keyword = searchData.getKeyword();
@@ -165,12 +170,12 @@ public class DoctorController {
         }
         return count;
     }
-    
+
     @RequestMapping(value = "/deletedoctor", method = RequestMethod.POST)
     private void deleteDoctor(@RequestBody Doctor doctor) {
         doctorRepo.delete(doctor);
     }
-    
+
     @RequestMapping(value = "/personalinformationdoctor/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
@@ -192,7 +197,7 @@ public class DoctorController {
         }
         return response;
     }
-    
+
     @RequestMapping(value = "/printedoctors", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printemployees() {
         InputStream inputStream = null;
@@ -212,7 +217,7 @@ public class DoctorController {
         }
         return response;
     }
-    
+
     @RequestMapping(value = "/printworkcalendar/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printWorkCalendar(@PathVariable("id") String id) {
         InputStream inputStream = null;

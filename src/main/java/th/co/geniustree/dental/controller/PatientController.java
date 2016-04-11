@@ -66,7 +66,7 @@ public class PatientController {
 
     @Autowired
     private ClinicInformationRepo clinicInformationRepo;
-    
+
     @Autowired
     private PatientGennerateCodeRepo gennerateCodeRepo;
 
@@ -109,15 +109,18 @@ public class PatientController {
             patientPictureBefore.setNameBefore(picture.getName());
             patient.setPatientPictureBefore(patientPictureBefore);
         }
-        
-        PatientGennerateCode gennerateCode = gennerateCodeRepo.save(new PatientGennerateCode());
-        int idLength = gennerateCode.getId().toString().length();
-        String strId = gennerateCode.getId().toString();
-        for(int i = idLength ; i <= 4 ; i ++) {
-          strId = 0 + strId;   
+        if (patient.getId() != null) {
+            patientRepo.save(patient);
+        } else {
+            PatientGennerateCode gennerateCode = gennerateCodeRepo.save(new PatientGennerateCode());
+            int idLength = gennerateCode.getId().toString().length();
+            String strId = gennerateCode.getId().toString();
+            for (int i = idLength; i <= 4; i++) {
+                strId = 0 + strId;
+            }
+            patient.setId("HN" + strId + "-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()));
+            patientRepo.save(patient);
         }
-        patient.setId("HN" + strId + new SimpleDateFormat("YY", new Locale("th","TH")).format(new Date()));
-        patientRepo.save(patient);
     }
 
     @RequestMapping(value = "/savepatientpicturexray", method = RequestMethod.POST)
