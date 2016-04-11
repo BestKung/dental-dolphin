@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">book</i>
-                    <input type="number" id="pid"  ng-model="patient.pid">
+                    <input type="text" id="pid"  ng-model="patient.pid">
                     <label  for="pid" class="update">เลขประจำคัวประชาชน</label>
                 </div>
                 <div class="col m6 s12 input-field">
@@ -77,12 +77,12 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
-                    <input type="number" id="tel" ng-model="patient.tel">
+                    <input type="text" id="tel" ng-model="patient.tel">
                     <label for="tel" class="update">เบอร์โทร</label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
-                    <input type="number" id="mobile" ng-model="patient.mobile">
+                    <input type="text" id="mobile" ng-model="patient.mobile">
                     <label for="mobile" class="update">เบอร์โทรศัพท์มือถือ</label>
                 </div>
             </div>
@@ -101,8 +101,8 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix" >mood</i>
-                    <input type="text" ng-model="doctor" ng-click="clickDoctor()">
-                    <label id="doctor-label" >ทันตแพทย์ประจำตัว</label>
+                    <input type="text" ng-model="patient.doctor.nameTh" ng-click="clickDoctor()">
+                    <label id="doctor-label" class="update">ทันตแพทย์ประจำตัว</label>
                 </div> 
             </div>
 
@@ -247,7 +247,7 @@
                 <ul class="pagination right" style="margin-top: 10px;">
                      <li class="btn waves-effect btn-pagination" id="first-page" ng-click="firstPage()"><p style="margin-top: 2px;">&Lt;</p></li>
                         <li class="btn waves-effect btn-pagination" id="pre-page" ng-click="prePage()"><p style="margin-top: 2px;">&LT</p>;</li>
-                        <li class="btn waves-effect btn-pagination"><p style="margin-top: 2px;">{{currentPage}}</p></li>
+                        <li class="btn waves-effect btn-pagination"><p style="margin-top: 2px;">{{currentPage+1}}</p></li>
                         <li class="btn waves-effect btn-pagination" id="next-page" ng-click="nextPage()"><p style="margin-top: 2px;">&GT;</p></li>
                         <li class="btn waves-effect btn-pagination" id="final-page" ng-click="finalPage()"><p style="margin-top: 2px;">&Gt;</p></li>
                 </ul>

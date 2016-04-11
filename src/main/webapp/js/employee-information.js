@@ -66,9 +66,11 @@ angular.module('employee-information').controller('employeeInformationController
             $('#next-page').addClass('disabled');
             $('#final-page').addClass('disabled');
         }
-        if ($scope.currentPage == 1 && totalPage != 0) {
+        if ($scope.currentPage == 1 && totalPage > 0) {
             $('#first-page').addClass('disabled');
             $('#pre-page').addClass('disabled');
+            $('#next-page').removeClass('disabled');
+            $('#final-page').removeClass('disabled');
         }
         if ($scope.currentPage == totalPage) {
             $('#next-page').addClass('disabled');
@@ -176,6 +178,18 @@ angular.module('employee-information').controller('employeeInformationController
 
     $scope.selectGetOrSearch = function () {
         selectGetOrSearch();
+    };
+
+    $scope.selectSize = function () {
+        $scope.page = 0;
+        $scope.currentPage = 1;
+        if (!!$scope.searchData.keyword) {
+            searcEmployee();
+            searchStaffCount();
+        } else {
+            getEmployees();
+            getTotalEmployee();
+        }
     };
 
     function selectGetOrSearch() {
