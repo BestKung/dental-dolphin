@@ -17,6 +17,10 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         $http.post('/searchpatientbyhn', patient).success(function (data) {
             $scope.patient = data;
             $('#label-queue-patient').addClass('active');
+            $scope.queue.doctor = data.doctor;
+            $scope.doctor = data.doctor.nameTh;
+            $('#label-appointment-doctor').addClass('active');
+            $('#prefix-appointment-doctor').css('color', '#00bcd4');
         });
     };
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="421" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="8cb10b69-b995-4c59-80d0-091582074ece">
-	<property name="ireport.zoom" value="0.75"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="421" pageHeight="297" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="8cb10b69-b995-4c59-80d0-091582074ece">
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="id" class="java.lang.Integer">
+	<parameter name="id" class="java.lang.Long">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -34,10 +34,10 @@ where a.id = $P{id}]]>
 	<field name="TREATMENT_LIST" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DOCTOR_ID" class="java.lang.Integer">
+	<field name="DOCTOR_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PATIENT_ID" class="java.lang.Integer">
+	<field name="PATIENT_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ADDRESS" class="java.lang.String">
@@ -50,9 +50,6 @@ where a.id = $P{id}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="HN" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="JOB" class="java.lang.String">
@@ -74,6 +71,9 @@ where a.id = $P{id}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="TEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
@@ -161,111 +161,93 @@ where a.id = $P{id}]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="307" splitType="Stretch">
-			<line>
-				<reportElement uuid="dc298385-96fd-44dc-9bea-053b5d1bf3ff" x="0" y="168" width="555" height="1"/>
-				<graphicElement>
-					<pen lineStyle="Dashed"/>
-				</graphicElement>
-			</line>
+		<band height="167" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="62a26a22-f962-4c16-b26c-ff8dd5dc929c" x="259" y="94" width="92" height="20"/>
+				<reportElement uuid="62a26a22-f962-4c16-b26c-ff8dd5dc929c" x="204" y="78" width="52" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[วันที่]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="c4990831-88bd-40bd-a7f2-e243635bad35" x="351" y="138" width="140" height="20"/>
+				<reportElement uuid="c4990831-88bd-40bd-a7f2-e243635bad35" x="256" y="106" width="124" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm น").format($F{START_TIME})]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement uuid="a55f9b41-d179-478f-a132-6c57ed6d5140" x="0" y="76" width="555" height="1"/>
-			</line>
-			<line>
-				<reportElement uuid="9cd0f6a8-3c85-4949-abcb-c440316445d5" x="0" y="215" width="555" height="1"/>
-			</line>
 			<textField>
-				<reportElement uuid="03533145-c899-4fa5-8fff-3a329a758354" x="351" y="94" width="186" height="20"/>
+				<reportElement uuid="03533145-c899-4fa5-8fff-3a329a758354" x="256" y="78" width="124" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{APPOINT_DAY})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="ad59cca1-c063-4887-89d1-5cf802a5f9f0" x="351" y="178" width="134" height="20"/>
+				<reportElement uuid="ad59cca1-c063-4887-89d1-5cf802a5f9f0" x="256" y="135" width="124" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm น").format($F{END_TIME})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="14de7553-2bb2-4a54-bd46-5458c52d2a40" x="58" y="138" width="80" height="20"/>
+				<reportElement uuid="14de7553-2bb2-4a54-bd46-5458c52d2a40" x="3" y="106" width="80" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[รายการรักษา]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fae9debd-7d38-4675-9458-bd6c228991c7" x="259" y="178" width="92" height="20"/>
+				<reportElement uuid="fae9debd-7d38-4675-9458-bd6c228991c7" x="204" y="135" width="52" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[เวลาสิ้นสุด]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="91ff2d22-e8c3-4e98-90f6-4393de8d8dbc" x="136" y="94" width="101" height="20"/>
+				<reportElement uuid="91ff2d22-e8c3-4e98-90f6-4393de8d8dbc" x="81" y="78" width="101" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PATIENT_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="fe366fac-9361-4eec-bd18-2f079d3d919b" x="136" y="178" width="123" height="20"/>
+				<reportElement uuid="fe366fac-9361-4eec-bd18-2f079d3d919b" x="81" y="135" width="123" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NAME_TH}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="535212c0-fe5f-4401-8b8e-d0a1c291cf8f" x="58" y="94" width="78" height="20"/>
+				<reportElement uuid="535212c0-fe5f-4401-8b8e-d0a1c291cf8f" x="3" y="78" width="78" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ชื่อนามสกุล]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="75678701-2dc3-44f7-b040-27e1fc95f7dc" x="259" y="138" width="92" height="20"/>
+				<reportElement uuid="75678701-2dc3-44f7-b040-27e1fc95f7dc" x="204" y="106" width="52" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[เวลาเริ่ม]]></text>
 			</staticText>
-			<line>
-				<reportElement uuid="25eaaa60-6b0b-4cfd-91b8-1e1d5818015c" x="0" y="124" width="555" height="1"/>
-				<graphicElement>
-					<pen lineStyle="Dashed"/>
-				</graphicElement>
-			</line>
 			<staticText>
-				<reportElement uuid="8c3f148e-2b5e-4b48-90a0-2fa378eda0dc" x="141" y="10" width="277" height="51"/>
+				<reportElement uuid="8c3f148e-2b5e-4b48-90a0-2fa378eda0dc" x="54" y="11" width="277" height="51"/>
 				<textElement textAlignment="Center">
 					<font fontName="TH SarabunPSK" size="36" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ใบนัดหมายแพทย์]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aa3793bc-dcd8-4e22-b584-2fffb508ca17" x="58" y="178" width="78" height="20"/>
+				<reportElement uuid="aa3793bc-dcd8-4e22-b584-2fffb508ca17" x="3" y="135" width="78" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[นัดทันตพทย์]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="ed6af4e2-8a0f-4a97-ac90-78aaa1c4b835" x="136" y="138" width="123" height="20"/>
+				<reportElement uuid="ed6af4e2-8a0f-4a97-ac90-78aaa1c4b835" x="81" y="106" width="123" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>

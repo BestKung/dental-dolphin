@@ -45,7 +45,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/doctorload", method = RequestMethod.POST)
-    public Employee loadDoctor(@RequestBody Integer id) {
+    public Employee loadDoctor(@RequestBody String id) {
         System.out.println("===========================================================" + id);
         return doctorRepo.findOne(id);
     }

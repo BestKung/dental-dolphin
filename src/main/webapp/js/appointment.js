@@ -282,6 +282,12 @@ console.log($scope.appointment.endTime);
         $('#prefix-appointment-patient').css('color', '#00bcd4');
         $scope.appointment.mobile = $scope.patient.mobile;
         $('#label-mobile').addClass('active');
+        
+        $scope.appointment.doctor = patient.doctor;
+        $scope.doctor = $scope.appointment.doctor;
+        $('#modal-doctor').closeModal();
+        $('#label-appointment-doctor').addClass('active');
+        $('#prefix-appointment-doctor').css('color', '#00bcd4');
     };
     
     $scope.selectDoctor = function (doctor) {
