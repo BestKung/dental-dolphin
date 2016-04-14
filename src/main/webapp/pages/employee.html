@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
         <div class="card-content">
-            <span class="card-title" style="font-size: 30px; font-weight:400;color: black" >เพิ่มพนักงาน</span>
+            <span class="card-title" style="font-size: 30px; font-weight:400;color: black" >เพิ่มพนักงาน</span>            
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix" id="id">label</i>
@@ -10,15 +10,27 @@
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">email</i>
-                    <input type="text" id="email" ng-model="employee.email" ng-change="error.violations.email.message = '';setBackgroundPrefixId();errorEmail = ''">
+                    <input type="email" id="email" ng-model="employee.email" ng-change="error.violations.email.message = '';setBackgroundPrefixId();errorEmail = ''">
+                    <div class="input-help" style="margin-left: 45px; width: 400px;">
+                        <h4>รูปแบบอีเมลไม่ถูกต้อง ตัวอย่างที่ถูกต้อง xxx@xxx.com </h4>
+                    </div>
                     <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}{{errorEmail}}</span></label>
                 </div>
             </div>
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">lock</i>
-                    <input type="password" id="password"  ng-model="password" ng-change="comparePassword();
-                                    error.violations.password.message = ''" maxlength="12" minlength="8" size="12" length="12">
+                    <input type="password" id="password" class="immediate-help" password-validate ng-model="password" ng-change="comparePassword();
+                                    error.violations.password.message = ''" 
+                           maxlength="12" minlength="8" size="12" length="12">
+                    <div class="input-help" style="margin-left: 45px; width: 400px;">
+                        <h4>รหัสควรกรอกตามเงื่อนไขต่อไปนี้:</h4>
+                        <ul>
+                            <li ng-class="pwdHasLetter">ควรมีตัวอักษรอย่างน้อย 1 ตัว</li>
+                            <li ng-class="pwdHasNumber">ควรมีตัวเลขอย่างน้อย 1 ตัว</li>
+                            <li ng-class="pwdValidLength">ความยาวรหัสผ่าน 8-12 ตัวเท่านั้น</li>
+                        </ul>
+                    </div>
                     <label for="password" class="update">รหัสผ่าน<span class="necessary" >*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
                 </div>
                 <div class="col m6 s12 input-field">
@@ -32,7 +44,7 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">credit_card</i>
-                    <input type="text" id="pid" pid ng-model="employee.pid">
+                    <input type="text" id="pid" pid-input ng-model="employee.pid">
                     <label  for="pid" class="update">รหัสประชาชน</label>
                 </div>
                 <div class="col m6 s12 input-field">
@@ -125,12 +137,12 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix" >phone</i>
-                    <input type="tel" id="tel"  tel ng-model="employee.tel">
+                    <input type="tel" id="tel" tel-input ng-model="employee.tel">
                     <label for="tel" class="update" >เบอร์โทร</label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
-                    <input type="tel" id="mobile" mobile ng-model="employee.mobile" ng-change="error.violations.mobile.message = '';
+                    <input type="tel" id="mobile" mobile-input ng-model="employee.mobile" ng-change="error.violations.mobile.message = '';
                                     setBackgroundPrefixDepartmentWorkstatus()">
                     <label for="mobile" class="update">เบอร์โทรศัพท์มือถือ<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.mobile.message}}</span></label>
                 </div>
@@ -228,7 +240,7 @@
                     </div>
                     <div class="input-field">
                         <i class="material-icons prefix clear-prefix">book</i>
-                        <input type="number" id="accountnumber" ng-model="employee.bank.accountNumber">
+                        <input type="text" id="accountnumber" pbangk-input ng-model="employee.bank.accountNumber">
                         <label for="accountnumber" class="update">หมายเลขบัญชี</label>
                     </div>
                 </div>
@@ -251,8 +263,8 @@
                     </div>
                     <div class="input-field">
                         <i class="material-icons prefix clear-prefix">phone</i>
-                        <input type="number" id="contacttel" ng-model="employee.contact.tel">
-                        <label for="contacttel" class="update">เบอร์โทร</label>
+                        <input type="text" id="contacttel" mobile-input ng-model="employee.contact.tel">
+                        <label for="contacttel" class="update">เบอร์โทรศัพท์มือถือ</label>
                     </div>
                 </div>
             </div>
@@ -271,4 +283,4 @@
 </div>
 <div id="warp-toast" >
 </div>
-  
+
