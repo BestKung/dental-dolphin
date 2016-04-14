@@ -5,7 +5,7 @@
             <span class="card-title" style="color: black;"><h4>จัดการคิว</h4></span>
             <span class="row">
                 <div class="right">
-                    <a class="btn-best btn-search" onclick=" $('#modal-clinic-information').openModal({});" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-today" style="margin-right: 5px"></i>นัดไว้</a>
+                    <a class="btn-best btn-search" onclick=" $('#modal-appointment').openModal({});" style="margin-left:calc(3.8rem)"><i class="mdi-action-today" style="margin-right: 5px"></i>นัดไว้</a>
                 </div>
             </span>
             <div class="row">
@@ -13,7 +13,7 @@
                     <i class="material-icons prefix">account_balance
                     </i>
                     <input type="text" id="name" ng-model="hn" ng-blur="findUser()">
-                    <label for="name">HN</label>
+                    <label for="name" id="labe-appointment-hn">HN</label>
                 </div>
                 <div class="col m6 input-field">
                     <i class="material-icons prefix">account_circle</i>
@@ -31,7 +31,7 @@
                 <div class="col m6 input-field">
                     <i class="material-icons prefix">content_paste</i>
                     <textarea type="text" name="unit" class="materialize-textarea" ng-model="queue.detail"></textarea>
-                    <label id="unit" >รายละเอียด (อาการ)</label>
+                    <label for="unit" id="label-appointment-detail" >รายละเอียด (อาการ)</label>
                 </div>
             </div>
             <div class="row">
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <div id="modal-clinic-information" class="modal modal-fixed-footer" style="overflow-y: hidden">
+    <div id="modal-appointment" class="modal modal-fixed-footer" style="overflow-y: hidden">
         <div class="modal-header">
             <span class="row" >
                 <div class="center">
@@ -79,7 +79,7 @@
                 <div class="row">
                     <div class="col m6 input-field">
                         <i class="material-icons prefix">search</i>
-                        <input type="text" id="search" ng-model="searchData.keyword">
+                        <input type="text" id="search" ng-model="searchData.keyword" ng-change="fontData = '';appointment = {}">
                         <label for="search" >ค้นหา : </label>
                     </div>
                 </div>
@@ -87,36 +87,68 @@
                     <div class="col m3">
                         <span><h6>ค้นหาโดย : </h6></span>
                         <div class="select-custom">
-                            <select class="browser-default" id="select-searchby" >
-                                <option value="Name">HN</option>
+                            <select class="browser-default" id="select-searchby" ng-model="searchData.searchBy" ng-init="searchData.searchBy = 'HN'">
+                                <option value="HN">HN</option>
+                                <option value="เลขที่นัดหมาย">เลขที่นัดหมาย</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div style="margin-top: 20px">
-                        <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                        <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataAppointment()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div style="margin-top: 20px;color: red;" class="center" ng-show="fontData">
+                        ไม่พบข้อมูล
+                    </div>
+                </div>
                 <div class="margin-top-20" style="margin-top: 50px">
                     <div class="row">
-                        <font size='5'>HN : 0002</font>
+                        <div class="col m3">
+                            <font size='5'>เลขที่ใบนัด : </font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.id}}</font>
+                        </div>
                     </div>
                     <div class="row">
-                        <font size='5'>ชื่อผู้ป่วย : นายยินดี สบายดี</font>
+                        <div class="col m3">
+                            <font size='5'>HN :</font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.patient.id}}</font>
+                        </div>
                     </div>
                     <div class="row">
-                        <font size='5'>ชื่อทันตเเพทย์ : นายจสินทร์ แสงทรวง</font>
+                        <div class="col m3">
+                            <font size='5'>ชื่อผู้ป่วย :</font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.patient.name}}</font>
+                        </div>
                     </div>
                     <div class="row">
-                        <font size='5'>รายการรักษา : เคลียช่องปาก</font>
+                        <div class="col m3">
+                            <font size='5'>ชื่อทันตเเพทย์ :</font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.doctor.nameTh}}</font>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m3">
+                            <font size='5'>รายการรักษา :</font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.treatmentList}}</font>
+                        </div>
                     </div>
                 </div>
                 <div class="row right">
-                    <a class="btn-best btn-edit" style="margin-left:calc(3.8rem)" ng-click="searcDataContent()"><i class="mdi-action-search" style="margin-right: 5px"></i>ตกลง</a>
+                    <a class="btn-custom-radius btn-edit" style="margin-left:calc(3.8rem)" ng-click="useAppointment()">ตกลง</a>
                 </div>
             </div>      
 

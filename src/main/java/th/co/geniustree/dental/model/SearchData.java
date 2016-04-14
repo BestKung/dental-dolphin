@@ -10,8 +10,10 @@ package th.co.geniustree.dental.model;
  * @author Best
  */
 public class SearchData {
+
     private String keyword;
     private String searchBy;
+    private Object keywordObject;
 
     public String getKeyword() {
         return keyword;
@@ -28,6 +30,13 @@ public class SearchData {
     public void setSearchBy(String searchBy) {
         this.searchBy = searchBy;
     }
-    
-    
+
+    public Object getKeywordObject() {
+        return keywordObject;
+    }
+
+    public void setKeywordObject(Object keywordObject) {
+        this.keywordObject = keywordObject;
+    }
+
 }

@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,8 +30,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Appointment implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
     @Temporal(TemporalType.DATE)
     @NotNull(message = "กรุณากรอกวันนัด")
     private Date appointDay;
@@ -49,11 +49,14 @@ public class Appointment implements Serializable {
 
     private String status;
 
-    public Integer getId() {
+    @OneToOne
+    private AppointmentGennerateCode gennerateCode;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -119,6 +122,14 @@ public class Appointment implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public AppointmentGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(AppointmentGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
     }
 
     @Override

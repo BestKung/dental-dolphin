@@ -9,6 +9,9 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
     var totalDoctor = 0;
     var totalPageDoctor = 0;
     var pageDoctor = 0;
+    $scope.searchData = {};
+    $scope.appointment = {};
+    $scope.fontData = false;
 
 
     $scope.findUser = function () {
@@ -150,5 +153,31 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         getDoctor();
         countDoctor();
         $('#modal-doctor').openModal();
+    };
+
+    $scope.searcDataAppointment = function () {
+        $http.post('/findappointmentqueue', $scope.searchData).success(function (data) {
+            $scope.appointment = data;
+            console.log(!data);
+            if (($scope.searchData.keyword == ' ') || !data) {
+                $scope.fontData = true;
+            } else {
+                $scope.fontData = false;
+            }
+        }).error(function (data) {
+            $scope.fontData = true;
+        });
+    };
+
+    $scope.useAppointment = function () {
+        $scope.queue.doctor = $scope.appointment.doctor;
+        $scope.queue.detail = $scope.appointment.treatmentList;
+        $scope.queue.hasAppointment = 'has appointment';
+        $scope.patient = $scope.appointment.patient;
+        $scope.doctor = $scope.appointment.doctor.nameTh;
+        $scope.hn = $scope.appointment.patient.id;
+        $('#modal-appointment').closeModal();
+        $('#labe-appointment-hn , #label-appointment-doctor , #label-queue-patient , #label-appointment-detail').addClass('active');
+
     };
 });

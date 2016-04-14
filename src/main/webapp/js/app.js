@@ -11,6 +11,7 @@ app.controller('homeController', function ($scope, $http) {
     $scope.image;
     $scope.clinic = {};
     checkMobile();
+    $scope.numberOfNontification = 0;
     $scope.totalNontification = 0;
     $scope.manageEmployee = false;
     $scope.manageDoctor = false;
@@ -21,6 +22,9 @@ app.controller('homeController', function ($scope, $http) {
     $scope.viewWorkCalendar = false;
     $scope.isAdmin = false;
     $scope.employeeOrAdmin = false;
+    var nontification = false;
+    $scope.nontiClick = false;
+    $scope.showNontification = false;
 
     function  checkMobile() {
         var $mobile = $(window).outerWidth() < 995;
@@ -67,6 +71,9 @@ app.controller('homeController', function ($scope, $http) {
     function getAppointment() {
         $http.get('/appointmentnontificationcount').success(function (data) {
             $scope.totalNontification = $scope.totalNontification + data;
+            if (data > 0) {
+                nontification = true;
+            }
         });
     }
 
@@ -74,6 +81,9 @@ app.controller('homeController', function ($scope, $http) {
     function getOutProduct() {
         $http.get('/getoutproductnonacknowledge').success(function (data) {
             $scope.totalNontification = $scope.totalNontification + data;
+            if (data > 0) {
+                nontification = true;
+            }
         });
     }
 
@@ -81,17 +91,20 @@ app.controller('homeController', function ($scope, $http) {
     function getExpiredate() {
         $http.get('/countnontificationexpiredate').success(function (data) {
             $scope.totalNontification = $scope.totalNontification + data;
+            if (data > 0) {
+                nontification = true;
+            }
         });
     }
 
-
-    $scope.showNontification = function () {
-        if ($scope.totalNontification > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    };
+    setInterval(function () {
+        $scope.numberOfNontification = $scope.totalNontification;
+        getAppointment();
+        getOutProduct();
+        getExpiredate();
+        $scope.totalNontification = 0;
+        $scope.showNontification = $scope.numberOfNontification > 0;
+    }, 2000);
 
     $(document).ready(function () {
         $('.slider').slider({full_width: true});
@@ -229,8 +242,8 @@ app.controller('homeController', function ($scope, $http) {
         }
     }
 
-});
-
+}
+);
 app.factory('employeeService', function () {
     return {
         employeeUpdate: {}, doctorUpdate: {}

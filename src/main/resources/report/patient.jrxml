@@ -10,9 +10,9 @@
 		<![CDATA[select * from PATIENT p
 join PATIENT_MEDICAL_HISTORY ph on (ph.patient_id = p.id)
 join MEDICALHISTORY m on(ph.medical_history_id = m.id)
-where p.id = $P{id}]]>
+where p.id = 'HNTEST3']]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ADDRESS" class="java.lang.String">
@@ -25,9 +25,6 @@ where p.id = $P{id}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="HN" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="JOB" class="java.lang.String">
@@ -54,6 +51,12 @@ where p.id = $P{id}]]>
 	<field name="TEL" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="DOCTOR_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -66,7 +69,7 @@ where p.id = $P{id}]]>
 	<field name="PATIENT_PICTURE_XRAY_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PATIENT_ID" class="java.lang.Integer">
+	<field name="PATIENT_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="MEDICAL_HISTORY_ID" class="java.lang.Integer">

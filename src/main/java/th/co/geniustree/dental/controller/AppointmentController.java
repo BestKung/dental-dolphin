@@ -9,16 +9,13 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import static org.hibernate.criterion.Projections.count;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -32,7 +29,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Appointment;
+import th.co.geniustree.dental.model.AppointmentGennerateCode;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.repo.AppointGennerateCodeRepo;
 import th.co.geniustree.dental.repo.AppointmentRepo;
 import th.co.geniustree.dental.service.AppointmentService;
 import th.co.geniustree.dental.spec.AppointmentSpec;
@@ -48,14 +47,28 @@ public class AppointmentController {
     private AppointmentRepo appointmentRepo;
     @Autowired
     private AppointmentService appointmentService;
+    @Autowired
+    private AppointGennerateCodeRepo gennerateCodeRepo;
 
     @RequestMapping(value = "/saveappointment", method = RequestMethod.POST)
     private void saveAppointment(@Validated @RequestBody Appointment appointment, Pageable pageable) throws ParseException {
+        if (appointment.getId() == null) {
+            AppointmentGennerateCode gennerateCode = gennerateCodeRepo.save(new AppointmentGennerateCode());
+
+            int idLength = (gennerateCode.getId() + "").length();
+            String strId = gennerateCode.getId() + "";
+            for (int i = idLength; i <= 4; i++) {
+                strId = 0 + strId;
+            }
+
+            appointment.setId("AP" + strId + "-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()));
+            gennerateCodeRepo.delete(gennerateCode);
+        }
         if ((appointment.getStatus() == null) || (" ".equals(appointment.getStatus()))) {
             appointment.setStatus("1");
         }
-        System.out.println("-------------------------------"+appointment.getStartTime());
-         System.out.println("-------------------------------"+appointment.getEndTime());
+        System.out.println("-------------------------------" + appointment.getStartTime());
+        System.out.println("-------------------------------" + appointment.getEndTime());
         appointmentRepo.save(appointment);
     }
 
@@ -114,8 +127,8 @@ public class AppointmentController {
     }
 
     @RequestMapping(value = "/deleteappointment", method = RequestMethod.POST)
-    private void deleteAppointment(@RequestBody Integer id) {
-        appointmentRepo.delete(id);
+    private void deleteAppointment(@RequestBody Appointment appointment) {
+        appointmentRepo.delete(appointment);
     }
 
     @RequestMapping(value = "/appointmentnontificationcount", method = RequestMethod.GET)
@@ -174,8 +187,8 @@ public class AppointmentController {
         Date date = sdf.parse(tomorrowString);
         return appointmentRepo.count(AppointmentSpec.appointmentDate(date));
     }
-    
-      @RequestMapping(value = "/informationappointment/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/informationappointment/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
         byte[] content = null;
@@ -196,6 +209,7 @@ public class AppointmentController {
         }
         return response;
     }
+
     @RequestMapping(value = "/appointments", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printemployees() {
         InputStream inputStream = null;

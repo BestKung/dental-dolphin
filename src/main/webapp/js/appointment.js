@@ -31,16 +31,12 @@ angular.module('appointment').controller('appointmentController', function ($sco
     var totalPageAppointment = 0;
     var pageAppointment = 0;
     $scope.saveAppointment = function () {
-//        if (!!$scope.startTime) {
-//            $scope.appointment.startTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.startTime)).format('YYYY-MM-d HH:mm:ss'));
-//            alert("st " + $scope.startTime);
-//        }
-//        if (!!$scope.endTime) {
-//            alert("en");
-//            $scope.appointment.endTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.endTime)).format('YYYY-MM-d HH:mm:ss'));
-//            alert("en " + $scope.endTime);
-//        }
-console.log($scope.appointment.endTime);
+        if (!!$scope.startTime) {
+            $scope.appointment.startTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.startTime)).format('YYYY-MM-d HH:mm:ss'));
+        }
+        if (!!$scope.endTime) {
+            $scope.appointment.endTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.endTime)).format('YYYY-MM-d HH:mm:ss'));
+        }
         if (($scope.appointment.endTime - $scope.appointment.startTime) < 0) {
             $('#modal-appointment').openModal();
         } else {
@@ -75,7 +71,13 @@ console.log($scope.appointment.endTime);
     }
 
     $scope.deleteAppointment = function (app) {
-        $http.post('/deleteappointment', app.id).success(function (data) {
+        if (!!app.startTime) {
+            app.startTime = new Date(moment(new Date(app.appointDay + " " + app.startTime)).format('YYYY-MM-d HH:mm:ss'));
+        }
+        if (!!app.endTime) {
+            app.endTime = new Date(moment(new Date(app.appointDay + " " + app.endTime)).format('YYYY-MM-d HH:mm:ss'));
+        }
+        $http.post('/deleteappointment', app).success(function (data) {
             selectGetOrSearchAppointment();
             $('span#close-card').trigger('click');
             $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
@@ -282,14 +284,14 @@ console.log($scope.appointment.endTime);
         $('#prefix-appointment-patient').css('color', '#00bcd4');
         $scope.appointment.mobile = $scope.patient.mobile;
         $('#label-mobile').addClass('active');
-        
+
         $scope.appointment.doctor = patient.doctor;
         $scope.doctor = $scope.appointment.doctor;
         $('#modal-doctor').closeModal();
         $('#label-appointment-doctor').addClass('active');
         $('#prefix-appointment-doctor').css('color', '#00bcd4');
     };
-    
+
     $scope.selectDoctor = function (doctor) {
         $scope.appointment.doctor = doctor;
         $scope.doctor = $scope.appointment.doctor;
