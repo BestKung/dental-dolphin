@@ -17,8 +17,8 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">book</i>
-                    <input type="text" id="pid"  ng-model="patient.pid">
-                    <label  for="pid" class="update">เลขประจำคัวประชาชน</label>
+                    <input type="text" id="pid" pid-input ng-model="patient.pid">
+                    <label  for="pid" class="update">เลขประจำตัวประชาชน</label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">person</i>
@@ -77,12 +77,12 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
-                    <input type="text" id="tel" ng-model="patient.tel">
+                    <input type="text" id="tel" tel-input ng-model="patient.tel">
                     <label for="tel" class="update">เบอร์โทร</label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">stay_current_portrait</i>
-                    <input type="text" id="mobile" ng-model="patient.mobile">
+                    <input type="text" id="mobile" mobile-input ng-model="patient.mobile">
                     <label for="mobile" class="update">เบอร์โทรศัพท์มือถือ</label>
                 </div>
             </div>
@@ -94,7 +94,10 @@
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">email</i>
-                    <input type="text" id="mobile" ng-model="patient.email">
+                    <input type="email" id="mobile" ng-model="patient.email">
+                    <div class="input-help" style="margin-left: 45px; width: 400px;">
+                        <h4>รูปแบบอีเมลไม่ถูกต้อง ตัวอย่างที่ถูกต้อง xxx@xxx.com </h4>
+                    </div>
                     <label for="mobile" class="update">อีเมลล์</label>
                 </div>
             </div>

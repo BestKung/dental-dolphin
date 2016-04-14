@@ -41,27 +41,33 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     }
 
     $scope.saveDoctor = function () {
-        if (confirmPassword()) {
-            $http.post('/savedoctor', $scope.doctor).success(function (data) {
-                if (data == 200) {
-                    $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-                    Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
-                    clearData();
-                }
-                if (data == 1) {
-                    $scope.errorEmail = 'อีเมลซ้ำ';
+        if (($scope.password) != undefined) {
+            if (confirmPassword()) {
+                $http.post('/savedoctor', $scope.doctor).success(function (data) {
+                    if (data == 200) {
+                        $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                        Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                        clearData();
+                    }
+                    if (data == 1) {
+                        $scope.errorEmail = 'อีเมลซ้ำ';
+                        $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                        Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                        $('body,html').animate({scrollTop: 0}, "600");
+                    }
+                }).error(function (data) {
                     $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
                     Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                    $scope.error = data;
                     $('body,html').animate({scrollTop: 0}, "600");
-                }
-            }).error(function (data) {
-                $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
-                Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
-                $scope.error = data;
+                });
+            } else {
+                console.log('error valid password!');
                 $('body,html').animate({scrollTop: 0}, "600");
-            });
+            }
         } else {
-            console.log('error valid password!');
+            $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+            Materialize.toast('กรอกรหัสผ่านไม่ตรงตามเงื่อนไขที่กำหนด', 3000, 'rounded');
             $('body,html').animate({scrollTop: 0}, "600");
         }
     };
@@ -208,7 +214,9 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     $('#input-employee-picture').change(function () {
         readURL(this);
     });
-
+    $(document).ready(function () {
+        $('input#password, input#confirmpassword').characterCounter();
+    });
 
 });
 

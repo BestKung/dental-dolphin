@@ -62,23 +62,49 @@
 
                 <div class="col m6 input-field">
                     <i class="material-icons prefix">account_box</i>
-                    <textarea type="text" name="unit" class="materialize-textarea"></textarea>
+                    <textarea type="text" ng-model="detailHeal.detail" name="unit" class="materialize-textarea"></textarea>
                     <label id="unit" >รายละเอียดการรักษา</label>
+                </div>
+            </div>
+
+
+            <div class="row" >
+                <div class="input-field col m12" >
+                    <table  class="bordered" >
+                        <thead >
+                            <tr>
+                                <th>ลำดับ</th> 
+                                <th>ราการที่จัดทำ</th>
+                                <th>จำนวน</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="odh in orderHeals.content">
+                                <td>{{$index + 1}}</td>
+                                <td>{{odh.listSelectHeal.name}}</td>
+                                <td>{{odh.value}}</td>
+                                <td><a class="btn-custom-radius btn-delete" ng-click="deleteTypeOfMedical(odh)"><i class="mdi-action-delete"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col m6">
                     <h5>เพิ่มรายการรักษา</h5>
-                    <button class="btn-floating btn-large waves-light btn modal-trigger green" ng-click="clickOrderHeal()">
+                    <button class="btn-floating btn-large waves-light btn modal-trigger green" ng-click="clickAddTypeOfMedical()">
                         <i class="material-icons">add_circle
-</i></button>
+                        </i></button>
                 </div>
             </div>
+
+
             <div class="row">
                 <div class="col m6 center">
                     <a class="btn-best btn-search right" ng-click="saveTpyeProduct()" type="submit" >ปิดการรักษา</a>
-                    <a class="btn-best btn-edit right" ng-click="saveTpyeProduct()" type="submit"  style="margin-right: 10px;">บันทึก</a>
+                    <a class="btn-best btn-edit right" ng-click="seveOrderHeal()" type="submit"  style="margin-right: 10px;">บันทึก</a>
                     <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
                 </div>
             </div>
@@ -93,4 +119,63 @@
 </style>
 
 
+<div id="modal-addtypeofmedical" class="modal" style="height: inherit;border-radius: 10px;">
+    <div class="modal-content" style="padding: 10px">
+        <div class="row center">
+            <h4  class="margin-top-20 magin-buttom-20">เพิ่มชนิดการรักษา</h4>
+        </div>
+        <div class="row">
+            <div class="col m6 s12 input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="search" ng-model="searchDataTypeOfMedical.keyword">
+                <label for="search" >ค้นหา : </label>
+            </div>
+            <div class="col m3 " style="margin-top: 30px;">
+                <a class="btn-best btn-search" ng-click="searchTypeOfMedical()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="responsive-table hoverable">
+                <thead>
+                    <tr>
+                        <th style="width:10%">ลำดับ</th>
+                        <th style="width:40%">ชื่อชนิดการรักษา</th>
+                        <th style="width:10%">ราคา</th>
+                        <th style="width:20%">จำนวน</th>
+                        <th style="width:20%">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="typ in typeOfMedicals.content">
+                        <td>{{typ.id}}</td>
+                        <th>{{typ.name}}</th>
+                        <th>{{typ.price}}</th>
+                        <th>
+                            <input id="value-of-operation" type="text" style="height:2rem" placeholder="จำนวน" ng-model="value">
+                        </th>
+                        <th>
+                            <a class="modal-close btn-best btn-edit" ng-click="selectTypeOfMedical(typ, value)">เลือก</a>
+                        </th>
+                    </tr>
+                </tbody>                  
+            </table>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <ul class="pagination right" style="margin-top: 10px;">
+                    <li class="btn btn-pagination" id="first-page-typeofmedical" ng-click="firstPageTypeOfMedical()"><p style="margin-top: 2px;">&Lt;</p></li>
+                    <li class="btn btn-pagination" id="pre-page-typeofmedical" ng-click="prePageTypeOfMedical()"><p style="margin-top: 2px;">&LT;</p></li>
+                    <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPageTypeOfMedical + 1}}</p></li>
+                    <li class="btn btn-pagination" id="next-page-typeofmedical" ng-click="nextPageTypeOfMedical()"><p style="margin-top: 2px;">&GT;</p></li>
+                    <li class="btn btn-pagination" id="final-page-typeofmedical" ng-click="finalPageTypeOfMedical()"><p style="margin-top: 2px;">&Gt;</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="model-footer right">
+        <a href="" class="magin-button btn btn-gray modal-action modal-close">Cancle</a>
+    </div>
+</div>
+
+<div id="warp-toast">
 </div>

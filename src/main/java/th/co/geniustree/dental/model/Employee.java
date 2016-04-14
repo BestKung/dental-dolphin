@@ -41,16 +41,16 @@ public class Employee implements Serializable, UserDetails {
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name = "EMAIL")
-//    @NotBlank(message = "กรุณากรอก อีเมล")
+    @NotBlank(message = "กรุณากรอก อีเมล")
     @Email(message = "example@example.com")
     private String email;
 
     @Column(name = "PASSWORD")
-//    @NotBlank(message = "กรุณากรอกรหัสผ่าน")
+    @NotBlank(message = "กรุณากรอกรหัสผ่าน")
     private String password;
 
     @Column(name = "NAME_TH")
-//    @NotBlank(message = "กรุณากรอกชื่อ ถาษาไทย")
+    @NotBlank(message = "กรุณากรอกชื่อ ถาษาไทย")
     private String nameTh;
 
     private String type;

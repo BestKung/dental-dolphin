@@ -148,7 +148,7 @@ var app = angular.module('employee')
                     }
                 } else {
                     $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
-                    Materialize.toast('จำนวนรหัสผ่าน 8 ตัวขึ้นไป', 3000, 'rounded');
+                    Materialize.toast('กรอกรหัสผ่านไม่ตรงตามเงื่อนไขที่กำหนด', 3000, 'rounded');
                     $('body,html').animate({scrollTop: 0}, "600");
                 }
             };
@@ -188,14 +188,14 @@ var app = angular.module('employee')
             ;
 
 
-            $scope.setBackgroundPrefixId = function () {
-                var email = $scope.employee.email;
-                if (email.length != 0) {
-                    $('#id').css('color', '#00bcd4');
-                } else if (email.length == 0) {
-                    $('#id').css('color', 'black');
-                }
-            };
+//            $scope.setBackgroundPrefixId = function () {
+//                var email = $scope.employee.email;
+//                if (email.length != 0) {
+//                    $('#id').css('color', '#00bcd4');
+//                } else if (email.length == 0) {
+//                    $('#id').css('color', 'black');
+//                }
+//            };
 
             $scope.setBackgroundPrefixSexBloodMarryStatus = function () {
                 var currentAddress = $scope.employee.currentAddress;
@@ -267,166 +267,4 @@ app.directive('fileModel', function ($parse) {
     };
 });
 
-app.directive('mobile', function ($filter, $browser) {
-    return {
-        require: 'ngModel',
-        link: function ($scope, $element, $attrs, ngModelCtrl) {
-            var listener = function () {
-                var value = $element.val().replace(/[^0-9]/g, '');
-                $element.val($filter('mobile-phone')(value, false));
-            };
-            $element.bind('keydown', function (event) {
-                var key = event.keyCode;
-                // If the keys include the CTRL, SHIFT, ALT, or META keys, or the arrow keys, do nothing.
-                // This lets us support copy and paste too
-                if (key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) {
-                    return;
-                }
-                $browser.defer(listener); // Have to do this or changes don't get picked up properly
-            });
-        }
-    };
-});
-app.filter('mobile-phone', function () {
-    return function (tel) {
-        console.log(tel);
-        if (!tel) {
-            return '';
-        }
 
-        var value = tel.toString().trim().replace(/^\+/, '');
-
-        if (value.match(/[^0-9]/)) {
-            return tel;
-        }
-
-        var city, number;
-
-        switch (value.length) {
-            case 1:
-            case 2:
-            case 3:
-                city = value;
-                break;
-
-            default:
-                city = value.slice(0, 3);
-                number = value.slice(3);
-        }
-        number = number.slice(0, 3) + '-' + number.slice(3, 7);
-        return ("" + city + "-" + number).trim();
-    };
-});
-
-
-app.directive('tel', function ($filter, $browser) {
-    return {
-        require: 'ngModel',
-        link: function ($scope, $element, $attrs, ngModelCtrl) {
-            var listener = function () {
-                var value = $element.val().replace(/[^0-9]/g, '');
-                $element.val($filter('tel-phone')(value, false));
-            };
-            $element.bind('keydown', function (event) {
-                var key = event.keyCode;
-                // If the keys include the CTRL, SHIFT, ALT, or META keys, or the arrow keys, do nothing.
-                // This lets us support copy and paste too
-                if (key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) {
-                    return;
-                }
-                $browser.defer(listener); // Have to do this or changes don't get picked up properly
-            });
-        }
-    };
-});
-app.filter('tel-phone', function () {
-    return function (tel) {
-        console.log(tel);
-        if (!tel) {
-            return '';
-        }
-
-        var value = tel.toString().trim().replace(/^\+/, '');
-
-        if (value.match(/[^0-9]/)) {
-            return tel;
-        }
-
-        var city, number;
-
-        switch (value.length) {
-            case 1:
-            case 2:
-            case 3:
-                city = value;
-                break;
-
-            default:
-                city = value.slice(0, 3);
-                number = value.slice(3);
-        }
-        number = number.slice(0, 3) + '-' + number.slice(3, 6);
-        return ("" + city + "-" + number).trim();
-    };
-});
-
-
-app.directive('pid', function ($filter, $browser) {
-    return {
-        require: 'ngModel',
-        link: function ($scope, $element, $attrs, ngModelCtrl) {
-            var listener = function () {
-                var value = $element.val().replace(/[^0-9]/g, '');
-                $element.val($filter('pid-varidate')(value, false));
-            };
-            $element.bind('keydown', function (event) {
-                var key = event.keyCode;
-                // If the keys include the CTRL, SHIFT, ALT, or META keys, or the arrow keys, do nothing.
-                // This lets us support copy and paste too
-                if (key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) {
-                    return;
-                }
-                $browser.defer(listener); // Have to do this or changes don't get picked up properly
-            });
-        }
-    };
-});
-app.filter('pid-varidate', function () {
-    return function (tel) {
-        console.log(tel);
-        if (!tel) {
-            return '';
-        }
-
-        var value = tel.toString().trim().replace(/^\+/, '');
-
-        if (value.match(/[^0-9]/)) {
-            return tel;
-        }
-
-        var pid1, number;
-
-        switch (value.length) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-                pid1 = value;
-                break;
-            default:
-                pid1 = value.slice(0, 1);
-                number = value.slice(1);
-        }
-        number = number.slice(0, 4) + '-' + number.slice(4, 9) + '-' + number.slice(9, 11) + '-' + number.slice(11, 12);
-        return ("" + pid1 + "-" + number).trim();
-
-    };
-});
