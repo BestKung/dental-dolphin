@@ -12,16 +12,21 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
     $scope.searchData = {};
     $scope.appointment = {};
     $scope.fontData = false;
+    $scope.rooms = {};
+    $scope.queueOfDoctor = {};
+    var roomClick = {};
 
 
     $scope.findUser = function () {
         var patient = {};
-        patient.hn = $scope.hn;
+        patient.id = $scope.hn;
         $http.post('/searchpatientbyhn', patient).success(function (data) {
             $scope.patient = data;
             $('#label-queue-patient').addClass('active');
             $scope.queue.doctor = data.doctor;
-            $scope.doctor = data.doctor.nameTh;
+            if (!!$scope.doctor) {
+                $scope.doctor = data.doctor.nameTh;
+            }
             $('#label-appointment-doctor').addClass('active');
             $('#prefix-appointment-doctor').css('color', '#00bcd4');
         });
@@ -31,6 +36,10 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         $scope.queue.patient = $scope.patient;
         $http.post('/savequeue', $scope.queue).success(function (data) {
             console.log('save Sucess');
+            $scope.queue = {};
+            $scope.patient = {};
+            $scope.doctor = '';
+            $scope.hn = '';
         });
     };
 
@@ -180,4 +189,42 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         $('#labe-appointment-hn , #label-appointment-doctor , #label-queue-patient , #label-appointment-detail').addClass('active');
 
     };
+    getRoom();
+    setInterval(function () {
+        getRoom();
+    }, 3000);
+
+
+    function getRoom() {
+        $http.get('/getroom').success(function (data) {
+            $scope.rooms = data;
+        });
+    }
+
+    $scope.showRoom = function (room) {
+        if (room.roomStatus == 'เปิด') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    function searchPatientQueue(queue) {
+        $http.post('/searchpatientqueue', queue).success(function (data) {
+            $scope.queueOfDoctor = data;
+        });
+    }
+
+    $scope.clickQueueDoctor = function (room) {
+        roomClick = room;
+        $('#modal-queue').openModal();
+        searchPatientQueue(room);
+    };
+
+    $scope.clickDeleteQueue = function (quque) {
+        $http.post('/deletequeue', quque).success(function (data) {
+            searchPatientQueue(roomClick);
+        });
+    };
+
 });

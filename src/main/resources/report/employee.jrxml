@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="440ea817-26f8-416d-9fd0-8730675f806a">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="id" class="java.lang.Integer">
+	<property name="ireport.y" value="14"/>
+	<parameter name="id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -15,7 +15,7 @@ left outer join bank b on (s.bank_id = b.id)
 join department d on (d.id = s.department_id)
 where s.id = $P{id}]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="EMAIL" class="java.lang.String">
@@ -91,6 +91,9 @@ where s.id = $P{id}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="DEPARTMENT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="STAFF_PICTURE_ID" class="java.lang.Integer">

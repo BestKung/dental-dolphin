@@ -34,6 +34,8 @@ public class Room implements Serializable {
     @OneToOne
     private Doctor doctor;
 
+    private String doctorStatus;
+
     public String getRoomId() {
         return roomId;
     }
@@ -56,6 +58,14 @@ public class Room implements Serializable {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public String getDoctorStatus() {
+        return doctorStatus;
+    }
+
+    public void setDoctorStatus(String doctorStatus) {
+        this.doctorStatus = doctorStatus;
     }
 
     @Override

@@ -5,8 +5,11 @@
  */
 package th.co.geniustree.dental.repo;
 
-import java.io.Serializable;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import th.co.geniustree.dental.model.Doctor;
 import th.co.geniustree.dental.model.PatientQueue;
 
 /**
@@ -15,4 +18,6 @@ import th.co.geniustree.dental.model.PatientQueue;
  */
 public interface PatientQueueRepo extends JpaRepository<PatientQueue, String> {
 
+    public Page<PatientQueue> findAllByDoctorOrderByQueueIdAsc(Doctor doctor, Pageable pageable);
+    public List<PatientQueue> findAllByDoctorOrderByQueueIdAsc(Doctor doctor);
 }

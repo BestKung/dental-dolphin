@@ -213,7 +213,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/personalinformationpatient/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") String id) {
         InputStream inputStream = null;
         byte[] content = null;
         JasperPrint fill = null;
@@ -255,7 +255,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/cardpatient/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> printCardPatient(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> printCardPatient(@PathVariable("id") String id) {
         InputStream inputStream = null;
         byte[] content = null;
         JasperPrint fill = null;

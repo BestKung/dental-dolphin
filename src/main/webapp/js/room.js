@@ -21,6 +21,7 @@ angular.module('room').controller('roomController', function ($scope, $http) {
             updateRoom();
             update = false;
         } else {
+            $scope.room.doctorStatus = 'ไม่ว่าง';
             $http.post('/roomsave', $scope.room).success(function (data) {
                 if (data == 200) {
                     console.log('save success');

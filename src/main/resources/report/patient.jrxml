@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patient" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec05988f-2c68-4103-a2a3-8380f7cc1df4">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="25"/>
 	<parameter name="id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -79,7 +79,7 @@ where p.id = 'HNTEST3']]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="HN_1" class="java.lang.Integer" resetType="Column" calculation="Count">
-		<variableExpression><![CDATA[$F{HN}]]></variableExpression>
+		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -93,7 +93,7 @@ where p.id = 'HNTEST3']]>
 	<columnHeader>
 		<band height="361" splitType="Stretch">
 			<textField>
-				<reportElement uuid="a0989fbf-cbb8-43e8-b8f4-634d0e9dc76c" x="87" y="102" width="61" height="20"/>
+				<reportElement uuid="a0989fbf-cbb8-43e8-b8f4-634d0e9dc76c" x="104" y="102" width="67" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -107,11 +107,11 @@ where p.id = 'HNTEST3']]>
 				<text><![CDATA[กรุ๊ปเลือด]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="06c68302-8e74-4805-abc0-58a452909cba" x="46" y="102" width="42" height="20"/>
+				<reportElement uuid="06c68302-8e74-4805-abc0-58a452909cba" x="46" y="102" width="58" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[ลำดับ]]></text>
+				<text><![CDATA[รหัสผู้ป่วย]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="b503496b-c11b-4fde-9f37-8a320a9e44c0" x="88" y="160" width="100" height="20"/>
@@ -148,20 +148,6 @@ where p.id = 'HNTEST3']]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ADDRESS}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="64b11e5f-0e44-4501-98a4-3ebce5a19c06" x="205" y="102" width="100" height="20"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{HN}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="a5498f90-cf8d-48de-a247-74a67ec97745" x="171" y="102" width="34" height="20"/>
-				<textElement>
-					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[HN]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="4c13474c-8489-435d-bd66-b3ead9cefc1c" x="188" y="25" width="200" height="41"/>
 				<textElement textAlignment="Center">

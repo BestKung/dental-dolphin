@@ -320,6 +320,7 @@
     text-align: center;
     color: white;
     padding-top: 40px;
+    cursor: pointer;
 }
 .box1{
     width: 150px;
@@ -330,6 +331,7 @@
     align-items: center;
     color: white;
     padding-top: 40px;
+    cursor: pointer;
 }
 .box-open-room{
     width: 150px;
@@ -365,6 +367,8 @@
     background-color:  #f44336;
     color: white;
     opacity: 0.9;
+    cursor: pointer;
+
 }
 .btn-close-room:active{
     background-color:  #f44336;

@@ -6,10 +6,10 @@
 package th.co.geniustree.dental.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +18,7 @@ import th.co.geniustree.dental.model.Appointment;
 import th.co.geniustree.dental.model.Patient;
 import th.co.geniustree.dental.model.PatientQueue;
 import th.co.geniustree.dental.model.PatientQueueGenerateCode;
+import th.co.geniustree.dental.model.Room;
 import th.co.geniustree.dental.model.SearchData;
 import th.co.geniustree.dental.repo.AppointmentRepo;
 import th.co.geniustree.dental.repo.PatientQueueGenerateCodeRepo;
@@ -45,13 +46,18 @@ public class PatientQueueController {
 
     @RequestMapping(value = "/searchpatientbyhn", method = RequestMethod.POST)
     public Patient searchPatientByHn(@RequestBody Patient patient) {
+        System.out.println("---------------------------------------------------->" + patient.getId());
         return patientRepo.findById(patient.getId());
     }
 
     @RequestMapping(value = "/savequeue", method = RequestMethod.POST)
     public void saveQueue(@RequestBody PatientQueue patientQueue) {
         PatientQueueGenerateCode code = patientQueueGenerateCodeRepo.save(new PatientQueueGenerateCode());
-        patientQueue.setQueueId(code.getIdGen() + "");
+        if (patientQueue.getHasAppointment() != null) {
+            patientQueue.setQueueId(code.getIdGen() + "");
+        } else {
+            patientQueue.setQueueId((code.getIdGen() + "") + (code.getIdGen() + ""));
+        }
         patientQueueRepo.save(patientQueue);
         patientQueueGenerateCodeRepo.delete(code);
     }
@@ -70,4 +76,17 @@ public class PatientQueueController {
             return appointmentRepo.findOne(searchData.getKeyword());
         }
     }
+
+    @RequestMapping(value = "/searchpatientqueue", method = RequestMethod.POST)
+    public Page<PatientQueue> searchPatientQueue(@RequestBody Room room, Pageable pageable) {
+        System.out.println("--------------------------------------------------------------------------" + room.getDoctor().getId());
+        return patientQueueRepo.findAllByDoctorOrderByQueueIdAsc(room.getDoctor(), pageable);
+    }
+
+    @RequestMapping(value = "/deletequeue", method = RequestMethod.POST)
+    public void deleteQueue(@RequestBody PatientQueue patientQueue) {
+        patientQueueRepo.delete(patientQueue);
+    }
+
+//    @Request
 }

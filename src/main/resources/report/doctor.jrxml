@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="id" class="java.lang.Integer">
+	<parameter name="id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -14,7 +14,7 @@ left outer join contact c on (d.contact_id = c.id)
 left outer join bank b on (d.bank_id = b.id)
 where d.id = $P{id}]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="EMAIL" class="java.lang.String">
@@ -96,6 +96,9 @@ where d.id = $P{id}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="DOCTOR_PICTURE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="CONTENT" class="java.awt.Image">

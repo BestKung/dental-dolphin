@@ -46,20 +46,16 @@
     <div class="card">
         <div class="card-content">
             <span class="card-content"><h4>สถานะทันตเเพทย์</h4></span>
-            <!--< style="background-color: red;width: 100px; height: 100px;"></i>-->
             <div class="row">
-                <div class="col m3  " onclick="$('#modal1').openModal({});">
-                    <font size='4'>นายจสินทร์ แสงทรวง</font>
-                    <div class="box">
-                        <h5 style="">ห้อง 255</h5>
-                        <h5 style="">ว่าง</h5>
+                <div  ng-repeat="room in rooms.content" class="col m4  " ng-click="clickQueueDoctor(room)" ng-show="showRoom(room)">
+                    <font size='4'>{{room.doctor.nameTh}}</font>
+                    <div  class="box" ng-show="room.doctorStatus == 'ว่าง'">
+                        <h5 style="">ห้อง {{room.roomId}}</h5>
+                        <h5 style="">{{room.doctorStatus}}</h5>
                     </div>
-                </div>
-                <div class="col m3" onclick="$('#modal1').openModal({});">
-                    <font size='4'>นายสมชัย ใจไปไหม</font>
-                    <div class="box1">
-                        <h5 style="">ห้อง 256</h5>
-                        <h5 style="">ไม่ว่าง</h5>
+                    <div class="box1" ng-show="room.doctorStatus == 'ไม่ว่าง'">
+                        <h5 style="">ห้อง {{room.roomId}}</h5>
+                        <h5 style="">{{room.doctorStatus}}</h5>
                     </div>
                 </div>
             </div>
@@ -157,11 +153,11 @@
     </div>
 
 
-    <div id="modal1" class="modal modal-fixed-footer" style="overflow-y: hidden">
+    <div id="modal-queue" class="modal modal-fixed-footer" style="overflow-y: hidden">
         <div class="modal-header">
             <span class="row" >
                 <div class="center">
-                    <font class="center" style="vertical-align: middle" ><span style="margin-left: 20px;font-size: 40px;">คิวรอรับการรักษา ห้อง 256 ของทันตเเพทย์ สมชัย</span><span class="pointer modal-close right"style="margin-right: 10px;font-size: 25px">&times;</span></font>
+                    <font class="center" style="vertical-align: middle" ><span style="margin-left: 20px;font-size: 40px;">คิวรอรับการรักษา {{queueOfDoctor.content[0].doctor.nameTh}}</span><span class="pointer modal-close right"style="margin-right: 10px;font-size: 25px">&times;</span></font>
                 </div>
             </span>
         </div>
@@ -169,28 +165,29 @@
             <div class="container">
                 <table>
                     <thead>
-                    <th>HN</th>
-                    <th>ชื่อผู้ป่วย</th>
-                    <th>รับการรักษา</th>
+                    <th style="width: 10px">HN</th>
+                    <th  style="width: 20px">ชื่อผู้ป่วย</th>
+                    <th style="width: 30px">รายการรักษา</th>
+                    <th style="width: 20px">รับการรักษา</th>
+                    <th style="width: 10px">จัดการ</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>0001</td>
-                            <td>กิตติพร คำไล้</td>
+                        <tr ng-repeat="q in queueOfDoctor.content">
+                            <td>{{q.patient.id}} {{q.queueId}}</td>
+                            <td>{{q.patient.name}}</td>
+                            <td>{{q.detail}}</td>
                             <td><a>รับการรักษา</a></td>
-                        </tr>
-                        <tr>
-                            <td>0002</td>
-                            <td>นายยินดี สบายดี</td>
-                            <td><a>รับการรักษา</a></td>
-                        </tr>
-                        <tr>
-                            <td>0003</td>
-                            <td>	นายกระทิง แรงช้าง</td>
-                            <td><a>รับการรักษา</a></td>
+                            <td><a class="btn-custom-radius btn-delete" ng-click="clickDeleteQueue(q)"><i class="mdi-action-delete"></i></a>
+                                <!--<a class="btn-custom-radius btn-delete" ng-click="clickDelete(emp)"><i class="mdi-action-delete"></i></a>-->
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="center" style="margin-top: 30px;">
+                        จำนวนคิวทั้งหมด : {{queueOfDoctor.totalElements}}
+                    </div>
+                </div>
             </div>      
 
         </div>

@@ -177,7 +177,7 @@ public class DoctorController {
     }
 
     @RequestMapping(value = "/personalinformationdoctor/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") String id) {
         InputStream inputStream = null;
         byte[] content = null;
         JasperPrint fill = null;
