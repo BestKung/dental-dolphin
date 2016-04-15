@@ -8,22 +8,7 @@
 join staff s on(s.id = e.id)
 join department d on(d.id = s.department_id)]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ENABLE" class="java.lang.Boolean">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NAME_TH" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PASSWORD" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TYPE" class="java.lang.String">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ADDRESS_OF_PID" class="java.lang.String">
@@ -38,6 +23,12 @@ join department d on(d.id = s.department_id)]]>
 	<field name="CURRENT_ADDRESS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENABLE" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="END_WORK" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -50,7 +41,13 @@ join department d on(d.id = s.department_id)]]>
 	<field name="NAME_ENG" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="NAME_TH" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="NATION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PASSWORD" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PERSONAL_ID" class="java.lang.String">
@@ -74,6 +71,9 @@ join department d on(d.id = s.department_id)]]>
 	<field name="TEL" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="TYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="WORK_STATUS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -84,6 +84,9 @@ join department d on(d.id = s.department_id)]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="DEPARTMENT_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="STAFF_PICTURE_ID" class="java.lang.Integer">
@@ -127,14 +130,14 @@ join department d on(d.id = s.department_id)]]>
 	<columnHeader>
 		<band height="50" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="b921c982-4bc5-4587-a624-de1fb4e7ab61" x="0" y="22" width="40" height="20"/>
+				<reportElement uuid="b921c982-4bc5-4587-a624-de1fb4e7ab61" x="0" y="22" width="60" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ลำดับ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b8bc9dee-afff-4ed5-b8ba-46b4e6fd0cce" x="40" y="22" width="130" height="20"/>
+				<reportElement uuid="b8bc9dee-afff-4ed5-b8ba-46b4e6fd0cce" x="60" y="22" width="120" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -148,7 +151,7 @@ join department d on(d.id = s.department_id)]]>
 				<text><![CDATA[เบอร์โทรศัพท์]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d6016a32-d564-45be-9e3e-dc714d9ebd44" x="170" y="22" width="129" height="20"/>
+				<reportElement uuid="d6016a32-d564-45be-9e3e-dc714d9ebd44" x="180" y="22" width="119" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -173,14 +176,14 @@ join department d on(d.id = s.department_id)]]>
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement uuid="10710597-e402-4947-8f38-a62c2a1fa2bd" x="0" y="0" width="40" height="20"/>
+				<reportElement uuid="10710597-e402-4947-8f38-a62c2a1fa2bd" x="0" y="0" width="60" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="4578b88a-3acf-4ec9-8cb3-03583975b74d" x="40" y="0" width="130" height="20"/>
+				<reportElement uuid="4578b88a-3acf-4ec9-8cb3-03583975b74d" x="60" y="0" width="120" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -194,7 +197,7 @@ join department d on(d.id = s.department_id)]]>
 				<textFieldExpression><![CDATA[$F{MOBILE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b91430d6-2b51-4caa-b568-b5adbf1687c6" x="170" y="0" width="129" height="20"/>
+				<reportElement uuid="b91430d6-2b51-4caa-b568-b5adbf1687c6" x="180" y="0" width="119" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>

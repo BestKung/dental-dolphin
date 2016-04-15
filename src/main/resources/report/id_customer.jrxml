@@ -3,14 +3,14 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="id" class="java.lang.Integer">
+	<parameter name="clinicname" class="java.lang.String"/>
+	<parameter name="id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="clinicname" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from PATIENT where id = $P{id}]]>
+		<![CDATA[select * from PATIENT p where p.id = $P{id}]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ADDRESS" class="java.lang.String">
@@ -23,9 +23,6 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="HN" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="JOB" class="java.lang.String">
@@ -50,6 +47,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="TEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DOCTOR_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
@@ -121,32 +124,18 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("th","TH")).format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="144" y="66" width="29" height="20"/>
+				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="11" y="66" width="50" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[HN]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6917a58d-4c96-4efc-95e9-1498f83122a2" x="11" y="66" width="50" height="20"/>
-				<textElement textAlignment="Justified">
-					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[ลำดับ]]></text>
+				<text><![CDATA[รหัสผู้ป่วย]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="05fb51c5-5723-44ba-952d-236cffa322f9" x="61" y="66" width="83" height="20"/>
+				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="61" y="66" width="78" height="20"/>
 				<textElement textAlignment="Justified">
 					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="173" y="66" width="78" height="20"/>
-				<textElement textAlignment="Justified">
-					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{HN}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="eb2ff036-8a3c-43e5-9d68-dd2e204fcf22" x="144" y="100" width="29" height="20"/>

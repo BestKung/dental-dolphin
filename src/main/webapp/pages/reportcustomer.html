@@ -52,19 +52,17 @@
             <table class="hoverable responsive-table" style="margin-top: 20px;">
                 <thead>
                     <tr>
-                        <th style="width: 5%">ID</th>
-                        <th style="width: 20%">ชื่อ</th>
-                        <th style="width: 10%">H/N</th>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 15%">ชื่อ</th>
                         <th style="width: 15%">เลขประชาชน</th>
-                        <th style="width: 20%">อีเมลล์</th>
+                        <th style="width: 25%">อีเมลล์</th>
                         <th style="width: 40%">จัดการ</th>
                     </tr>
                 </thead> 
                 <tbody>
                     <tr ng-repeat="patient in patients.content">
                         <td>{{patient.id}}</td>
-                        <td>{{patient.name}}</td>
-                        <td>{{patient.hn}}</td>
+                        <td>{{patient.name}}</td>        
                         <td>{{patient.pid}}</td>
                         <td>{{patient.email}}</td>
                         <td>

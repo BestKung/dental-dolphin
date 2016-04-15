@@ -6,7 +6,7 @@
 	<queryString>
 		<![CDATA[SELECT * FROM APPOINTMENT a
 join Patient p on (a.patient_id = p.id)
-left outer join doctor d on (a.doctor_id = d.id)
+join doctor d on (a.doctor_id = d.id)
 join employee e on (e.id = d.id)]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer">
@@ -30,10 +30,10 @@ join employee e on (e.id = d.id)]]>
 	<field name="TREATMENT_LIST" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DOCTOR_ID" class="java.lang.Integer">
+	<field name="DOCTOR_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PATIENT_ID" class="java.lang.Integer">
+	<field name="PATIENT_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ADDRESS" class="java.lang.String">
@@ -46,9 +46,6 @@ join employee e on (e.id = d.id)]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="HN" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="JOB" class="java.lang.String">
@@ -70,6 +67,9 @@ join employee e on (e.id = d.id)]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="TEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
