@@ -163,7 +163,7 @@
         </div>
         <div class="modal-content">
             <div class="container">
-                <table>
+                <table class="highlight">
                     <thead>
                     <th style="width: 10px">HN</th>
                     <th  style="width: 20px">ชื่อผู้ป่วย</th>
@@ -173,7 +173,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="q in queueOfDoctor.content">
-                            <td>{{q.patient.id}} {{q.queueId}}</td>
+                            <td>{{q.patient.id}}</td>
                             <td>{{q.patient.name}}</td>
                             <td>{{q.detail}}</td>
                             <td><a>รับการรักษา</a></td>

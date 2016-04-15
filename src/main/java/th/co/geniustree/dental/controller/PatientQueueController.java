@@ -53,11 +53,11 @@ public class PatientQueueController {
     @RequestMapping(value = "/savequeue", method = RequestMethod.POST)
     public void saveQueue(@RequestBody PatientQueue patientQueue) {
         PatientQueueGenerateCode code = patientQueueGenerateCodeRepo.save(new PatientQueueGenerateCode());
-        if (patientQueue.getHasAppointment() != null) {
-            patientQueue.setQueueId(code.getIdGen() + "");
-        } else {
-            patientQueue.setQueueId((code.getIdGen() + "") + (code.getIdGen() + ""));
-        }
+//        if (patientQueue.getHasAppointment() != null) {
+//            patientQueue.setQueueId(code.getIdGen() + "");
+//        } else {
+        patientQueue.setQueueId(code.getIdGen() + "");
+//        }
         patientQueueRepo.save(patientQueue);
         patientQueueGenerateCodeRepo.delete(code);
     }
@@ -88,5 +88,4 @@ public class PatientQueueController {
         patientQueueRepo.delete(patientQueue);
     }
 
-//    @Request
 }

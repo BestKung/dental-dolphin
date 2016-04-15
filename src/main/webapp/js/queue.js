@@ -43,6 +43,12 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         });
     };
 
+    $scope.clearData = function () {
+        $scope.queue = {};
+        $scope.patient = {};
+        $scope.doctor = '';
+        $scope.hn = '';
+    };
 
     function getDoctor() {
         $http.get('getdoctor', {params: {page: pageDoctor, size: 10}}).success(function (data) {
@@ -210,7 +216,7 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
     };
 
     function searchPatientQueue(queue) {
-        $http.post('/searchpatientqueue', queue).success(function (data) {
+        $http.post('/searchpatientqueue', queue, {parans: {page: 0, size: 10}}).success(function (data) {
             $scope.queueOfDoctor = data;
         });
     }

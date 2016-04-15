@@ -19,5 +19,4 @@ import th.co.geniustree.dental.model.PatientQueue;
 public interface PatientQueueRepo extends JpaRepository<PatientQueue, String> {
 
     public Page<PatientQueue> findAllByDoctorOrderByQueueIdAsc(Doctor doctor, Pageable pageable);
-    public List<PatientQueue> findAllByDoctorOrderByQueueIdAsc(Doctor doctor);
 }

@@ -126,19 +126,12 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("th","TH")).format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-<<<<<<< HEAD
-				<reportElement uuid="6917a58d-4c96-4efc-95e9-1498f83122a2" x="11" y="66" width="50" height="20"/>
-				<textElement textAlignment="Justified">
-					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[ลำดับ]]></text>
-=======
+
 				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="11" y="66" width="50" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[รหัสผู้ป่วย]]></text>
->>>>>>> fbe26c58c5779c420feeb9688a35727f2c6161f6
 			</staticText>
 			<textField>
 				<reportElement uuid="0a3cae1f-14a7-4ea9-a315-1f875a8927dd" x="61" y="66" width="78" height="20"/>
