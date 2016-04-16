@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import th.co.geniustree.dental.model.Doctor;
 import th.co.geniustree.dental.model.Employee;
 import th.co.geniustree.dental.model.Room;
 import th.co.geniustree.dental.repo.DoctorRepo;
@@ -76,4 +77,23 @@ public class RoomController {
         return roomRepo.count();
     }
 
+    @RequestMapping(value = "/openroom", method = RequestMethod.POST)
+    public void openRoom(@RequestBody Doctor doctor) {
+        Room findByDoctor = roomRepo.findByDoctor(doctor);
+        System.out.println("----------------------------------------------------------------------------------" + findByDoctor);
+        findByDoctor.setRoomStatus("เปิด");
+        roomRepo.save(findByDoctor);
+    }
+
+    @RequestMapping(value = "/closeroom", method = RequestMethod.POST)
+    public void closeRoom(@RequestBody Room room) {
+        Room findByDoctor = roomRepo.findByDoctor(room.getDoctor());
+        findByDoctor.setRoomStatus("ปิด");
+        roomRepo.save(findByDoctor);
+    }
+
+    @RequestMapping(value = "/searchroombydoctor", method = RequestMethod.POST)
+    public Room searchRoomByDoctor(@RequestBody Doctor doctor) {
+        return roomRepo.findByDoctor(doctor);
+    }
 }

@@ -8,6 +8,7 @@ package th.co.geniustree.dental.repo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import th.co.geniustree.dental.model.Doctor;
 import th.co.geniustree.dental.model.Room;
 
 /**
@@ -19,4 +20,6 @@ public interface RoomRepo extends JpaRepository<Room, String> {
     public Page<Room> findAllByOrderByRoomIdAsc(Pageable pageable);
 
     public Page<Room> findAllByRoomId(String id, Pageable pageable);
+
+    public Room findByDoctor(Doctor doctor);
 }

@@ -15,6 +15,8 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
     $scope.rooms = {};
     $scope.queueOfDoctor = {};
     var roomClick = {};
+    $scope.sendQueue = '';
+    var roomBydoctor = {};
 
 
     $scope.findUser = function () {
@@ -184,17 +186,42 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         });
     };
 
+
     $scope.useAppointment = function () {
+        var queue = {};
+        queue.doctor = $scope.appointment.doctor;
+        queue.detail = $scope.appointment.treatmentList;
+        queue.hasAppointment = 'has appointment';
+        queue.patient = $scope.appointment.patient;
+        $http.post('/searchroombydoctor', queue.doctor).success(function (data) {
+            console.log(data.doctorStatus);
+            if (data.doctorStatus == 'ว่าง') {
+                queue.healStatus = queue.doctor.id;
+                queue.doctorStatus = 'ไม่ว่าง';
+                $http.post('/savequeue', queue).success(function (savesuccess) {
+                    data.doctorStatus = 'ไม่ว่าง';
+                    $http.post('/updateroom', data).success(function (updatesuccess) {
+                        $('#modal-appointment').closeModal();
+                    });
+                });
+            } else {
+                $scope.sendQueue = 'ทันตเเพทย์ไม่ว่าง';
+            }
+        });
+    };
+
+    $scope.AppointmentToQueue = function () {
         $scope.queue.doctor = $scope.appointment.doctor;
         $scope.queue.detail = $scope.appointment.treatmentList;
         $scope.queue.hasAppointment = 'has appointment';
-        $scope.patient = $scope.appointment.patient;
-        $scope.doctor = $scope.appointment.doctor.nameTh;
-        $scope.hn = $scope.appointment.patient.id;
-        $('#modal-appointment').closeModal();
-        $('#labe-appointment-hn , #label-appointment-doctor , #label-queue-patient , #label-appointment-detail').addClass('active');
-
+        $scope.queue.patient = $scope.appointment.patient;
+        $http.post('/savequeue', $scope.queue).success(function (data) {
+            console.log('save Sucess');
+            $scope.queue = {};
+            $('#modal-appointment').closeModal();
+        });
     };
+
     getRoom();
     setInterval(function () {
         getRoom();
@@ -218,6 +245,7 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
     function searchPatientQueue(queue) {
         $http.post('/searchpatientqueue', queue, {parans: {page: 0, size: 10}}).success(function (data) {
             $scope.queueOfDoctor = data;
+            $scope.sendQueue = '';
         });
     }
 
@@ -233,4 +261,27 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
         });
     };
 
+    $scope.heal = function (queue) {
+        console.log(roomClick.doctorStatus);
+        if (roomClick.doctorStatus == 'ว่าง') {
+            queue.healStatus = queue.doctor.id;
+            queue.doctorStatus = 'ไม่ว่าง';
+            $http.post('/savequeue', queue).success(function (data) {
+                console.log('send data');
+                roomClick.doctorStatus = 'ไม่ว่าง';
+                $http.post('/updateroom', roomClick).success(function (data) {
+                });
+                searchPatientQueue(queue);
+            });
+        } else {
+            $scope.sendQueue = 'ทันตเเพทย์ไม่ว่าง';
+        }
+    };
+
+
+
+    $scope.clickAppointment = function () {
+        $scope.sendQueue = "";
+        $('#modal-appointment').openModal({});
+    };
 });

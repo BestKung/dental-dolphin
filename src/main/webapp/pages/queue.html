@@ -5,7 +5,7 @@
             <span class="card-title" style="color: black;"><h4>จัดการคิว</h4></span>
             <span class="row">
                 <div class="right">
-                    <a class="btn-best btn-search" onclick=" $('#modal-appointment').openModal({});" style="margin-left:calc(3.8rem)"><i class="mdi-action-today" style="margin-right: 5px"></i>นัดไว้</a>
+                    <a class="btn-best btn-search" ng-click="clickAppointment()" style="margin-left:calc(3.8rem)"><i class="mdi-action-today" style="margin-right: 5px"></i>นัดไว้</a>
                 </div>
             </span>
             <div class="row">
@@ -93,12 +93,15 @@
 
                 <div class="row">
                     <div style="margin-top: 20px">
-                        <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataAppointment()"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
+                        <a class="btn-best btn-search" style="margin-left:calc(3.8rem)" ng-click="searcDataAppointment();sendQueue = ''"><i class="mdi-action-search" style="margin-right: 5px"></i>ค้นหา</a>
                     </div>
                 </div>
                 <div class="row">
                     <div style="margin-top: 20px;color: red;" class="center" ng-show="fontData">
                         ไม่พบข้อมูล
+                    </div>
+                    <div style="margin-top: 20px;color: red;" class="center" ng-show="!!sendQueue">
+                        {{sendQueue}}
                     </div>
                 </div>
                 <div class="margin-top-20" style="margin-top: 50px">
@@ -142,9 +145,26 @@
                             <font size='5'>{{appointment.treatmentList}}</font>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col m3">
+                            <font size='5'>เวลาเริ่ม :</font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.startTime}}</font>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m3">
+                            <font size='5'>เวลาสิ้นสุด :</font>
+                        </div>
+                        <div class="col m6">
+                            <font size='5'>{{appointment.enfTime}}</font>
+                        </div>
+                    </div>
                 </div>
                 <div class="row right">
-                    <a class="btn-custom-radius btn-edit" style="margin-left:calc(3.8rem)" ng-click="useAppointment()">ตกลง</a>
+                    <a class="btn-custom-radius btn-search" ng-click="AppointmentToQueue()">เข้าคิว</a>
+                    <a class="btn-custom-radius btn-edit" ng-click="useAppointment()">รับการรักษา</a>
                 </div>
             </div>      
 
@@ -163,6 +183,9 @@
         </div>
         <div class="modal-content">
             <div class="container">
+                <div style="margin-top: 20px;color: red;" class="center" ng-show="!!sendQueue">
+                    {{sendQueue}}
+                </div>
                 <table class="highlight">
                     <thead>
                     <th style="width: 10px">HN</th>
@@ -176,9 +199,10 @@
                             <td>{{q.patient.id}}</td>
                             <td>{{q.patient.name}}</td>
                             <td>{{q.detail}}</td>
-                            <td><a>รับการรักษา</a></td>
+                            <td><a class="btn-custom-radius btn-disabled" disabled ng-hide="q == queueOfDoctor.content[0]">รับการรักษา</a>
+                                <a ng-click="heal(q)" class="btn-custom-radius btn-edit" ng-show="q == queueOfDoctor.content[0]">รับการรักษา</a>
+                            </td>
                             <td><a class="btn-custom-radius btn-delete" ng-click="clickDeleteQueue(q)"><i class="mdi-action-delete"></i></a>
-                                <!--<a class="btn-custom-radius btn-delete" ng-click="clickDelete(emp)"><i class="mdi-action-delete"></i></a>-->
                             </td>
                         </tr>
                     </tbody>

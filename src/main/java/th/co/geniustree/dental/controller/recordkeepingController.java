@@ -5,6 +5,7 @@
  */
 package th.co.geniustree.dental.controller;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -25,18 +26,19 @@ import th.co.geniustree.dental.repo.OrderHealRepo;
  */
 @RestController
 public class recordkeepingController {
-
+    
     @Autowired
     private OrderHealRepo orderHealRepo;
-
+    
     @Autowired
     private DetailHealRepo detailHealRepo;
-
+    
     @RequestMapping(value = "/saverecordkeeping", method = RequestMethod.POST)
     public Integer saveDetailHeal(@Validated @RequestBody HistoryOfMedicalAndTypeOfMedical historyOfMedicalAndTypeOfMedical) {
         DetailHeal detailHeal = historyOfMedicalAndTypeOfMedical.getDetailHeal();
         List<TypeOfMedical> typeOfMedicals = historyOfMedicalAndTypeOfMedical.getTypeOfMedicals();
         DetailHeal detailHealTmp = detailHeal;
+        detailHealTmp.setDateHeal(new Date());
         detailHealRepo.save(detailHeal);
         for (int i = 0; i < typeOfMedicals.size(); i++) {
             OrderHeal orderHeal = new OrderHeal();

@@ -28,6 +28,7 @@ public class PatientQueue implements Serializable {
     @OneToOne
     private PatientQueueGenerateCode patientQueueGenerateCode;
     private String hasAppointment;
+    private String healStatus;
 
     public String getQueueId() {
         return queueId;
@@ -75,6 +76,14 @@ public class PatientQueue implements Serializable {
 
     public void setHasAppointment(String hasAppointment) {
         this.hasAppointment = hasAppointment;
+    }
+
+    public String getHealStatus() {
+        return healStatus;
+    }
+
+    public void setHealStatus(String healStatus) {
+        this.healStatus = healStatus;
     }
 
     @Override

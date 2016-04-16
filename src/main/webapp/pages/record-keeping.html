@@ -1,14 +1,17 @@
 <div class="container">
     <div class="card">
         <div class="card-content">
-            <span class="card-title" style="color: black;"><h4>ข้อมูลผู้ป่วย</h4></span>
+            <span class="card-title" style="color: black;"><font size="7">ข้อมูลผู้ป่วย</font><span class="right">
+                    <a class="btn-custom-radius btn-search" ng-click="closeRoom()" ng-show="room.roomStatus == 'เปิด'"> สถานะห้อง : เปิด</a>
+                    <a class="btn-custom-radius btn-close-room" ng-click="openRoom()"  ng-show="room.roomStatus == 'ปิด'"> สถานะห้อง : ปิด</a>
+                </span></span>
             <div style="margin-top: 20px;">
                 <div class="row">
                     <div class="col m2 s6">
                         <label class=" topic-detail">H/N : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">0002</label>
+                        <label class=" topic-detail">{{patientHeal.patient.id}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -16,7 +19,7 @@
                         <label class=" topic-detail">ชื่อ/สกุล : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">นายยินดี สบายดี</label>
+                        <label class=" topic-detail">{{patientHeal.patient.name}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -24,7 +27,7 @@
                         <label class=" topic-detail">เพศ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">ชาย</label>
+                        <label class=" topic-detail">{{patientHeal.patient.sex}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -32,7 +35,7 @@
                         <label class=" topic-detail">กรุ๊ปเลือด : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">A</label>
+                        <label class=" topic-detail">{{patientHeal.patient.blood}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -40,7 +43,7 @@
                         <label class=" topic-detail">อาชีพ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">ครู</label>
+                        <label class=" topic-detail">{{patientHeal.patient.job}}</label>
                     </div> 
                 </div> 
                 <div class="row">
@@ -48,7 +51,7 @@
                         <label class=" topic-detail">อาการ : </label>
                     </div>
                     <div class="col m3 s6">
-                        <label class=" topic-detail">ฟันผุและรากฟันผุ</label>
+                        <label class=" topic-detail">{{patientHeal.detail}}</label>
                     </div>
                 </div>
             </div>
@@ -103,7 +106,8 @@
 
             <div class="row">
                 <div class="col m6 center">
-                    <a class="btn-best btn-search right" ng-click="saveTpyeProduct()" type="submit" >ปิดการรักษา</a>
+                    <a class="btn-best btn-search right" ng-click="busy()" type="submit" ng-show="(room.doctorStatus == 'ว่าง') && (room.roomStatus == 'เปิด')">ว่าง</a>
+                    <a class="btn-best btn-close-room right" ng-click="waiting()" type="submit" ng-show="(room.doctorStatus == 'ไม่ว่าง') && (room.roomStatus == 'เปิด')">ไม่ว่าง</a>
                     <a class="btn-best btn-edit right" ng-click="seveOrderHeal()" type="submit"  style="margin-right: 10px;">บันทึก</a>
                     <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
                 </div>

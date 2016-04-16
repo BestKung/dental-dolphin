@@ -502,4 +502,7 @@ input {
     position: relative;
     margin-left: 120px;
 }    
-
+.btn-disabled{
+    background-color: #cfd8dc;
+    color: white;
+}

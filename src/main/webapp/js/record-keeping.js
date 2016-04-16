@@ -14,6 +14,10 @@ angular.module('record-keeping').controller('recordController', function ($scope
     var historyOfMedicalAndTypeOfMedical = {};
     var dataUpdate = [];
     var totalDetailHeal = 0;
+    $scope.login = {};
+    $scope.room = {};
+    $scope.patientHeal = {};
+
 
     function getTypeOfMedical() {
         $http.get('/loadlistselectheal', {params: {page: pageTypeOfMedical, size: 10}}).success(function (data) {
@@ -131,16 +135,14 @@ angular.module('record-keeping').controller('recordController', function ($scope
     }
 
     $scope.seveOrderHeal = function () {
-        console.log("ssssssssssssssssssssssssssssss")
         var typeMedical = [];
+        $scope.detailHeal.doctor = $scope.room.doctor;
         historyOfMedicalAndTypeOfMedical.detailHeal = $scope.detailHeal;
         for (var i = 0; i < totalOrderHeal; i++) {
             typeMedical[i] = $scope.orderHeals.content[i];
-            console.log("ssssssssssssssssssssssssssssss")
         }
         historyOfMedicalAndTypeOfMedical.typeOfMedicals = typeMedical;
         $http.post('/saverecordkeeping', historyOfMedicalAndTypeOfMedical).success(function (data) {
-            console.log("ssssssssssssssssssssssssssssss")
             console.log(data);
             if (data == 200) {
                 countDetailHeal();
@@ -148,7 +150,6 @@ angular.module('record-keeping').controller('recordController', function ($scope
                     if (dataUpdate.orderHealDetailHeals.length !== 0) {
                         for (var i = 0; i < dataUpdate.orderHealDetailHeals.length; i++) {
                             $http.post('/deleteorderheal', dataUpdate.orderHealDetailHeals[i]);
-                            console.log("ssssssssssssssssssssssssssssss")
                         }
                         ;
                     }
@@ -157,13 +158,15 @@ angular.module('record-keeping').controller('recordController', function ($scope
                 for (var i = 0; i < totalOrderHeal; i++) {
                     typeMedical[i] = $scope.orderHeals.content[i];
                     $http.post('/deletetypeofmedical', typeMedical[i]);
-                    console.log("ssssssssssssssssssssssssssssss")
                 }
                 $scope.detailHeal = {};
                 $scope.orderHeals = {};
                 totalOrderHeal = 0;
                 $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
                 Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                $http.post('/deletequeue', $scope.patientHeal).success(function (data) {
+                    $scope.patientHeal = {};
+                });
             }
         }).error(function (data) {
             $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
@@ -183,6 +186,68 @@ angular.module('record-keeping').controller('recordController', function ($scope
         });
     }
 
+    setInterval(function () {
+        startPageStaff();
+        findByHealStatus();
+    }, 3000);
+
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            searchRoomByDoctor();
+        });
+    }
+
+    $scope.openRoom = function () {
+        $scope.room.roomStatus = 'เปิด';
+        $http.post('/updateroom', $scope.room).success(function (data) {
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('เปิดห้องเเล้ว', 3000, 'rounded');
+            startPageStaff();
+        });
+    };
+
+    $scope.closeRoom = function () {
+        $scope.room.roomStatus = 'ปิด';
+        $scope.room.doctorStatus = 'ไม่ว่าง';
+        $http.post('/updateroom', $scope.room).success(function (data) {
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('ปิดห้องเเล้ว', 3000, 'rounded');
+            startPageStaff();
+        });
+    };
+
+    function searchRoomByDoctor() {
+        $http.post('/searchroombydoctor', $scope.login).success(function (data) {
+            console.log(data);
+            $scope.room = data;
+        });
+    }
+
+    $scope.waiting = function () {
+        $scope.room.doctorStatus = 'ว่าง';
+        $http.post('/updateroom', $scope.room).success(function (data) {
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('ว่าง', 3000, 'rounded');
+        });
+    };
+
+    $scope.busy = function () {
+        $scope.room.doctorStatus = 'ไม่ว่าง';
+        $http.post('/updateroom', $scope.room).success(function (data) {
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('ไม่ว่าง', 3000, 'rounded');
+        });
+    };
+
+    function findByHealStatus() {
+        $http.post('/findbyhealstatus', $scope.room.doctor).success(function (data) {
+            $scope.patientHeal = data;
+            if(!!data){
+                $scope.detailHeal.patient = data.patient;
+            }
+        });
+    }
 });
 
     
