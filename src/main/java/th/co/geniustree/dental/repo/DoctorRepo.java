@@ -5,10 +5,9 @@
  */
 package th.co.geniustree.dental.repo;
 
-import java.io.Serializable;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.web.bind.annotation.RestController;
 import th.co.geniustree.dental.model.Doctor;
 
 /**
@@ -18,6 +17,8 @@ import th.co.geniustree.dental.model.Doctor;
 public interface DoctorRepo extends JpaRepository<Doctor, String>, JpaSpecificationExecutor<Doctor> {
 
     public Doctor findByEmail(String email);
+    
+    public Doctor findByPid(String pid);
 
     public Doctor findById(String id);
 

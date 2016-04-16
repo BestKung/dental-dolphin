@@ -12,8 +12,8 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix" >star_rate</i>
-                    <input type="text"  id="name" ng-model="department.name" ng-change="error.violations.name.message = ''">
-                    <label for="name" class="active" id="namedepartment">ชื่อแผนก<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.name.message}}</span></label>
+                    <input type="text"  id="name" ng-model="department.name" ng-change="error.violations.name.message = '';errorName = '';">
+                    <label for="name" class="active" id="namedepartment">ชื่อแผนก<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.name.message}}{{errorName}}</span></label>
                 </div>
             </div>
             <div class="row">

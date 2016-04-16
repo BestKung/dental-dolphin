@@ -183,11 +183,11 @@ where pap.id = $P{id}]]>
 				<text><![CDATA[วันหมดอายุ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8fe90fb9-de26-49f5-aa7f-486d0c7da40e" x="259" y="206" width="92" height="20"/>
+				<reportElement uuid="8fe90fb9-de26-49f5-aa7f-486d0c7da40e" x="259" y="206" width="104" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[แจ้งเตืนวันหมดอายุ]]></text>
+				<text><![CDATA[แจ้งเตือนวันหมดอายุ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="259" y="111" width="92" height="20"/>
@@ -225,7 +225,7 @@ where pap.id = $P{id}]]>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{EXPIRE})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c3b92e3b-32ba-46ce-81a0-011e75ecd877" x="351" y="206" width="156" height="20"/>
+				<reportElement uuid="c3b92e3b-32ba-46ce-81a0-011e75ecd877" x="363" y="206" width="156" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>

@@ -8,6 +8,7 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     $scope.password = "";
     $scope.image;
     $scope.errorEmail = "";
+    $scope.errorPid = "";
 
     checkMobile();
     function  checkMobile() {
@@ -50,7 +51,13 @@ angular.module('doctor').controller('doctorController', function (employeeServic
                         clearData();
                     }
                     if (data == 1) {
-                        $scope.errorEmail = 'อีเมลซ้ำ';
+                        $scope.errorEmail = 'อีเมลนี้มีอยู่ในระบบแล้ว';
+                        $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                        Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                        $('body,html').animate({scrollTop: 0}, "600");
+                    }
+                    if (data == 2) {
+                        $scope.errorPid = 'รหัสบัตรประชาชนนี้มีอยู่ในระบบแล้ว';
                         $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
                         Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
                         $('body,html').animate({scrollTop: 0}, "600");

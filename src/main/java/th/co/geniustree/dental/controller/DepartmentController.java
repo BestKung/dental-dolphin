@@ -25,33 +25,38 @@ import th.co.geniustree.dental.spec.DepartmentSpec;
  */
 @RestController
 public class DepartmentController {
-    
+
     @Autowired
     private DepartmentRepo departmentRepo;
-    
+
     @Autowired
     private DepartmentService departmentService;
-    
+
     @RequestMapping(value = "/savedepartment", method = RequestMethod.POST)
-    public void saveDepartment(@Validated @RequestBody Department department) {
+    public Integer saveDepartment(@Validated @RequestBody Department department) {
+        Department departmentName = departmentRepo.findByName(department.getName());
+        if ((departmentName != null) && (department.getId() == null)) {
+            return 1;
+        }
         departmentRepo.save(department);
+        return 200;
     }
-    
+
     @RequestMapping(value = "/getdepartment", method = RequestMethod.GET)
     public Page<Department> getDepartment(Pageable pageable) {
         return departmentRepo.findAll(pageable);
     }
-    
+
     @RequestMapping(value = "/deletedepartment", method = RequestMethod.POST)
     public void deleteDepartment(@RequestBody Department department) {
         departmentRepo.delete(department.getId());
     }
-    
+
     @RequestMapping(value = "/totaldepartment", method = RequestMethod.GET)
     public Long getTotalDepartment() {
         return departmentRepo.count();
     }
-    
+
     @RequestMapping(value = "/getdepartment/searchdepartment", method = RequestMethod.POST)
     public Page<Department> searchDepartment(@RequestBody SearchData searchData, Pageable pageable) {
         String keyword = searchData.getKeyword();
@@ -65,7 +70,7 @@ public class DepartmentController {
         }
         return departments;
     }
-    
+
     @RequestMapping(value = "/countsearchdepartment", method = RequestMethod.POST)
     public long countSearchUnitProduct(@RequestBody SearchData searchData) {
         long count = 0;
@@ -79,5 +84,5 @@ public class DepartmentController {
         }
         return count;
     }
-    
+
 }

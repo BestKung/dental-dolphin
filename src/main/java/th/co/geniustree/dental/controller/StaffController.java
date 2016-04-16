@@ -59,10 +59,13 @@ public class StaffController {
     @RequestMapping(value = "/savestaff", method = RequestMethod.POST)
     public Integer saveStaff(@Validated @RequestBody Staff staff) {
         Employee employee = employeeRepo.findByEmail(staff.getEmail());
+        Staff staffId = staffRepo.findByPid(staff.getPid());
         if ((employee != null) && (staff.getId() == null)) {
             return 1;
         }
-
+        if ((staffId != null) && (staff.getId() == null)) {
+            return 2;
+        }
         if (staff.getStaffPicture() == null) {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStafPicture(picture);

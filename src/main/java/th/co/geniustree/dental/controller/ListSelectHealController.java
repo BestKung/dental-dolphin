@@ -35,9 +35,13 @@ public class ListSelectHealController {
     }
 
     @RequestMapping(value = "/savelistselectheal", method = RequestMethod.POST)
-    public void saveListSelectHeal(@Validated @RequestBody ListSelectHeal listSelectHeal) {
-        ListSelectHeal listSelectHeal1 = listSelectHeal;
-        listSelectHealRepo.save(listSelectHeal1);
+    public Integer saveListSelectHeal(@Validated @RequestBody ListSelectHeal listSelectHeal) {
+        ListSelectHeal listSelectHealName = listSelectHealRepo.findByName(listSelectHeal.getName());
+        if ((listSelectHealName != null) && (listSelectHeal.getId() == null)) {
+            return 1;
+        }
+        listSelectHealRepo.save(listSelectHeal);
+        return 200;
     }
 
     @RequestMapping(value = "/deletelistselectheal", method = RequestMethod.POST)

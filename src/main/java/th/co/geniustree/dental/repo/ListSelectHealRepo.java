@@ -5,7 +5,6 @@
  */
 package th.co.geniustree.dental.repo;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import th.co.geniustree.dental.model.ListSelectHeal;
@@ -14,7 +13,7 @@ import th.co.geniustree.dental.model.ListSelectHeal;
  *
  * @author User
  */
-public interface ListSelectHealRepo extends JpaRepository<ListSelectHeal, Integer>,JpaSpecificationExecutor<ListSelectHeal>{
-    
+public interface ListSelectHealRepo extends JpaRepository<ListSelectHeal, Integer>, JpaSpecificationExecutor<ListSelectHeal> {
+
+    public ListSelectHeal findByName(String name);
 }
- 

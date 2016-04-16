@@ -11,6 +11,7 @@ angular.module('listSelectHeal').controller('listSelectHealController', function
     $scope.searchData = {};
     $scope.searchData.keyword = "";
     $scope.error = {};
+    $scope.errorName = '';
 
     loadListSelectHeal();
     function loadListSelectHeal() {
@@ -21,11 +22,19 @@ angular.module('listSelectHeal').controller('listSelectHealController', function
     }
     $scope.saveListSelectHeal = function () {
         $http.post('/savelistselectheal', $scope.listSelectHeal).success(function (data) {
-            loadListSelectHeal();
-            $scope.listSelectHeal = {};
-            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-            Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
-            getTotalList();
+            if (data == 1) {
+                $scope.errorName = "ชื่อรายการรักษานี้มีอยู่ในระบบแล้ว";
+                $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                $('body,html').animate({scrollTop: 0}, "600");
+            }
+            if (data == 200) {
+                loadListSelectHeal();
+                $scope.listSelectHeal = {};
+                $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                getTotalList();
+            }
         }).error(function (data) {
             $scope.error = data;
             console.log(data);

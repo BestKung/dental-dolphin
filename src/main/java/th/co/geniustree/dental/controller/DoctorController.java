@@ -72,10 +72,13 @@ public class DoctorController {
     private Integer saveDoctor(@Validated @RequestBody Doctor doctor) {
 
         Employee employee = employeeRepo.findByEmail(doctor.getEmail());
+        Doctor doctorPid = doctorRepo.findByPid(doctor.getPid());
         if ((employee != null) && (doctor.getId() == null)) {
             return 1;
         }
-
+        if((doctorPid != null) && (doctor.getId() == null)){
+            return 2;
+        }
         if (doctor.getDoctorPicture() == null) {
             StaffPicture picture = pictureRepo.findOne(1);
             DoctorPicture doctorPicture = new DoctorPicture();

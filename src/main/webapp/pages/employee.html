@@ -12,7 +12,7 @@
                     <i class="material-icons prefix clear-prefix">email</i>
                     <input type="email" id="email" ng-model="employee.email" ng-change="error.violations.email.message = '';setBackgroundPrefixId();errorEmail = ''">
                     <div class="input-help" style="margin-left: 45px; width: 400px;">
-                        <h4>รูปแบบอีเมลไม่ถูกต้อง ตัวอย่างที่ถูกต้อง xxx@xxx.com </h4>
+                        <h4>รูปแบบอีเมลไม่ถูกต้อง ตัวอย่างที่ถูกต้อง example@example </h4>
                     </div>
                     <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}{{errorEmail}}</span></label>
                 </div>
@@ -44,8 +44,8 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">credit_card</i>
-                    <input type="text" id="pid" pid-input ng-model="employee.pid">
-                    <label  for="pid" class="update">รหัสประชาชน</label>
+                    <input type="text" id="pid" pid-input ng-model="employee.pid" ng-change="errorPid = ''">
+                    <label  for="pid" class="update">รหัสประชาชน<span class="margin-left necessary-text">{{errorPid}}</span></label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">account_circle</i>

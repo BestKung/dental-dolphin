@@ -12,6 +12,7 @@ var app = angular.module('employee')
             $scope.error = {};
             $scope.password = "";
             $scope.errorEmail = "";
+            $scope.errorPid = "";
             checkMobile();
             function  checkMobile() {
                 var $mobile = $(window).outerWidth() < 995;
@@ -129,10 +130,15 @@ var app = angular.module('employee')
                                         Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
                                     }
                                     if (data == 1) {
-                                        $scope.errorEmail = "อีเมลซ้ำ";
+                                        $scope.errorEmail = "อีเมลนี้มีอยู่ในระบบแล้ว";
                                         $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
                                         Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
-                                        $scope.error = data;
+                                        $('body,html').animate({scrollTop: 0}, "600");
+                                    }
+                                    if (data == 2) {
+                                        $scope.errorPid = "รหัสบัตรประชาชนนี้มีอยู่ในระบบแล้ว"
+                                        $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                                        Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
                                         $('body,html').animate({scrollTop: 0}, "600");
                                     }
                                 }).error(function (data) {

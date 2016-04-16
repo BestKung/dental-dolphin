@@ -13,6 +13,7 @@ angular.module('department').controller('departmentController', function ($scope
     $scope.department = {};
     $scope.depqrtmentUpdate = {};
     $scope.error = {};
+    $scope.errorName = '';
 
     checkMobile();
     function  checkMobile() {
@@ -25,10 +26,19 @@ angular.module('department').controller('departmentController', function ($scope
     $scope.saveDepartment = function () {
         $http.post('/savedepartment', $scope.department)
                 .success(function (data) {
-                    getDepartment();
-                    $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-                    Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
-                    getTotalListDepartment();
+                    if (data == 1) {
+                        $scope.errorName = "ชื่อแผนกนี้มีอยู่ในระบบแล้ว";
+                        $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                        Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                        $('body,html').animate({scrollTop: 0}, "600");
+                    }
+                    if (data == 200) {
+                        getDepartment();
+                        $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                        Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+                        getTotalListDepartment();
+                        $scope.department = {};
+                    }
 
                 }).error(function (data) {
             $('body,html').animate({scrollTop: 0}, "600");

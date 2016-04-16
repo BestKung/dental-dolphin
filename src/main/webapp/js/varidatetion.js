@@ -233,7 +233,7 @@ app.filter('pid', function () {
             return pid;
         }
 
-        var  numberPid, number;
+        var numberPid, number;
 
         switch (value.length) {
             case 1:
@@ -331,9 +331,13 @@ app.filter('pbang', function () {
             case 4:
             case 5:
             case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
                 numberPid = value;
                 break;
-                
+
             default:
                 numberPid = value.slice(0, 3);
                 number = value.slice(3);
@@ -341,7 +345,7 @@ app.filter('pbang', function () {
 
         if (number) {
             if (number.length > 3) {
-                number = number.slice(0, 1) + '-' + number.slice(1, 6) + '-' + number.slice(6, 7); 
+                number = number.slice(0, 1) + '-' + number.slice(1, 6) + '-' + number.slice(6, 7);
             } else {
                 number === number;
             }
@@ -355,6 +359,6 @@ app.filter('pbang', function () {
 });
 
 
-        
+
 
         
