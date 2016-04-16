@@ -17,7 +17,12 @@ angular.module('record-keeping').controller('recordController', function ($scope
     $scope.login = {};
     $scope.room = {};
     $scope.patientHeal = {};
-
+    $scope.detailHeals = {};
+    var totalDetailHeal = 0;
+    var totalPageDetailHeal = 0;
+    var pageDetailHeal = 0;
+    $scope.currentPage = 0;
+    $scope.seeDetailHeal = {};
 
     function getTypeOfMedical() {
         $http.get('/loadlistselectheal', {params: {page: pageTypeOfMedical, size: 10}}).success(function (data) {
@@ -25,7 +30,6 @@ angular.module('record-keeping').controller('recordController', function ($scope
         });
     }
     ;
-
     function getOrderHeals() {
         $http.post('/gettypeofmedical', user).success(function (data) {
             $scope.orderHeals = data;
@@ -40,7 +44,6 @@ angular.module('record-keeping').controller('recordController', function ($scope
         });
     }
     ;
-
     $scope.searchTypeOfMedical = function () {
         pageTypeOfMedical = 0;
         $scope.currentPageTypeOfMedical = pageTypeOfMedical;
@@ -112,20 +115,16 @@ angular.module('record-keeping').controller('recordController', function ($scope
         }
         $('#modal-addtypeofmedical').closeModal();
     };
-
-
     $scope.deleteTypeOfMedical = function (typ) {
         $http.post('/deletetypeofmedical', typ).success(function (data) {
             getOrderHeals();
         });
     };
-
     $scope.clickAddTypeOfMedical = function () {
         $('#modal-addtypeofmedical').openModal();
         getTypeOfMedical();
         countTypeOfMedical();
     };
-
     getUser();
     function getUser() {
         $http.get('/startpagestaff').success(function (data) {
@@ -166,6 +165,7 @@ angular.module('record-keeping').controller('recordController', function ($scope
                 Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
                 $http.post('/deletequeue', $scope.patientHeal).success(function (data) {
                     $scope.patientHeal = {};
+                    $scope.detailHeals = {};
                 });
             }
         }).error(function (data) {
@@ -174,12 +174,10 @@ angular.module('record-keeping').controller('recordController', function ($scope
             $scope.error = data;
         });
     };
-
     $scope.saveDetailheal = function () {
         $http.post('/savedetailheal', $scope.detailHeal).success(function (data) {
         });
     };
-
     function countDetailHeal() {
         $http.get('/countdetailheal').success(function (data) {
             totalDetailHeal = data;
@@ -190,11 +188,14 @@ angular.module('record-keeping').controller('recordController', function ($scope
         startPageStaff();
         findByHealStatus();
     }, 3000);
-
     function startPageStaff() {
         $http.get('/startpagestaff').success(function (data) {
             $scope.login = data;
             searchRoomByDoctor();
+            if (!!$scope.detailHeals) {
+                searchHistoryOfMedical();
+            }
+
         });
     }
 
@@ -206,7 +207,6 @@ angular.module('record-keeping').controller('recordController', function ($scope
             startPageStaff();
         });
     };
-
     $scope.closeRoom = function () {
         $scope.room.roomStatus = 'ปิด';
         $scope.room.doctorStatus = 'ไม่ว่าง';
@@ -216,7 +216,6 @@ angular.module('record-keeping').controller('recordController', function ($scope
             startPageStaff();
         });
     };
-
     function searchRoomByDoctor() {
         $http.post('/searchroombydoctor', $scope.login).success(function (data) {
             console.log(data);
@@ -231,7 +230,6 @@ angular.module('record-keeping').controller('recordController', function ($scope
             Materialize.toast('ว่าง', 3000, 'rounded');
         });
     };
-
     $scope.busy = function () {
         $scope.room.doctorStatus = 'ไม่ว่าง';
         $http.post('/updateroom', $scope.room).success(function (data) {
@@ -239,15 +237,124 @@ angular.module('record-keeping').controller('recordController', function ($scope
             Materialize.toast('ไม่ว่าง', 3000, 'rounded');
         });
     };
-
     function findByHealStatus() {
         $http.post('/findbyhealstatus', $scope.room.doctor).success(function (data) {
             $scope.patientHeal = data;
-            if(!!data){
+            if (!!data) {
                 $scope.detailHeal.patient = data.patient;
             }
         });
     }
+
+
+    function searchHistoryOfMedical() {
+        $http.post('/findbyhealstatus', $scope.login).success(function (data) {
+            $scope.patientHeal = data;
+            if (!!data) {
+                $http.post('finddetailhealbypatient', $scope.patientHeal.patient, {params: {page: pageDetailHeal, size: 10}}).success(function (datafind) {
+                    $scope.detailHeals = datafind;
+                    totalDetailHeal = datafind.totalElements;
+                    console.log(totalDetailHeal);
+                    findTotalPageDetailHeal();
+                });
+            }
+        });
+    }
+    ;
+
+    function findTotalPageDetailHeal() {
+        var totalpages = parseInt(totalDetailHeal / 10);
+        if ((totalDetailHeal % 10) != 0) {
+            totalpages++;
+        }
+        totalPageDetailHeal = totalpages;
+        if (totalpages == 1) {
+            $('#first-page-detailheal').addClass('disabled');
+            $('#pre-page-detailheal').addClass('disabled');
+            $('#next-page-detailheal').addClass('disabled');
+            $('#final-page-detailheal').addClass('disabled');
+        }
+        if (totalpages > 1) {
+            $('#first-page-detailheal').addClass('disabled');
+            $('#pre-page-detailheal').addClass('disabled');
+            $('#next-page-detailheal').removeClass('disabled');
+            $('#final-page-detailheal').removeClass('disabled');
+        }
+        if (pageDetailHeal > 0 && pageDetailHeal < totalPageDetailHeal - 1) {
+            $('#first-page-detailheal').removeClass('disabled');
+            $('#pre-page-detailheal').removeClass('disabled');
+            $('#next-page-detailheal').removeClass('disabled');
+            $('#final-page-detailheal').removeClass('disabled');
+        }
+        if (pageDetailHeal > 0 && pageDetailHeal == totalPageDetailHeal - 1) {
+            $('#first-page-detailheal').removeClass('disabled');
+            $('#pre-page-detailheal').removeClass('disabled');
+            $('#next-page-detailheal').addClass('disabled');
+            $('#final-page-detailheal').addClass('disabled');
+        }
+    }
+
+    $scope.firstPageDetailHeal = function () {
+        if (!$('#first-page-detailheal').hasClass('disabled')) {
+            pageDetailHeal = 0;
+            $scope.currentPage = pageDetailHeal;
+            searchHistoryOfMedical();
+            $('#first-page-detailheal').addClass('disabled');
+            $('#pre-page-detailheal').addClass('disabled');
+            $('#next-page-detailheal').removeClass('disabled');
+            $('#final-page-detailheal').removeClass('disabled');
+        }
+
+    };
+    $scope.prePageDetailHeal = function () {
+        if (!$('#first-page-detailheal').hasClass('disabled')) {
+            pageDetailHeal--;
+            $scope.currentPage = pageDetailHeal;
+            searchHistoryOfMedical();
+            if (pageDetailHeal == 0) {
+                $('#first-page-detailheal').addClass('disabled');
+                $('#pre-page-detailheal').addClass('disabled');
+            }
+            $('#next-page-detailheal').removeClass('disabled');
+            $('#final-page-detailheal').removeClass('disabled');
+        }
+
+    };
+    $scope.nextPageDetailHeal = function () {
+        if (!$('#final-page-detailheal').hasClass('disabled')) {
+            pageDetailHeal++;
+            $scope.currentPage = pageDetailHeal;
+            searchHistoryOfMedical();
+            if (pageDetailHeal == totalPageDetailHeal - 1) {
+                $('#next-page-detailheal').addClass('disabled');
+                $('#final-page-detailheal').addClass('disabled');
+            }
+            $('#first-page-detailheal').removeClass('disabled');
+            $('#pre-page-detailheal').removeClass('disabled');
+        }
+
+    };
+    $scope.finalPageDetailHeal = function () {
+        if (!$('#final-page-detailheal').hasClass('disabled')) {
+            pageDetailHeal = totalPageDetailHeal - 1;
+            $scope.currentPage = pageDetailHeal;
+            searchHistoryOfMedical();
+            $('#next-page-detailheal').addClass('disabled');
+            $('#final-page-detailheal').addClass('disabled');
+            $('#first-page-detailheal').removeClass('disabled');
+            $('#pre-page-detailheal').removeClass('disabled');
+        }
+
+    };
+
+    $scope.clickSeeDatailHeal = function (detailHeal) {
+        $scope.seeDetailHeal = detailHeal;
+    };
+
+    $scope.cancel = function () {
+        $('span#close-card').trigger('click');
+    };
+
 });
 
     

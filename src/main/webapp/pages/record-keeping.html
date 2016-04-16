@@ -54,6 +54,17 @@
                         <label class=" topic-detail">{{patientHeal.detail}}</label>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col m6 s6">
+                        <label class=" topic-detail">ประวัติทางการเเพทย์</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m3 s6" ng-repeat="medi in patientHeal.patient.medicalHistory">
+                        <!--<label class="topic"></label>-->
+                        <font size="3">{{medi.disease}}</font>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -110,6 +121,111 @@
                     <a class="btn-best btn-close-room right" ng-click="waiting()" type="submit" ng-show="(room.doctorStatus == 'ไม่ว่าง') && (room.roomStatus == 'เปิด')">ไม่ว่าง</a>
                     <a class="btn-best btn-edit right" ng-click="seveOrderHeal()" type="submit"  style="margin-right: 10px;">บันทึก</a>
                     <a class="btn-best btn-orenge right" ng-click="clearData()" style="margin-right: 10px;" >ล้างข้อมูล <i class="mdi-action-cached right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col m6">
+                    <span class="card-title" style="font-size: 30px; font-weight:400;color: black">ตารางบันทึกการรักษา</span>
+                </div>
+            </div>
+            <table>
+                <thead>
+                <th style="width: 15%" class="table-department">วันที่รักษา</th>
+                <th style="width: 20%" class="table-department">ชื่อหมอ</th>
+                <th style="width: 45%" class="table-department">รายละเอียด</th>
+                <th style="width: 20%" class="table-department">รายละเอียดเพิ่มเติม</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="dh in detailHeals.content">
+                        <td>{{dh.dateHeal}}</td>
+                        <td>{{dh.doctor.nameTh}}</td>
+                        <td>{{dh.detail}}</td>
+                        <td>
+                            <a href="" ng-click="clickSeeDatailHeal(dh)" class="activator btn-custom-radius btn-moredetail">ดูรายละเอียด</a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row" id="card-employee">
+                <div class="col m12">
+                    <ul class="pagination right" style="margin-top: 10px;">
+                        <li class="btn btn-pagination" id="first-page-detailheal" ng-click="firstPageDetailHeal()"><p style="margin-top: 2px;">&Lt;</p></li>
+                        <li class="btn btn-pagination" id="pre-page-detailheal" ng-click="prePageDetailHeal()"><p style="margin-top: 2px;">&LT;</p></li>
+                        <li class="btn btn-pagination"><p style="margin-top: 2px;">{{currentPage + 1}}</p></li>
+                        <li class="btn btn-pagination" id="next-page-detailheal" ng-click="nextPageDetailHeal()"><p style="margin-top: 2px;">&GT;</p></li>
+                        <li class="btn btn-pagination" id="final-page-detailheal" ng-click="finalPageDetailHeal()"><p style="margin-top: 2px;">&Gt;</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-reveal">
+            <div id="card-height" class="card-height">
+                <span class="card-title grey-text text-darken-4" id="close-card">ข้อมูลบันทึกการรักษา<i class="material-icons right" ng-click="toPreScroll()">close</i></span>
+                <div style="margin-top: 20px;">
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">ลำดับ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{seeDetailHeal.id}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">วันที่รักษา : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{seeDetailHeal.dateHeal}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">ชื่อลูกค้า : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{seeDetailHeal.patient.name}}</label>
+                        </div>
+                        <div class="col m2 s6">
+                            <label class="right topic-detail">ชื่อหมอ : </label>
+                        </div>
+                        <div class="col m3 s6">
+                            <label class=" topic-detail">{{seeDetailHeal.doctor.nameTh}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m3 s6">
+                            <label class="right topic-detail">รายละเอียดการรักษา : </label>
+                        </div>
+                        <div class="col m9 s6">
+                            <label class=" topic-detail" style="word-wrap: break-word;width: 100%">{{seeDetailHeal.detail}}</label>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col m6 s6" style="position: relative; left: 230px;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="center">ชนิดการรักษา</th>
+                                        <th class="center">จำนวน</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="see in seeDetailHeal.orderHealDetailHeals">
+                                        <td class="center">{{see.listSelectHeal.name}}</td>
+                                        <td class="center">{{see.value}}</td>  
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20 center" style="margin-right: 10px">
+                        <a class="btn-custom-radius btn-cancelv2" ng-click="cancel()"><i class="mdi-content-clear"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
