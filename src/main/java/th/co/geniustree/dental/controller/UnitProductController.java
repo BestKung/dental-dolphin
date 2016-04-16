@@ -35,8 +35,13 @@ public class UnitProductController {
     }
 
     @RequestMapping(value = "/saveunitproduct", method = RequestMethod.POST)
-    public void saveUnitProduct(@Validated @RequestBody UnitProduct unitProduct) {
+    public Integer saveUnitProduct(@Validated @RequestBody UnitProduct unitProduct) {
+        UnitProduct unitProductName = unitProductRepo.findByName(unitProduct.getName());
+        if ((unitProductName != null) && (unitProduct.getId() == null)) {
+            return 1;
+        }
         unitProductRepo.save(unitProduct);
+        return 200;
     }
 
     @RequestMapping(value = "/deleteunitproduct", method = RequestMethod.POST)
@@ -69,7 +74,7 @@ public class UnitProductController {
         String keyword = searchData.getKeyword();
         String searchBy = searchData.getSearchBy();
         if ("Name".equals(searchBy)) {
-            count = unitProductRepo.count(UnitProductSpec.nameLike("%"+keyword+"%"));
+            count = unitProductRepo.count(UnitProductSpec.nameLike("%" + keyword + "%"));
         }
         return count;
     }

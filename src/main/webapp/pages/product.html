@@ -10,8 +10,8 @@
                 </div>
                 <div class="col m6 input-field">
                     <i class="material-icons prefix" >local_grocery_store</i>
-                    <input type="text" id="name" ng-model="product.name" ng-change="error.violations.name.message = '';">
-                    <label class="active" for="name">ชื่อสินค้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.name.message}}</span></label>
+                    <input type="text" id="name" ng-model="product.name" ng-change="error.violations.name.message = ''; errorName = '';">
+                    <label class="active" for="name">ชื่อสินค้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.name.message}}{{errorName}}</span></label>
                 </div>
             </div>
             <div class="row">

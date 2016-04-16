@@ -12,6 +12,7 @@ angular.module('typeProduct').controller('typeProductController', function ($sco
     $scope.searchData = {};
     $scope.searchData.keyword = "";
     $scope.error = {};
+    $scope.errorName = '';
 
 
     loadTpyeProduct();
@@ -24,11 +25,19 @@ angular.module('typeProduct').controller('typeProductController', function ($sco
 
     $scope.saveTpyeProduct = function () {
         $http.post('/savetypeproduct', $scope.typeProduct).success(function (data) {
-            loadTpyeProduct();
-            $scope.typeProduct = {};
-            getTotalList();
-            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-            Materialize.toast('saveข้อมูลเรียบร้อย', 3000, 'rounded');
+            if (data == 1) {
+                $scope.errorName = "ชื่อประเภทสินค้านี้มีอยู่ในระบบแล้ว";
+                $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                $('body,html').animate({scrollTop: 0}, "600");
+            }
+            if (data == 200) {
+                loadTpyeProduct();
+                $scope.typeProduct = {};
+                getTotalList();
+                $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                Materialize.toast('saveข้อมูลเรียบร้อย', 3000, 'rounded');
+            }
         }).error(function (data) {
             $scope.error = data;
             $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');

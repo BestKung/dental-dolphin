@@ -18,8 +18,8 @@
             <div class="row col6">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">file_download</i>
-                    <input type="date" id="dateIn" class="datepicker" ng-model="lot.dateIn" ng-change="error.violations.dateIn.message = '';">
-                    <label for="dateIn" class="active" id="namedepartment1" >วันที่นำเข้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.dateIn.message}}</span></label>
+                    <input type="date" id="dateIn" class="datepicker" ng-model="lot.dateIn" ng-change="error.violations.dateIn.message = '';errorDateIn = '';">
+                    <label for="dateIn" class="active" id="namedepartment1" >วันที่นำเข้า<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.dateIn.message}}{{errorDateIn}}</span></label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">file_upload</i>

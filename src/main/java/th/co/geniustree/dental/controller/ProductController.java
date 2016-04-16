@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import th.co.geniustree.dental.model.Product;
 import th.co.geniustree.dental.model.SearchData;
-import th.co.geniustree.dental.repo.PriceAndExpireProductRepo;
 import th.co.geniustree.dental.repo.ProductRepo;
 import th.co.geniustree.dental.service.ProductService;
 import th.co.geniustree.dental.spec.ProductSpec;
@@ -36,8 +35,13 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
-    public void saveProduct(@Validated @RequestBody Product product) {
+    public Integer saveProduct(@Validated @RequestBody Product product) {
+        Product productName = productRepo.findByName(product.getName());
+        if ((productName != null) && (product.getId() == null)) {
+            return 1;
+        }
         productRepo.save(product);
+        return 200;
     }
 
     @RequestMapping(value = "/deleteproduct", method = RequestMethod.POST)
@@ -86,7 +90,5 @@ public class ProductController {
         }
         return count;
     }
-    
-    
-    
+
 }

@@ -19,7 +19,6 @@ import th.co.geniustree.dental.repo.TypeProductRepo;
 import th.co.geniustree.dental.service.TypeProductService;
 import th.co.geniustree.dental.spec.TypeProductSpec;
 
-
 /**
  *
  * @author Jasin007
@@ -36,8 +35,13 @@ public class TypeProductController {
     }
 
     @RequestMapping(value = "/savetypeproduct", method = RequestMethod.POST)
-    public void saveTypeProduct(@Validated @RequestBody TypeProduct typeProduct) {
+    public Integer saveTypeProduct(@Validated @RequestBody TypeProduct typeProduct) {
+        TypeProduct typeProductName = typeProductRepo.findByName(typeProduct.getName());
+        if ((typeProductName != null) && (typeProduct.getId() == null)) {
+            return 1;
+        }
         typeProductRepo.save(typeProduct);
+        return 200;
     }
 
     @RequestMapping(value = "/deletetypeproduct", method = RequestMethod.POST)
@@ -49,8 +53,8 @@ public class TypeProductController {
     public Long getTotalTypeProduct() {
         return typeProductRepo.count();
     }
-    
-        @Autowired
+
+    @Autowired
     private TypeProductService typeProductService;
 
     @RequestMapping(value = "/loadtypeproduct/searchtypeproduct", method = RequestMethod.POST)
@@ -70,7 +74,7 @@ public class TypeProductController {
         String keyword = searchData.getKeyword();
         String searchBy = searchData.getSearchBy();
         if ("Name".equals(searchBy)) {
-            count = typeProductRepo.count(TypeProductSpec.nameLike("%"+keyword+"%"));
+            count = typeProductRepo.count(TypeProductSpec.nameLike("%" + keyword + "%"));
         }
         return count;
     }

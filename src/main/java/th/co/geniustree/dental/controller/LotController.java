@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javafx.scene.chart.PieChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -93,15 +92,19 @@ public class LotController {
     public Page<Lot> loadLot(Pageable pageable) {
         return lotRepo.findAll(pageable);
     }
-    
-      @RequestMapping(value = "/loadlotnondateout")
+
+    @RequestMapping(value = "/loadlotnondateout")
     public Page<Lot> loadLotNonDateut(Pageable pageable) {
-          System.out.println("----------------------------->"+lotRepo.findByDateOutIsNull().size());
+        System.out.println("----------------------------->" + lotRepo.findByDateOutIsNull().size());
         return lotRepo.findByDateOutIsNull(pageable);
     }
 
     @RequestMapping(value = "/savelot", method = RequestMethod.POST)
-    public void saveLot(@Validated @RequestBody Lot lot) {
+    public Integer saveLot(@Validated @RequestBody Lot lot) {
+//        Lot lotDateIn = lotRepo.findByDateIn(lot.getDateIn());
+//        if ((lotDateIn != null) && (lot.getId() == null)) {
+//            return 1;
+//        }
         if (lot.getDateOut() != null) {
             List<PriceAndExpireProduct> priceAndExpireProducts = priceAndExpireProductRepo.findByLot(lot);
             Date d = new Date();
@@ -118,6 +121,7 @@ public class LotController {
             }
         }
         lotRepo.save(lot);
+        return 200;
     }
 
     @RequestMapping(value = "/deletelot", method = RequestMethod.POST)
@@ -129,8 +133,8 @@ public class LotController {
     public Long getTotalLot() {
         return lotRepo.count();
     }
-    
-     @RequestMapping(value = "/totallotnondateout", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/totallotnondateout", method = RequestMethod.GET)
     public Integer getTotalLotNonDateOut() {
         return lotRepo.findByDateOutIsNull().size();
     }
@@ -157,8 +161,8 @@ public class LotController {
         }
         return lots;
     }
-    
-        @RequestMapping(value = "/loadlot/searchlotnondateout", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/loadlot/searchlotnondateout", method = RequestMethod.POST)
     public Page<Lot> searchLotNonDateOut(@RequestBody SearchData searchData, Pageable pageable) throws ParseException {
         String keyword = searchData.getKeyword();
         String searchBy = searchData.getSearchBy();
@@ -198,8 +202,8 @@ public class LotController {
         }
         return count;
     }
-    
-     @RequestMapping(value = "/countsearchlotnondateout", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/countsearchlotnondateout", method = RequestMethod.POST)
     public long countSearchLotNonDateOut(@RequestBody SearchData searchData) throws ParseException {
         long count = 0;
         String keyword = searchData.getKeyword();

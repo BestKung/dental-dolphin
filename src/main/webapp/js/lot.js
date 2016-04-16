@@ -27,6 +27,7 @@ angular.module('lot').controller('lotController', function ($scope, $http) {
     var totalListLot = 0;
     $scope.searchDataLot = {};
     $scope.searchDataLot.keyword = "";
+    $scope.errorDateIn = '';
 
 //===========================================================================================
 
@@ -57,11 +58,19 @@ angular.module('lot').controller('lotController', function ($scope, $http) {
     $scope.saveLot = function () {
         $scope.lot.nameStaffReam = $scope.nameStream;
         $http.post('/savelot', $scope.lot).success(function (data) {
-            loadLot();
-            $scope.lot = {};
-            getTotalListLot();
-            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-            Materialize.toast('saveข้อมูลเรียบร้อย', 3000, 'rounded');
+            if (data == 1) {
+                $scope.errorDateIn = "รอบนำเข้านี้มีอยู่ในระบบแล้ว";
+                $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
+                Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+                $('body,html').animate({scrollTop: 0}, "600");
+            }
+            if (data == 200) {
+                loadLot();
+                $scope.lot = {};
+                getTotalListLot();
+                $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+                Materialize.toast('saveข้อมูลเรียบร้อย', 3000, 'rounded');
+            }
         }).error(function (data) {
             $scope.error = data;
             $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
