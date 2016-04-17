@@ -5,9 +5,7 @@
  */
 package th.co.geniustree.dental.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javafx.scene.effect.ImageInput;
-import javafx.scene.image.Image;
-import javax.imageio.ImageIO;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -37,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.Bill;
+import th.co.geniustree.dental.model.BillGennerateCode;
 import th.co.geniustree.dental.model.BillList;
 import th.co.geniustree.dental.model.ClinicInformation;
 import th.co.geniustree.dental.model.DetailHeal;
@@ -44,6 +40,7 @@ import th.co.geniustree.dental.model.DetailHealAndTmpProduct;
 import th.co.geniustree.dental.model.OrderProduct;
 import th.co.geniustree.dental.model.PriceAndExpireProduct;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.repo.BillGennerateCodeRepo;
 import th.co.geniustree.dental.repo.BillRepo;
 import th.co.geniustree.dental.repo.ClinicInformationRepo;
 import th.co.geniustree.dental.repo.DetailHealRepo;
@@ -82,26 +79,34 @@ public class BillController {
     @Autowired
     private ClinicInformationRepo clinicInformationRepo;
 
+    @Autowired
+    private BillGennerateCodeRepo gennerateCodeRepo;
+
     @RequestMapping(value = "/savebill", method = RequestMethod.POST)
     public Integer saveBill(@Validated @RequestBody DetailHealAndTmpProduct detailHealAndTmpProduct) {
 
-//            DetailHeal detailHeal = detailHealAndTmpProduct.getDetailHeal();
+        BillGennerateCode gennerateCode = gennerateCodeRepo.save(new BillGennerateCode());
+        int idLength = gennerateCode.getId().toString().length();
+        String strId = gennerateCode.getId().toString();
+        for (int i = idLength; i <= 4; i++) {
+            strId = 0 + strId;
+        }
         Bill bill = new Bill();
+        bill.setId("B" + strId + "-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()));
+
         bill.setDateBill(detailHealAndTmpProduct.getDay());
 
         bill.setSumPrice(detailHealAndTmpProduct.getSumPrice());
-        bill.setId(detailHealAndTmpProduct.getId());
+//        bill.setId(detailHealAndTmpProduct.getId());
         bill.setDateUpdate(detailHealAndTmpProduct.getDateUpdate());
-//            if(detailHealAndTmpProduct.getDateUpdate() == null){
-//            detailHeal.setStatus("out");
-//            }
+
         if (detailHealAndTmpProduct.getDateUpdate() != null) {
-            DetailHeal detailHealAfter = billRepo.findOne(detailHealAndTmpProduct.getId()).getDetailHeal();
-            detailHealAfter.setStatus(null);
-            detailHealRepo.save(detailHealAfter);
-//                detailHeal.setStatus("out");
+//            DetailHeal detailHealAfter = billRepo.findOne(detailHealAndTmpProduct.getId()).getDetailHeal();
+//            detailHealAfter.setStatus(null);
+//            detailHealRepo.save(detailHealAfter);
+
         }
-//             System.out.println("-----------------------------------------------------------------------------"+detailHeal);
+
         bill.setDetailHeal(detailHealAndTmpProduct.getDetailHeal());
         System.out.println("-------------------------------------------------------------//////////" + detailHealAndTmpProduct);
         if (detailHealAndTmpProduct.getDetailHeal() != null) {
@@ -138,7 +143,7 @@ public class BillController {
         }
         if (detailHealAndTmpProduct.getDateUpdate() != null) {
             Bill bill1 = new Bill();
-            bill.setId(detailHealAndTmpProduct.getId());
+//            bill.setId(detailHealAndTmpProduct.getId());
             List<OrderProduct> orderProducts = orderProductRepo.findByBill(bill);
             long sizeBefore = orderProductRepo.count(OrderProductSpecificaton.whereBill(detailHealAndTmpProduct.getId()));
             for (int i = 0; i < productsAfter.size(); i++) {
@@ -158,6 +163,7 @@ public class BillController {
             }
 
         }
+
         return 200;
     }
 
@@ -203,25 +209,6 @@ public class BillController {
         return count;
     }
 
-//    @RequestMapping(value = "/saveorderbill", method = RequestMethod.POST)
-//    public void saveOrderBill(@RequestBody UpdateOrderBill updateOrderBill) {
-//        OrderBill[] orderBills = updateOrderBill.getOrderBill();
-//        Integer[] id = updateOrderBill.getId();
-//        if (id.length != 0) {
-//            for (int i = 0; i < id.length; i++) {
-//                orderBillRepo.delete(id[i]);
-//            }
-//        }
-//        for (OrderBill orderBill : orderBills) {
-//            orderBill.setBill(idBill);
-//            orderBillRepo.save(orderBill);
-//        }
-//    }
-//    @RequestMapping(value = "/saveiddetailheal", method = RequestMethod.POST)
-//    public void saveIdPayheal(@RequestBody OrderBill orderBill) {
-//        orderBill.setBill(idBill);
-//        orderBillRepo.save(orderBill);
-//    }
     @RequestMapping(value = "/deletebill", method = RequestMethod.POST)
     public void deleteBill(@RequestBody Bill bill) {
         billRepo.delete(bill.getId());
@@ -233,7 +220,7 @@ public class BillController {
     }
 
     @RequestMapping(value = "/printbill/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> printPersonalInformationPatient(@PathVariable("id") String id) {
         InputStream inputStream = null;
         byte[] content = null;
         JasperPrint fill = null;
@@ -252,7 +239,6 @@ public class BillController {
                 param.put("clinic_address", clinic.getClinicAddress());
                 if (clinic.getLogo() != null) {
                     InputStream logo = new ByteArrayInputStream(clinic.getLogo());
-//                BufferedImage viewerImage = ImageIO.read(viewerInputStream);
                     param.put("logo", logo);
                 }
             }

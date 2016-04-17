@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -29,8 +27,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Bill implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATEBILL")
@@ -49,11 +46,22 @@ public class Bill implements Serializable {
 
     private Date dateUpdate;
 
-    public Integer getId() {
+    @OneToOne
+    private BillGennerateCode gennerateCode;
+
+    public BillGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(BillGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -99,13 +107,16 @@ public class Bill implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }

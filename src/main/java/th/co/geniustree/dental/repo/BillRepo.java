@@ -13,6 +13,6 @@ import th.co.geniustree.dental.model.Bill;
  *
  * @author User
  */
-public interface BillRepo extends JpaRepository<Bill, Integer>, JpaSpecificationExecutor<Bill> {
+public interface BillRepo extends JpaRepository<Bill, String>, JpaSpecificationExecutor<Bill> {
 
 }
