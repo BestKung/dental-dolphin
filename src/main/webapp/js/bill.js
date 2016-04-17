@@ -46,7 +46,10 @@ angular.module('bill').controller('billController', function ($scope, $http) {
 
     function saveBillSub() {
         detailHealAndTmpProduct.detailHeal = $scope.bill.detailHeal;
-        detailHealAndTmpProduct.day = $scope.bill.dateBill;
+        if (!!$scope.bill.dateBill) {
+            detailHealAndTmpProduct.day = new Date();
+        }
+//        detailHealAndTmpProduct.day = $scope.bill.dateBill;
         detailHealAndTmpProduct.sumPrice = $scope.totalPrice;
         var products = [];
         for (var i = 0; i < countTmpProduct; i++) {
@@ -233,7 +236,7 @@ angular.module('bill').controller('billController', function ($scope, $http) {
 
     $scope.clickDeeteBill = function (bill) {
         $('#modal-delete-bill').openModal();
-         $scope.billMoreDetail = bill;
+        $scope.billMoreDetail = bill;
     };
 
     function toPreScroll() {
