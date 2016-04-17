@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.AntPathMatcher;
+import th.co.geniustree.dental.model.Employee;
 import th.co.geniustree.dental.service.CustomUserService;
 
 /**
@@ -29,6 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService);
+//        Employee employee = customUserService.
+//        if(){
+//        
+//        }
     }
 
     @Override

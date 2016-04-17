@@ -9,6 +9,7 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     $scope.image;
     $scope.errorEmail = "";
     $scope.errorPid = "";
+    $scope.showPasswordField = false;
 
     checkMobile();
     function  checkMobile() {
@@ -82,6 +83,7 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     hasDoctorService();
     function hasDoctorService() {
         if (!!employeeService.doctorUpdate.id) {
+            $scope.showPasswordField = true;
             $('.update').addClass('active');
             $('.clear-prefix').css('color', '#00bcd4')
         }

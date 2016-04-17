@@ -35,7 +35,7 @@ public class TmpOrderController {
     }
 
     @RequestMapping(value = "/gettmporder", method = RequestMethod.POST)
-    public Page<TmpOrder> getTmpOrder(@RequestBody Integer user, Pageable pageable) {
+    public Page<TmpOrder> getTmpOrder(@RequestBody String user, Pageable pageable) {
         return tmpOrderRepo.findAllByDoctorId(user, pageable);
     }
 

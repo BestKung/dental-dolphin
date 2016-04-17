@@ -28,12 +28,13 @@ and open the template in the editor.
                             <strong>ผิดพลาด!</strong> ไม่มีผู้ใช้ในระบบ.
                         </div>
                         <div style="margin-top: 60px">
-                            <input type="text" autocomplete="off" id="form-login-email" placeholder="Username" style="height: 37px;z-index: 8000;margin-top: 142px;width: 250px;position: absolute;background: #f9f9f9 ;border: #f9f9f9;margin-left:45px" name="email">
-                            <input type="password" autocomplete="off" id="form-login-password" placeholder="Password" style="height: 37px;z-index: 8000;margin-top: 189px;width: 250px;position: absolute;background: #f9f9f9 ;border: #f9f9f9;margin-left: 45px"  name="password">
-                            <input src="../image/button.png" id="login-btn" type="image" style="position: absolute;z-index: 8000;margin-top: 236px;margin-left: 45px;width: 283px;height: 45px;">
+                            <input type="text" autocomplete="off" id="form-login-email" placeholder="Username" style="height: 37px;z-index: 1000;margin-top: 142px;width: 250px;position: absolute;background: #f9f9f9 ;border: #f9f9f9;margin-left:45px" name="email">
+                            <input type="password" autocomplete="off" id="form-login-password" placeholder="Password" style="height: 37px;z-index: 1000;margin-top: 189px;width: 250px;position: absolute;background: #f9f9f9 ;border: #f9f9f9;margin-left: 45px"  name="password">
+                            <input src="../image/button.png" id="login-btn" type="image" style="position: absolute;z-index: 1000;margin-top: 236px;margin-left: 45px;width: 283px;height: 45px;">
                             <div style="margin-top: -30px;">
                                 <img src="../image/box.png">
                             </div>
+                            <a data-toggle="modal" data-target="#modal-forgot" style="margin-left: 50px ; font-size: 16px" class="forget-password">ลืมรหัสผ่าน</a>
                         </div>
                     </form>
                 </div>
@@ -82,6 +83,42 @@ and open the template in the editor.
                         color: white;
                     }
                 </style>-->
+
+
+
+
+        <div class="modal fade" id="modal-forgot">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4>ลืมรหัสผ่าน</h4>
+                    </div>
+                    <form method="post" action="/login">
+                        <div class="modal-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">อีเมล</label>
+                                    <div class="col-md-10" name="email">
+                                        <input class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default">
+                                close
+                            </button>
+                            <button class="btn btn-success" type="submit">
+                                submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <script>
             checkMobile();
             function  checkMobile() {
@@ -101,7 +138,9 @@ and open the template in the editor.
             #login-btn:hover{
                 box-shadow: 1px 1px 5px;
             }
-
+            .forget-password:hover{
+                cursor: pointer;
+            }
         </style>
     </body>
 </html>

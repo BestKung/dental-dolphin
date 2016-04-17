@@ -30,7 +30,6 @@ public class CustomUserService implements UserDetailsService {
         if (employee == null) {
             throw new UsernameNotFoundException("Email Not Fond!");
         }
-
         return employee;
 
     }

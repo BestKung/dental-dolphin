@@ -27,7 +27,7 @@ public class TmpOrder implements Serializable {
     private Double price;
     private Double value;
     private Double sum;
-    private Integer doctorId;
+    private String doctorId;
 
     public Integer getId() {
         return id;
@@ -77,11 +77,11 @@ public class TmpOrder implements Serializable {
         this.sum = sum;
     }
 
-    public Integer getDoctorId() {
+    public String getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Integer doctorId) {
+    public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
     }
 

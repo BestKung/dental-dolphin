@@ -86,6 +86,7 @@ public class BillController {
     public Integer saveBill(@Validated @RequestBody DetailHealAndTmpProduct detailHealAndTmpProduct) {
 
         BillGennerateCode gennerateCode = gennerateCodeRepo.save(new BillGennerateCode());
+       
         int idLength = gennerateCode.getId().toString().length();
         String strId = gennerateCode.getId().toString();
         for (int i = idLength; i <= 4; i++) {

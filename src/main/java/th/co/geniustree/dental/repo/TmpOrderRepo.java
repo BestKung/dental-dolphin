@@ -17,7 +17,7 @@ import th.co.geniustree.dental.model.TmpOrder;
  */
 public interface TmpOrderRepo extends JpaRepository<TmpOrder, Integer> {
 
-    public Page<TmpOrder> findAllByDoctorId(Integer user, Pageable pageable);
+    public Page<TmpOrder> findAllByDoctorId(String user, Pageable pageable);
 
-    public List<TmpOrder> findAllByDoctorId(Integer user);
+    public List<TmpOrder> findAllByDoctorId(String user);
 }

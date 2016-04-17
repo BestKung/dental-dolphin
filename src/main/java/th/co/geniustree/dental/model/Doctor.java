@@ -99,6 +99,9 @@ public class Doctor extends Employee implements Serializable {
     @JsonIgnore
     private List<Patient> patients;
 
+    @Column(name = "TYPE")
+    private String type;
+
     public List<Patient> getPatients() {
         return patients;
     }
@@ -294,6 +297,14 @@ public class Doctor extends Employee implements Serializable {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

@@ -27,7 +27,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "STAFF")
 @AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class Staff extends Employee implements Serializable {
-    
 
     @Column(name = "PERSONAL_ID")
     private String pid;
@@ -98,6 +97,9 @@ public class Staff extends Employee implements Serializable {
     private StaffGennerateCode gennerateCode;
 
     private Double salary;
+
+    @Column(name = "TYPE")
+    private String type;
 
     public String getPid() {
         return pid;
@@ -279,5 +281,12 @@ public class Staff extends Employee implements Serializable {
         this.staffPicture = staffPicture;
     }
 
-    
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

@@ -25,6 +25,8 @@ app.controller('homeController', function ($scope, $http) {
     var nontification = false;
     $scope.nontiClick = false;
     $scope.showNontification = false;
+    $scope.password = '';
+
 
     function  checkMobile() {
         var $mobile = $(window).outerWidth() < 995;
@@ -48,6 +50,18 @@ app.controller('homeController', function ($scope, $http) {
             viewWorkCalendar(data);
             isAdmin(data);
             employeeOrAdmin(data);
+            console.log(!data.ChangePasswordStatus);
+            if (!data.changePasswordStatus) {
+                $('#modal-changepassword').openModal({dismissible: false});
+                $('.update').addClass('active');
+                $('.clear-prefix').css('color', '#00bcd4')
+                if (($scope.login.type == 'Staff') || ($scope.login.type == 'staff')) {
+                    saveFirstLoginStaff();
+                } else {
+                    saveFirstLoginDoc();
+                }
+
+            }
         });
     }
 
@@ -242,7 +256,69 @@ app.controller('homeController', function ($scope, $http) {
         }
     }
 
+    $scope.comparePassword = function () {
+        if ((!!$scope.password) && (!!$scope.login.password)) {
+            if ($scope.password == $scope.login.password) {
+                $('#confirm').css('color', '#64dd17');
+                $('#confirm').html('done');
+            }
+            if ($scope.password != $scope.login.password) {
+                $('#confirm').css('color', 'red');
+                $('#confirm').html('clear');
+            }
+        } else {
+            $('#confirm').html('');
+        }
+    };
+
+    function saveFirstLoginStaff() {
+        $scope.login.changePasswordStatus = '1';
+        $http.post('/savestaff', $scope.login)
+                .success(function (data) {
+                    console.log('save success');
+                });
+    }
+
+    function saveFirstLoginDoc() {
+        $scope.login.changePasswordStatus = '1';
+        $http.post('/savedoctor', $scope.login)
+                .success(function (data) {
+                    console.log('save success');
+                });
+    }
+
+
+    $scope.selectSave = function () {
+        if (($scope.login.type == 'Staff') || ($scope.login.type == 'staff')) {
+            saveFirstLoginStaff();
+        } else {
+            saveFirstLoginDoc();
+        }
+        $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+        Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+    };
+
+    $scope.removeBlackGround = function () {
+        $("#materialize-lean-overlay-1").removeClass('lean-overlay');
+    };
+
+    function confirmPassword() {
+        if (($scope.password == $scope.login.password) || (!$scope.password) || (!$scope.login.password)) {
+            return true;
+        }
+        if ($scope.password != $scope.login.password) {
+            return false;
+        }
+    }
+
+    $scope.changeDataModal = function () {
+        $('#modal-changepassword').openModal({dismissible: false});
+        $('.update').addClass('active');
+        $('.clear-prefix').css('color', '#00bcd4');
+    };
 }
+
+
 );
 app.factory('employeeService', function () {
     return {

@@ -52,6 +52,8 @@ public class Employee implements Serializable, UserDetails {
     @Column(name = "ROLES")
     private List<Authority> roles;
 
+    private String changePasswordStatus;
+
     public String getNameTh() {
         return nameTh;
     }
@@ -106,6 +108,14 @@ public class Employee implements Serializable, UserDetails {
 
     public void setRoles(List<Authority> roles) {
         this.roles = roles;
+    }
+
+    public String getChangePasswordStatus() {
+        return changePasswordStatus;
+    }
+
+    public void setChangePasswordStatus(String ChangePasswordStatus) {
+        this.changePasswordStatus = ChangePasswordStatus;
     }
 
     @Override

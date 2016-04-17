@@ -506,3 +506,13 @@ input {
     background-color: #cfd8dc;
     color: white;
 }
+.btn-disabled:hover{
+    background-color: #cfd8dc;
+    color: white;
+    opacity: 0.9;
+}
+.btn-disabled:active{
+    background-color: #cfd8dc;
+    color: white;
+    opacity: 0.9;
+}

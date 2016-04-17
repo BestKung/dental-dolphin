@@ -28,7 +28,10 @@
                     <i class="material-icons prefix clear-prefix password">lock</i>
                     <input type="password" id="password"  class="immediate-help" password-validate ng-model="password" ng-change="comparePassword();
                                     error.violations.password.message = '';
-                                    changePrefix('.password')" maxlength="12" minlength="8" size="12" length="12">
+                                    changePrefix('.password')" maxlength="12" minlength="8" size="12" length="12" ng-hide="showPasswordField">
+                    <input type="password" id="password"  class="immediate-help" password-validate ng-model="password" ng-change="comparePassword();
+                                    error.violations.password.message = '';
+                                    changePrefix('.password')" maxlength="12" minlength="8" size="12" length="12" disabled ng-show="showPasswordField">
                     <div class="input-help" style="margin-left: 45px; width: 400px;">
                         <h4>รหัสควรกรอกตามเงื่อนไขต่อไปนี้:</h4>
                         <ul>
@@ -43,7 +46,10 @@
                     <i class="material-icons prefix clear-prefix confirmpassword">lock</i>
                     <input type="password" id="confirmpassword"  ng-model="doctor.password" ng-change="comparePassword();
                                     error.violations.password.message = '';
-                                    changePrefix('.confirmpassword')" maxlength="12" minlength="8" size="12" length="12">
+                                    changePrefix('.confirmpassword')" maxlength="12" minlength="8" size="12" length="12" ng-hide="showPasswordField">
+                    <input type="password" id="confirmpassword"  ng-model="doctor.password" ng-change="comparePassword();
+                                     error.violations.password.message = '';
+                                     changePrefix('.confirmpassword')" maxlength="12" minlength="8" size="12" length="12" disabled ng-show="showPasswordField">
                     <label for="confirmpassword" class="update">ยืนยันรหัสผ่าน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
                     <i class="material-icons right-input-custom" id="confirm"></i>
                 </div>
@@ -65,7 +71,7 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix pid">credit_card</i>
-                    <input type="text" id="pid" pid-input ng-model="doctor.pid" ng-change="errorPid='';">
+                    <input type="text" id="pid" pid-input ng-model="doctor.pid" ng-change="errorPid = '';">
                     <label for="pid" class="update">รหัสประชาชน<span class="margin-left necessary-text">{{errorPid}}</span></label>
                 </div>
                 <div class="col m6 s12 input-field">

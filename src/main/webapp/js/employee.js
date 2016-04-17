@@ -14,6 +14,7 @@ var app = angular.module('employee')
             $scope.errorEmail = "";
             $scope.errorPid = "";
             checkMobile();
+            $scope.showPasswordField = false;
             function  checkMobile() {
                 var $mobile = $(window).outerWidth() < 995;
                 if ($mobile) {
@@ -33,6 +34,7 @@ var app = angular.module('employee')
                 if (!!employeeService.employeeUpdate.id) {
                     $('.update').addClass('active');
                     $('.clear-prefix').css('color', '#00bcd4')
+                    $scope.showPasswordField = true;
                 } else {
                     $('.update').removeClass('active');
                 }
