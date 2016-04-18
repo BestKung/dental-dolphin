@@ -6,9 +6,11 @@
 package th.co.geniustree.dental.controller;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -27,7 +29,9 @@ import th.co.geniustree.dental.App;
 import th.co.geniustree.dental.model.MedicalSupplies;
 import th.co.geniustree.dental.model.OrderAndMedicalSupplies;
 import th.co.geniustree.dental.model.OrderMedicalSupplie;
+import th.co.geniustree.dental.model.OrderMedicalSupplieGennerateCode;
 import th.co.geniustree.dental.repo.MedicalSuppliesRepo;
+import th.co.geniustree.dental.repo.OrderMedicalSupplieGennerateCodeRepo;
 import th.co.geniustree.dental.repo.OrderRepo;
 import th.co.geniustree.dental.repo.TmpOrderRepo;
 
@@ -47,13 +51,25 @@ public class OrderController {
     @Autowired
     private TmpOrderRepo tmpOrderRepo;
 
+    @Autowired
+    private OrderMedicalSupplieGennerateCodeRepo gennerateCodeRepo;
+
     @RequestMapping(value = "/saveordermedical", method = RequestMethod.POST)
     public void saveOrder(@RequestBody OrderAndMedicalSupplies orderAndMedicalSupplies) {
-        OrderMedicalSupplie orderMedicalSupplie = new OrderMedicalSupplie();
 
+        OrderMedicalSupplie orderMedicalSupplie = new OrderMedicalSupplie();
         orderMedicalSupplie = orderAndMedicalSupplies.getOrderMedicalSupplie();
         orderMedicalSupplie.setDate(new Date());
-        OrderMedicalSupplie oms = orderRepo.save(orderMedicalSupplie);
+//        OrderMedicalSupplie oms = orderRepo.save(orderMedicalSupplie);
+
+        OrderMedicalSupplieGennerateCode gennerateCode = gennerateCodeRepo.save(new OrderMedicalSupplieGennerateCode());
+        int idLength = gennerateCode.getId().toString().length();
+        String strId = gennerateCode.getId().toString();
+        for (int i = idLength; i <= 4; i++) {
+            strId = 0 + strId;
+        }
+        orderMedicalSupplie.setId("OR" + strId + "-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()));
+         OrderMedicalSupplie oms = orderRepo.save(orderMedicalSupplie);
 
         for (int i = 0; i < orderAndMedicalSupplies.getMedicalSupplies().size(); i++) {
             MedicalSupplies supplies = new MedicalSupplies();
@@ -89,17 +105,15 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/searchorder", method = RequestMethod.POST)
-    public Page<OrderMedicalSupplie> searchOrder(@RequestBody Integer id, Pageable pageable) {
+    public Page<OrderMedicalSupplie> searchOrder(@RequestBody String id, Pageable pageable) {
         return orderRepo.findAllById(id, pageable);
     }
 
     @RequestMapping(value = "/countsearchorder", method = RequestMethod.POST)
-    public Long countSearchOrder(@RequestBody Integer id, Pageable pageable) {
+    public Long countSearchOrder(@RequestBody String id, Pageable pageable) {
         return orderRepo.findAllById(id, pageable).getTotalElements();
     }
-    
-    
-    
+
     @RequestMapping(value = "/printorder/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printOrder(@PathVariable("id") Integer id) {
         InputStream inputStream = null;
@@ -121,6 +135,5 @@ public class OrderController {
         }
         return response;
     }
-
 
 }

@@ -14,7 +14,7 @@ import th.co.geniustree.dental.model.OrderMedicalSupplie;
  *
  * @author BestKung
  */
-public interface OrderRepo extends JpaRepository<OrderMedicalSupplie, Integer> {
+public interface OrderRepo extends JpaRepository<OrderMedicalSupplie, String> {
 
-    public Page<OrderMedicalSupplie> findAllById(Integer id, Pageable pageable);
+    public Page<OrderMedicalSupplie> findAllById(String id, Pageable pageable);
 }

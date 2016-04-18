@@ -11,20 +11,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -34,9 +30,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "DETAILHEAL")
 public class DetailHeal implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name = "DETAIL")
     private String detail;
@@ -59,11 +54,22 @@ public class DetailHeal implements Serializable {
     @OneToMany(mappedBy = "detailHeal")
     private List<OrderHeal> orderHealDetailHeals;
 
-    public Integer getId() {
+    @OneToOne
+    private DetailHealGennerateCode gennerateCode;
+
+    public DetailHealGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(DetailHealGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -118,12 +124,15 @@ public class DetailHeal implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
