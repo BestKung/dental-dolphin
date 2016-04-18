@@ -170,12 +170,12 @@
                                 <li><a href="#/appointment">การนัดหมาย</a></li>
                             </ul>
 
-                            <li ng-show="true"><a href="#" class="dropdown-button text-sky" data-activates="Heal" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-maps-local-hospital"></i><span>รักษา</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
+                            <li ng-show="manageHeal"><a href="#" class="dropdown-button text-sky" data-activates="Heal" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-maps-local-hospital"></i><span>รักษา</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>
                             <ul class="dropdown-content" id="Heal">
                                 <li><a href="#/queue">จัดการคิว</a></li>
                                 <li><a href="#/listselectheal">จัดการชนิดการรักษา</a></li>
-                                <li ng-show="true"><a href="#/detailheal">บันทึกการรักษาและเลือกชนิดที่รักษา</a></li>
-                                <li><a href="#/record-keeping">บันทึกการรักษา</a></li>
+                                <li ng-show="false"><a href="#/detailheal">บันทึกการรักษาและเลือกชนิดที่รักษา</a></li>
+                                <li ng-show="viewWorkCalendar"><a href="#/record-keeping">บันทึกการรักษา</a></li>
                             </ul>
 
                             <li ng-show="manageProduct"><a href="#" class="dropdown-button text-sky" data-activates="stock" data-beloworigin="true" data-constrainwidth="false"><i class="margin-right-5 mdi-action-shopping-cart"></i><span>สินค้า</span><i class="mdi-navigation-arrow-drop-down"></i></a></li>

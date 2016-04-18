@@ -44,4 +44,9 @@ public class AppointmentService {
         Specifications<Appointment> specifications = Specifications.where(AppointmentSpec.appointmentDate(keyword));
         return appointmentRepo.findAll(specifications, pageable);
     }
+
+    public Page<Appointment> searchId(String keyword, Pageable pageable) {
+        Specifications<Appointment> specifications = Specifications.where(AppointmentSpec.idLike("%" + keyword + "%"));
+        return appointmentRepo.findAll(specifications, pageable);
+    }
 }

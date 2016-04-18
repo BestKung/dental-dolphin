@@ -42,4 +42,14 @@ public class BillSpec {
         };
     }
 
+    public static Specification<Bill> idLike(final String keyword) {
+        return new Specification<Bill>() {
+
+            @Override
+            public Predicate toPredicate(Root<Bill> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                return cb.equal(root.get(Bill_.id), keyword);
+            }
+        };
+    }
+
 }

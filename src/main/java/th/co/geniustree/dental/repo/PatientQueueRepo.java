@@ -21,4 +21,7 @@ public interface PatientQueueRepo extends JpaRepository<PatientQueue, String> {
     public Page<PatientQueue> findAllByDoctorAndHealStatusIsNullOrderByQueueIdAsc(Doctor doctor, Pageable pageable);
 
     public PatientQueue findByHealStatus(String doctorId);
+
+    public Page<PatientQueue> findAllByDayQueue(String string, Pageable pageable);
+
 }

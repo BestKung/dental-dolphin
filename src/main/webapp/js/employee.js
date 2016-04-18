@@ -34,7 +34,12 @@ var app = angular.module('employee')
                 if (!!employeeService.employeeUpdate.id) {
                     $('.update').addClass('active');
                     $('.clear-prefix').css('color', '#00bcd4')
-                    $scope.showPasswordField = true;
+                    if (!!employeeService.employeeUpdate.forgotPassword) {
+                        $scope.showPasswordField = true;
+                    } else {
+                        $scope.showPasswordField = false;
+                    }
+
                 } else {
                     $('.update').removeClass('active');
                 }

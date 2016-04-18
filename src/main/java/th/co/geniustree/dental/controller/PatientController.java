@@ -7,6 +7,7 @@ package th.co.geniustree.dental.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/savepatient", method = RequestMethod.POST)
-    private void savePatient(@Validated @RequestBody Patient patient) {
+    private void savePatient(@Validated @RequestBody Patient patient, Pageable pageable) throws SQLException {
         if (patient.getPatientPictureXray() == null) {
             StaffPicture picture = pictureRepo.findOne(1);
             PatientPictureXray patientPictureXray = new PatientPictureXray();
@@ -112,6 +113,9 @@ public class PatientController {
         if (patient.getId() != null) {
             patientRepo.save(patient);
         } else {
+            if ((patientSearchService.searchByid("-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()), pageable).getTotalElements()) == 0) {
+                new H2ConnectAndExport().resetPatientGenerateCode();
+            }
             PatientGennerateCode gennerateCode = gennerateCodeRepo.save(new PatientGennerateCode());
             int idLength = gennerateCode.getId().toString().length();
             String strId = gennerateCode.getId().toString();
@@ -120,6 +124,7 @@ public class PatientController {
             }
             patient.setId("HN" + strId + "-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()));
             patientRepo.save(patient);
+            gennerateCodeRepo.delete(gennerateCode);
         }
     }
 

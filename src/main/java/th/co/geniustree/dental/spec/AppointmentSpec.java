@@ -52,6 +52,16 @@ public class AppointmentSpec {
     };
     }
     
+      public static Specification<Appointment> idLike(final String keyword){
+    return new Specification<Appointment>() {
+
+        @Override
+        public Predicate toPredicate(Root<Appointment> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            return cb.like(root.get(Appointment_.id), keyword);
+        }
+    };
+    }
+    
     public static Specification<Appointment> appointmentDate(final Date keyword){
     return new Specification<Appointment>() {
 

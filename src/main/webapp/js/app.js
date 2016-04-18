@@ -5,7 +5,6 @@ var app = angular.module('app', ['checklist-model', 'ngRoute', 'employee', 'depa
             , 'reportproduct', 'reportappointment', 'reportcustomer', 'reportemployee', 'reportdoctor', 'workcalendar', 'reportremainproduct',
     'order', 'room', 'queue', 'record-keeping']);
 var app = angular.module('app');
-
 app.controller('homeController', function ($scope, $http) {
     $scope.login = {};
     $scope.image;
@@ -26,8 +25,6 @@ app.controller('homeController', function ($scope, $http) {
     $scope.nontiClick = false;
     $scope.showNontification = false;
     $scope.password = '';
-
-
     function  checkMobile() {
         var $mobile = $(window).outerWidth() < 995;
         if ($mobile) {
@@ -56,9 +53,13 @@ app.controller('homeController', function ($scope, $http) {
                 $('.update').addClass('active');
                 $('.clear-prefix').css('color', '#00bcd4')
                 if (($scope.login.type == 'Staff') || ($scope.login.type == 'staff')) {
+                    alert('staff');
                     saveFirstLoginStaff();
-                } else {
+                } else if (($scope.login.type == 'Doctor') || ($scope.login.type == 'doctor')) {
+                    alert('doctor');
                     saveFirstLoginDoc();
+                } else {
+                    saveFirstLoginStaff();
                 }
 
             }
@@ -69,17 +70,11 @@ app.controller('homeController', function ($scope, $http) {
         $('.color1').toggleClass('color2');
         $('.text-sky').toggleClass('text-sky-grann');
     };
-
-
-
-
-
     $scope.clickLogout = function () {
         if (!!$scope.login.id) {
             location.href = "/logout";
         }
     };
-
     //======================================================= Nontification ==================================================================
     getAppointment();
     function getAppointment() {
@@ -119,20 +114,16 @@ app.controller('homeController', function ($scope, $http) {
         $scope.totalNontification = 0;
         $scope.showNontification = $scope.numberOfNontification > 0;
     }, 2000);
-
     $(document).ready(function () {
         $('.slider').slider({full_width: true});
     });
-
     $scope.clickClinicInformation = function () {
         getClinic();
         $('#modal-clinic-information').openModal({dismissible: false});
     };
-
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             reader.onload = function (e) {
                 $('#logo').attr('src', e.target.result);
             };
@@ -143,7 +134,6 @@ app.controller('homeController', function ($scope, $http) {
     $('#input-clinic-picture').change(function () {
         readURL(this);
     });
-
     $scope.saveFile = function () {
         var fd = new FormData();
         fd.append('file', $scope.image);
@@ -153,7 +143,6 @@ app.controller('homeController', function ($scope, $http) {
         }).success(function (data) {
         });
     };
-
     $scope.saveClinic = function () {
         $http.post('/saveClinicInformation', $scope.clinic).success(function (data) {
             getClinic();
@@ -161,8 +150,6 @@ app.controller('homeController', function ($scope, $http) {
             Materialize.toast('บันทึกสำเร็จ', 3000, 'rounded');
         });
     };
-
-
     function getClinic() {
         $http.get('/getclinic').success(function (data) {
             $scope.clinic = data;
@@ -194,7 +181,6 @@ app.controller('homeController', function ($scope, $http) {
             $('#prefix-starttime').addClass('active');
         }
     });
-
     function manageEmployee(data) {
         for (var i = 0; i < data.roles.length; i++) {
             if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
@@ -270,8 +256,8 @@ app.controller('homeController', function ($scope, $http) {
             $('#confirm').html('');
         }
     };
-
     function saveFirstLoginStaff() {
+        $scope.login.forgotPassword = '1';
         $scope.login.changePasswordStatus = '1';
         $http.post('/savestaff', $scope.login)
                 .success(function (data) {
@@ -280,6 +266,7 @@ app.controller('homeController', function ($scope, $http) {
     }
 
     function saveFirstLoginDoc() {
+        $scope.login.forgotPassword = '1';
         $scope.login.changePasswordStatus = '1';
         $http.post('/savedoctor', $scope.login)
                 .success(function (data) {
@@ -297,11 +284,9 @@ app.controller('homeController', function ($scope, $http) {
         $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
         Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
     };
-
     $scope.removeBlackGround = function () {
         $("#materialize-lean-overlay-1").removeClass('lean-overlay');
     };
-
     function confirmPassword() {
         if (($scope.password == $scope.login.password) || (!$scope.password) || (!$scope.login.password)) {
             return true;
@@ -325,13 +310,11 @@ app.factory('employeeService', function () {
         employeeUpdate: {}, doctorUpdate: {}
     };
 });
-
 app.factory('patientService', function () {
     return {
         patienUpdate: {}
     };
 });
-
 app.config(function ($routeProvider) {
     $routeProvider.when('/', {
         controller: 'homeController',
@@ -431,7 +414,6 @@ app.config(function ($routeProvider) {
                 redirectTo: '/'
             });
 });
-
 app.directive('fileModel', function ($parse) {
     return {
         restrict: 'A',
@@ -446,7 +428,6 @@ app.directive('fileModel', function ($parse) {
         }
     };
 });
-
 app.directive('customOnChange', function () {
     return {
         restrict: 'A',

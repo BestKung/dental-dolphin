@@ -6,6 +6,7 @@
 package th.co.geniustree.dental.controller;
 
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,8 +52,11 @@ public class AppointmentController {
     private AppointGennerateCodeRepo gennerateCodeRepo;
 
     @RequestMapping(value = "/saveappointment", method = RequestMethod.POST)
-    private void saveAppointment(@Validated @RequestBody Appointment appointment, Pageable pageable) throws ParseException {
+    private void saveAppointment(@Validated @RequestBody Appointment appointment, Pageable pageable) throws ParseException, SQLException {
         if (appointment.getId() == null) {
+            if ((appointmentService.searchId("-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()), pageable).getTotalElements()) == 0) {
+                new H2ConnectAndExport().resetAppointmentGenerateCode();
+            }
             AppointmentGennerateCode gennerateCode = gennerateCodeRepo.save(new AppointmentGennerateCode());
 
             int idLength = (gennerateCode.getId() + "").length();

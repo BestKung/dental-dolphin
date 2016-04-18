@@ -83,7 +83,11 @@ angular.module('doctor').controller('doctorController', function (employeeServic
     hasDoctorService();
     function hasDoctorService() {
         if (!!employeeService.doctorUpdate.id) {
-            $scope.showPasswordField = true;
+            if (!!employeeService.employeeUpdate.forgotPassword) {
+                $scope.showPasswordField = true;
+            } else {
+                $scope.showPasswordField = false;
+            }
             $('.update').addClass('active');
             $('.clear-prefix').css('color', '#00bcd4')
         }

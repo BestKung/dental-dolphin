@@ -25,12 +25,19 @@ public class CustomUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Employee employee = employeeRepo.findByEmail(email);
 
+        System.out.println("-------------------------------------------------------------------->" + email);
+        String str[] = email.split("##");
+        Employee employee = employeeRepo.findByEmail(str[0]);
+        if (str.length > 1) {
+            if ("forgot".equals(str[1])) {
+                employee.setForgotPassword(null);
+                employeeRepo.save(employee);
+            }
+        }
         if (employee == null) {
             throw new UsernameNotFoundException("Email Not Fond!");
         }
         return employee;
-
     }
 }

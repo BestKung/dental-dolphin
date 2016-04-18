@@ -19,7 +19,6 @@ import th.co.geniustree.dental.model.Patient_;
  */
 public class PatientSpec {
 
-
     public static Specification<Patient> nameLike(final String keyword) {
         return new Specification<Patient>() {
 
@@ -36,6 +35,16 @@ public class PatientSpec {
             @Override
             public Predicate toPredicate(Root<Patient> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.like(cb.upper(root.get(Patient_.email)), keyword.toUpperCase());
+            }
+        };
+    }
+
+    public static Specification<Patient> idlLike(final String keyword) {
+        return new Specification<Patient>() {
+
+            @Override
+            public Predicate toPredicate(Root<Patient> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get(Patient_.id), keyword);
             }
         };
     }

@@ -7,6 +7,7 @@ package th.co.geniustree.dental.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,10 +84,14 @@ public class BillController {
     private BillGennerateCodeRepo gennerateCodeRepo;
 
     @RequestMapping(value = "/savebill", method = RequestMethod.POST)
-    public Integer saveBill(@Validated @RequestBody DetailHealAndTmpProduct detailHealAndTmpProduct) {
+    public Integer saveBill(@Validated @RequestBody DetailHealAndTmpProduct detailHealAndTmpProduct, Pageable pageable) throws SQLException {
+
+        if ((billService.searchByid("-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()), pageable).getTotalElements()) == 0) {
+            new H2ConnectAndExport().resetBillGenerateCode();
+        }
 
         BillGennerateCode gennerateCode = gennerateCodeRepo.save(new BillGennerateCode());
-       
+
         int idLength = gennerateCode.getId().toString().length();
         String strId = gennerateCode.getId().toString();
         for (int i = idLength; i <= 4; i++) {

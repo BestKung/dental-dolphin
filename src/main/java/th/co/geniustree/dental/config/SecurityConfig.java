@@ -30,10 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService);
-//        Employee employee = customUserService.
-//        if(){
-//        
-//        }
     }
 
     @Override

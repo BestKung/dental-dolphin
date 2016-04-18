@@ -21,18 +21,23 @@ import th.co.geniustree.dental.spec.BillSpec;
  */
 @Service
 public class BillService {
-    
-    @Autowired 
+
+    @Autowired
     private BillRepo billRepo;
-    
-    public Page<Bill> searchByDateBill(Date keyword,Pageable pageable){
+
+    public Page<Bill> searchByDateBill(Date keyword, Pageable pageable) {
         Specifications<Bill> specifications = Specifications.where(BillSpec.dateBillLike(keyword));
         return billRepo.findAll(specifications, pageable);
-    }  
-    
-    public Page<Bill> searchBySumPrice(Double keyword,Pageable pageable){
+    }
+
+    public Page<Bill> searchBySumPrice(Double keyword, Pageable pageable) {
         Specifications<Bill> specifications = Specifications.where(BillSpec.sumPriceLike(keyword));
         return billRepo.findAll(specifications, pageable);
-    }  
-    
+    }
+
+    public Page<Bill> searchByid(String keyword, Pageable pageable) {
+        Specifications<Bill> specifications = Specifications.where(BillSpec.idLike("%" + keyword));
+        return billRepo.findAll(specifications, pageable);
+    }
+
 }

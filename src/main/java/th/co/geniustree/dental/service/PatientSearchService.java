@@ -38,4 +38,11 @@ public class PatientSearchService {
         Specifications<Patient> specifications = Specifications.where(PatientSpec.pidLike("%" + keyword + "%"));
         return patientRepo.findAll(specifications, pageable);
     }
+
+    public Page<Patient> searchByid(String keyword, Pageable pageable) {
+        System.out.println("-------------------------------------------->000000000000000000000----------" + keyword);
+        Specifications<Patient> specifications = Specifications.where(PatientSpec.idlLike("%" + keyword));
+        return patientRepo.findAll(specifications, pageable);
+    }
+
 }

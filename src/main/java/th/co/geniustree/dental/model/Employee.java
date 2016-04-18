@@ -45,6 +45,7 @@ public class Employee implements Serializable, UserDetails {
     @NotBlank(message = "กรุณากรอกชื่อ ถาษาไทย")
     private String nameTh;
 
+    @Column(name = "TYPE")
     private String type;
     private boolean enable = true;
 
@@ -53,6 +54,8 @@ public class Employee implements Serializable, UserDetails {
     private List<Authority> roles;
 
     private String changePasswordStatus;
+
+    private String forgotPassword;
 
     public String getNameTh() {
         return nameTh;
@@ -116,6 +119,14 @@ public class Employee implements Serializable, UserDetails {
 
     public void setChangePasswordStatus(String ChangePasswordStatus) {
         this.changePasswordStatus = ChangePasswordStatus;
+    }
+
+    public String getForgotPassword() {
+        return forgotPassword;
+    }
+
+    public void setForgotPassword(String forgotPassword) {
+        this.forgotPassword = forgotPassword;
     }
 
     @Override
