@@ -84,10 +84,7 @@ and open the template in the editor.
                     }
                 </style>-->
 
-
-
-
-        <div class="modal fade" id="modal-forgot" >
+        <div class="modal fade" id="modal-forgot" ng-app="login" ng-controller="loginController">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -111,7 +108,7 @@ and open the template in the editor.
                             <button class="btn btn-default" class="close" data-dismiss="modal">
                                 close
                             </button>
-                            <button class="btn btn-success" data-dismiss="modal" type="submit">
+                            <button class="btn btn-success"  type="submit">
                                 submit
                             </button>
                         </div>
@@ -119,14 +116,30 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <!--<h1>{{cookieall}}+------------------------------</h1>-->
 
         <script>
                     angular.module('login', []);
                     angular.module('login').controller('loginController', function ($scope, $http) {
+                        $scope.loginError = false;
                         $scope.forgot = '';
-                        document.cookie="hello=John Doe";
-                        $scope.cookieall = document.cookie;
+//                                                                                        $scope.cookieAll = document.cookie;
+//                                                                                        var cookieAll = document.cookie.split(';');
+//                                                                                        for (var i = 0; i < cookieAll.length; i++) {
+//                                                                                            var cookieValue = cookieAll.length[i].split('=');
+//                                                                                            if (cookieValue[0] == 'dolphinLoginTimeout') {
+//                                                                                                if (!!cookieValue.length > 1) {
+//                                                                                                    $scope.loginError = true;
+//                                                                                                    if (cookieValue[2] == 3) {
+//
+//                                                                                                    } else if (cookieValue[2] < 3) {
+//                                                                                                        alert(cookieValue[2]);
+//                                                                                                        document.cookie = 'dolphinLoginTimeout=' + (cookieValue[2] + 1);
+//                                                                                                    }
+//
+//                                                                                                }
+//
+//                                                                                            }
+//                                                                                        }
                         checkMobile();
                         function  checkMobile() {
                             var $mobile = $(window).outerWidth() < 995;
@@ -140,7 +153,7 @@ and open the template in the editor.
                         $scope.forgotPassword = function () {
                             $('#porgotbyemail').val($('#porgotbyemail').val() + "##forgot");
                         }
-                        
+
                     });
 
         </script>

@@ -90,6 +90,9 @@ angular.module('employee-information').controller('employeeInformationController
         console.log('search');
         $http.post('/searchstaff', $scope.searchData, {params: {page: $scope.page, size: $scope.row}}).success(function (data) {
             console.log(data);
+//            if(data.length == 1){
+//                
+//            }
             if (data.content.length == 0 || $scope.searchData.keyword == "") {
                 $('#modal-notfont').openModal();
                 getEmployees();

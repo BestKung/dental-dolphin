@@ -6,8 +6,13 @@
 package th.co.geniustree.dental.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import th.co.geniustree.dental.model.DoctorGennerateCode;
+import th.co.geniustree.dental.model.DetailHeal;
+import th.co.geniustree.dental.model.DetailHealGennerateCode;
 
-public interface DoctorGennerateCodeRepo extends JpaRepository<DoctorGennerateCode, Integer> {
+/**
+ *
+ * @author jasin
+ */
+public interface DetailHealGennerateCodeRepo extends JpaRepository<DetailHealGennerateCode, Integer> {
 
 }

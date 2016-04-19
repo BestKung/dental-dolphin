@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import th.co.geniustree.dental.model.DetailHeal;
+import th.co.geniustree.dental.model.DetailHealGennerateCode;
 import th.co.geniustree.dental.model.Patient;
 import th.co.geniustree.dental.model.SearchData;
+import th.co.geniustree.dental.repo.DetailHealGennerateCodeRepo;
 import th.co.geniustree.dental.repo.DetailHealRepo;
 import th.co.geniustree.dental.repo.OrderHealRepo;
 import th.co.geniustree.dental.service.DetailHealService;
@@ -38,10 +40,25 @@ public class DetailHealController {
     private DetailHealService detailHealService;
     @Autowired
     private OrderHealRepo orderHealRepo;
+    @Autowired
+    private DetailHealGennerateCodeRepo gennerateCodeRepo;
 
     @RequestMapping(value = "/savedetailheal", method = RequestMethod.POST)
-    public void saveDetailHeal(@RequestBody DetailHeal detailHeal) {
-        detailHealRepo.save(detailHeal);
+    public Integer saveDetailHeal(@RequestBody DetailHeal detailHeal) {
+//        if (detailHeal.getId() != null) {
+//            detailHealRepo.save(detailHeal);
+//        } else {
+            DetailHealGennerateCode gennerateCode = gennerateCodeRepo.save(new DetailHealGennerateCode());
+            int idLength = gennerateCode.getId().toString().length();
+            String strId = gennerateCode.getId().toString();
+            for (int i = idLength; i <= 4; i++) {
+                strId = 0 + strId;
+            }
+            detailHeal.setId("DTH" + strId + "-" + new SimpleDateFormat("YY", new Locale("th", "TH")).format(new Date()));
+            gennerateCodeRepo.delete(gennerateCode);
+            detailHealRepo.save(detailHeal);
+//        }
+        return 200;
     }
 
     @RequestMapping(value = "/loaddetailheal")

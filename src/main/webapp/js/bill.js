@@ -490,6 +490,12 @@ angular.module('bill').controller('billController', function ($scope, $http) {
             $('#next-page-product').addClass('disabled');
             $('#final-page-product').addClass('disabled');
         }
+        if (totalPageProduct == 0) {
+            $('#first-page-product').addClass('disabled');
+            $('#pre-page-product').addClass('disabled');
+            $('#next-page-product').addClass('disabled');
+            $('#final-page-product').addClass('disabled');
+        }
         if (totalPageProduct > 1) {
             $('#first-page-product').addClass('disabled');
             $('#pre-page-product').addClass('disabled');
@@ -629,6 +635,12 @@ angular.module('bill').controller('billController', function ($scope, $http) {
         }
         totalPageDetailHeal = totalpages;
         if (totalPageDetailHeal == 1) {
+            $('#first-page-detailheal').addClass('disabled');
+            $('#pre-page-detailheal').addClass('disabled');
+            $('#next-page-detailheal').addClass('disabled');
+            $('#final-page-detailheal').addClass('disabled');
+        }
+        if (totalPageDetailHeal == 0) {
             $('#first-page-detailheal').addClass('disabled');
             $('#pre-page-detailheal').addClass('disabled');
             $('#next-page-detailheal').addClass('disabled');

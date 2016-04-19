@@ -148,6 +148,12 @@ angular.module('doctor-information').controller('doctorInformationController', f
         }
         totalPage = totalpages;
         console.log(totalPage);
+        if (totalpages == 0) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+        }
         if (totalpages == 1) {
             $('#first-page').addClass('disabled');
             $('#pre-page').addClass('disabled');

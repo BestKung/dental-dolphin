@@ -50,7 +50,7 @@ public class DoctorSpec {
         };
     }
 
-    public static Specification<Doctor> idWhere(final Integer keyword) {
+    public static Specification<Doctor> idWhere(final String keyword) {
         return new Specification<Doctor>() {
             @Override
             public Predicate toPredicate(Root<Doctor> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

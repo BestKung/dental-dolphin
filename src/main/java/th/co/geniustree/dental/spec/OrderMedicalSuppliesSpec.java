@@ -23,7 +23,7 @@ public class OrderMedicalSuppliesSpec {
         return new Specification<OrderMedicalSupplie>() {
             @Override
             public Predicate toPredicate(Root<OrderMedicalSupplie> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
+                return cb.like(root.get(OrderMedicalSupplie_.id), keyword);
             }
 
         };

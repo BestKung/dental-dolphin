@@ -44,7 +44,7 @@ import th.co.geniustree.dental.spec.StaffSpec;
  */
 @RestController
 public class StaffController {
-    
+
     @Autowired
     private EmployeeRepo employeeRepo;
     @Autowired
@@ -55,7 +55,7 @@ public class StaffController {
     private StaffSearchService employeeSearchService;
     @Autowired
     private StaffGennerateCodeRepo codeRepo;
-    
+
     @RequestMapping(value = "/savestaff", method = RequestMethod.POST)
     public Integer saveStaff(@Validated @RequestBody Staff staff) {
         Employee employee = employeeRepo.findByEmail(staff.getEmail());
@@ -71,7 +71,7 @@ public class StaffController {
             StaffPicture picture = staffPictureRepo.findOne(1);
             staff.setStafPicture(picture);
         }
-        
+
         if (staff.getId() != null) {
             staffRepo.save(staff);
         } else {
@@ -87,7 +87,7 @@ public class StaffController {
         }
         return 200;
     }
-    
+
     @RequestMapping(value = "/savestaffimage", method = RequestMethod.POST)
     public StaffPicture saveStaffPicture(MultipartRequest file) throws IOException {
         StaffPicture staffPicture = new StaffPicture();
@@ -96,23 +96,23 @@ public class StaffController {
         staffPicture.setType(file.getFile("file").getName());
         return staffPicture;
     }
-    
+
     @RequestMapping(value = "/getnoimage", method = RequestMethod.GET)
     public StaffPicture getNoImage() {
         StaffPicture staffPicture = staffPictureRepo.findOne(1);
         return staffPicture;
     }
-    
+
     @RequestMapping(value = "/staffs", method = RequestMethod.GET)
     public Page<Staff> getStaff(Pageable pageable) {
         return staffRepo.findAll(pageable);
     }
-    
+
     @RequestMapping(value = "/totalstaff", method = RequestMethod.GET)
     public Long getTotalStaff() {
         return staffRepo.count();
     }
-    
+
     @RequestMapping(value = "/searchstaff/count", method = RequestMethod.POST)
     public Long getTotalSearch(@RequestBody SearchData searchData) {
         String searchBy = searchData.getSearchBy();
@@ -124,18 +124,18 @@ public class StaffController {
         if ("ชื่อ".equals(searchBy)) {
             count = staffRepo.count(StaffSpec.nameLike("%" + keyword + "%"));
         }
-        if ("หมายเลยโทรศัพท์".equals(searchBy)) {
+        if ("หมายเลขโทรศัพท์".equals(searchBy)) {
             count = staffRepo.count(StaffSpec.mobileLike("%" + keyword + "%"));
         }
-        if ("รหัสบัตรประชาชน".equals(searchBy)) {
+        if ("รหัสประชาชน".equals(searchBy)) {
             count = staffRepo.count(StaffSpec.pidLike("%" + keyword + "%"));
         }
         if ("ลำดับ".equals(searchBy)) {
-            count = staffRepo.count(StaffSpec.idWhere(Integer.parseInt(keyword)));
+            count = staffRepo.count(StaffSpec.idWhere(keyword));
         }
         return count;
     }
-    
+
     @RequestMapping(value = "/searchstaff", method = RequestMethod.POST)
     public Page<Staff> search(@RequestBody SearchData searchData, Pageable pageable) {
         String keyword = searchData.getKeyword();
@@ -145,26 +145,25 @@ public class StaffController {
             staff = employeeSearchService.searchByEmail(keyword, pageable);
         }
         if ("ชื่อ".equals(searchBy)) {
-            System.out.println("---------------------------------------->");
             staff = employeeSearchService.searchByName(keyword, pageable);
         }
-        if ("หมายเลยโทรศัพท์".equals(searchBy)) {
+        if ("หมายเลขโทรศัพท์".equals(searchBy)) {
             staff = employeeSearchService.searchByMobile(keyword, pageable);
         }
-        if ("รหัสบัตรประชาชน".equals(searchBy)) {
+        if ("รหัสประชาชน".equals(searchBy)) {
             staff = employeeSearchService.searchByPid(keyword, pageable);
         }
         if ("ลำดับ".equals(searchBy)) {
-            staff = employeeSearchService.searchById(Integer.parseInt(keyword), pageable);
+            staff = employeeSearchService.searchById(keyword, pageable);
         }
         return staff;
     }
-    
+
     @RequestMapping(value = "/getstaffimage", method = RequestMethod.GET)
     public StaffPicture getStaffPicture(Integer id) {
         return staffPictureRepo.findOne(id);
     }
-    
+
     @RequestMapping(value = "/deletestaff", method = RequestMethod.POST)
     public void deleteStaff(@RequestBody Staff staff) {
         System.out.println("============================================================00000000000000000000000000000000");
@@ -179,14 +178,14 @@ public class StaffController {
         }
         staffRepo.delete(staff);
     }
-    
+
     @RequestMapping(value = "/startpagestaff", method = RequestMethod.GET)
     public Employee getCurrentLogin() {
         Employee employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String id = employeeRepo.findByEmail(employee.getEmail()).getId();
         return employeeRepo.findOne(id);
     }
-    
+
     @RequestMapping(value = "/personalinformationstaff/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printPersonalInformationStaff(@PathVariable("id") String id) {
         InputStream inputStream = null;
@@ -208,7 +207,7 @@ public class StaffController {
         }
         return response;
     }
-    
+
     @RequestMapping(value = "/printemployees", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> printemployees() {
         InputStream inputStream = null;

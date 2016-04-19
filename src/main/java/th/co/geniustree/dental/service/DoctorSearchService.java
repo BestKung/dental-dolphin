@@ -41,7 +41,7 @@ public class DoctorSearchService {
         return doctorRepo.findAll(specifications, pageable);
     }
 
-    public Page<Doctor> searchById(Integer keyword, Pageable pageable) {
+    public Page<Doctor> searchById(String keyword, Pageable pageable) {
         Specifications<Doctor> specifications = Specifications.where(DoctorSpec.idWhere(keyword));
         return doctorRepo.findAll(specifications, pageable);
     }

@@ -268,6 +268,13 @@ angular.module('record-keeping').controller('recordController', function ($scope
             totalpages++;
         }
         totalPageDetailHeal = totalpages;
+        console.log(totalpages);
+        if (totalpages == 0) {
+            $('#first-page-detailheal').addClass('disabled');
+            $('#pre-page-detailheal').addClass('disabled');
+            $('#next-page-detailheal').addClass('disabled');
+            $('#final-page-detailheal').addClass('disabled');
+        }
         if (totalpages == 1) {
             $('#first-page-detailheal').addClass('disabled');
             $('#pre-page-detailheal').addClass('disabled');

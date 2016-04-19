@@ -135,13 +135,13 @@ public class DoctorController {
             System.out.println("-------------------------------->name");
             doctors = doctorSearchService.searchByName(keyword, pageable);
         }
-        if ("เบอร์โทร".equals(searchBy)) {
+        if ("เบอร์โทรศัพท์".equals(searchBy)) {
             System.out.println("-------------------------------->mobile");
             doctors = doctorSearchService.searchByMobile(keyword, pageable);
         }
         if ("ลำดับ".equals(searchBy)) {
             System.out.println("-------------------------------->mobile");
-            doctors = doctorSearchService.searchById(Integer.parseInt(keyword), pageable);
+            doctors = doctorSearchService.searchById(keyword, pageable);
         }
         return doctors;
     }
@@ -164,13 +164,13 @@ public class DoctorController {
             System.out.println("-------------------------------->name");
             count = doctorRepo.count(DoctorSpec.nameLike("%" + keyword + "%"));
         }
-        if ("เบอร์โทร".equals(searchBy)) {
+        if ("เบอร์โทรศัพท์".equals(searchBy)) {
             System.out.println("-------------------------------->mobile");
             count = doctorRepo.count(DoctorSpec.mobileLike("%" + keyword + "%"));
         }
         if ("ลำดับ".equals(searchBy)) {
             System.out.println("-------------------------------->mobile");
-            count = doctorRepo.count(DoctorSpec.idWhere(Integer.parseInt(keyword)));
+            count = doctorRepo.count(DoctorSpec.idWhere(keyword));
         }
         return count;
     }

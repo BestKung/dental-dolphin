@@ -44,7 +44,7 @@ public class StaffSearchService {
         return staffRepo.findAll(specifications, pageable);
     }
 
-    public Page<Staff> searchById(Integer keyword, Pageable pageable) {
+    public Page<Staff> searchById(String keyword, Pageable pageable) {
         Specifications<Staff> specifications = Specifications.where(StaffSpec.idWhere(keyword));
         return staffRepo.findAll(specifications, pageable);
     }

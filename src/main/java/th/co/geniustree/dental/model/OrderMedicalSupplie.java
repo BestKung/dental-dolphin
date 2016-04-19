@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,8 +27,8 @@ import javax.persistence.TemporalType;
 public class OrderMedicalSupplie implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String id;
+
     @Temporal(TemporalType.DATE)
     private Date date;
 
@@ -36,12 +37,23 @@ public class OrderMedicalSupplie implements Serializable {
     private List<MedicalSupplies> medicalSupplies;
     private Double total;
 
-    public Integer getId() {
+    @OneToOne
+    private OrderMedicalSupplieGennerateCode gennerateCode;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public OrderMedicalSupplieGennerateCode getGennerateCode() {
+        return gennerateCode;
+    }
+
+    public void setGennerateCode(OrderMedicalSupplieGennerateCode gennerateCode) {
+        this.gennerateCode = gennerateCode;
     }
 
     public Date getDate() {
@@ -69,9 +81,14 @@ public class OrderMedicalSupplie implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "OrderMedicalSupplie{" + "id=" + id + ", date=" + date + ", medicalSupplies=" + medicalSupplies + ", total=" + total + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -91,11 +108,6 @@ public class OrderMedicalSupplie implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderMedicalSupplie{" + "id=" + id + ", date=" + date + ", medicalSupplies=" + medicalSupplies + ", total=" + total + '}';
     }
 
 }

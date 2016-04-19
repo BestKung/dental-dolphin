@@ -284,7 +284,7 @@ angular.module('appointment').controller('appointmentController', function ($sco
         $('#prefix-appointment-patient').css('color', '#00bcd4');
         $scope.appointment.mobile = $scope.patient.mobile;
         $('#label-mobile').addClass('active');
-
+        $scope.doctor = patient.doctor;
         $scope.appointment.doctor = patient.doctor;
         $scope.doctor = $scope.appointment.doctor;
         $('#modal-doctor').closeModal();
@@ -349,6 +349,12 @@ angular.module('appointment').controller('appointmentController', function ($sco
             $('#next-page-doctor').addClass('disabled');
             $('#final-page-doctor').addClass('disabled');
         }
+        if (totalPageDoctor == 0) {
+            $('#first-page-doctor').addClass('disabled');
+            $('#pre-page-doctor').addClass('disabled');
+            $('#next-page-doctor').addClass('disabled');
+            $('#final-page-doctor').addClass('disabled');
+        }
         if (totalPageDoctor > 1) {
             $('#first-page-doctor').addClass('disabled');
             $('#pre-page-doctor').addClass('disabled');
@@ -393,6 +399,12 @@ angular.module('appointment').controller('appointmentController', function ($sco
         }
         totalPage = totalpages;
         if (totalpages == 1) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+        }
+        if (totalpages == 0) {
             $('#first-page').addClass('disabled');
             $('#pre-page').addClass('disabled');
             $('#next-page').addClass('disabled');

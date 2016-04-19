@@ -5,16 +5,15 @@
  */
 package th.co.geniustree.dental.repo;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import th.co.geniustree.dental.model.OrderMedicalSupplie;
 
 /**
  *
  * @author BestKung
  */
-public interface OrderRepo extends JpaRepository<OrderMedicalSupplie, String> {
+public interface OrderMedicalSuppliesRepo extends JpaRepository<OrderMedicalSupplie, String>, JpaSpecificationExecutor<OrderMedicalSupplie> {
 
-    public Page<OrderMedicalSupplie> findAllById(String id, Pageable pageable);
 }

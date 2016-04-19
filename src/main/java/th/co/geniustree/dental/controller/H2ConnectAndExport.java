@@ -52,7 +52,7 @@ public class H2ConnectAndExport {
 
     public void resetOrderGenerateCode() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/dolphin", "", "");
-        connection.createStatement().executeUpdate("ALTER TABLE PATIENT_GENNERATE_CODE  ALTER COLUMN id RESTART WITH 1");
+        connection.createStatement().executeUpdate("ALTER TABLE ORDER_MEDICAL_SUPPLIE_GENNERATE_CODE ALTER COLUMN id RESTART WITH 1");
     }
 
     public void resetQueueGenerateCode() throws SQLException {

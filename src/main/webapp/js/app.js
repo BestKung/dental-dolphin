@@ -18,7 +18,7 @@ app.controller('homeController', function ($scope, $http) {
     $scope.manageHeal = false;
     $scope.manageProduct = false;
     $scope.manageBill = false;
-    $scope.viewWorkCalendar = false;
+    $scope.viewWorkCalendar = true;
     $scope.isAdmin = false;
     $scope.employeeOrAdmin = false;
     var nontification = false;
@@ -53,10 +53,8 @@ app.controller('homeController', function ($scope, $http) {
                 $('.update').addClass('active');
                 $('.clear-prefix').css('color', '#00bcd4')
                 if (($scope.login.type == 'Staff') || ($scope.login.type == 'staff')) {
-                    alert('staff');
                     saveFirstLoginStaff();
                 } else if (($scope.login.type == 'Doctor') || ($scope.login.type == 'doctor')) {
-                    alert('doctor');
                     saveFirstLoginDoc();
                 } else {
                     saveFirstLoginStaff();

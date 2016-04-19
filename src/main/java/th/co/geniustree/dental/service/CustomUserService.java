@@ -28,6 +28,7 @@ public class CustomUserService implements UserDetailsService {
 
         System.out.println("-------------------------------------------------------------------->" + email);
         String str[] = email.split("##");
+        System.out.println("--------------------------------------------------------"+str[0]);
         Employee employee = employeeRepo.findByEmail(str[0]);
         if (str.length > 1) {
             if ("forgot".equals(str[1])) {

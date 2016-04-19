@@ -17,7 +17,7 @@ import th.co.geniustree.dental.model.Patient;
  *
  * @author User
  */
-public interface DetailHealRepo extends JpaRepository<DetailHeal, Integer>, JpaSpecificationExecutor<DetailHeal> {
+public interface DetailHealRepo extends JpaRepository<DetailHeal, String>, JpaSpecificationExecutor<DetailHeal> {
 
     public Page<DetailHeal> findByStatusIsNull(Pageable pageable);
 

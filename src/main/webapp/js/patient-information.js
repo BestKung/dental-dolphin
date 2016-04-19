@@ -120,6 +120,12 @@ angular.module('patient-information').controller('patientInformationController',
             $('#next-page').addClass('disabled');
             $('#final-page').addClass('disabled');
         }
+        if (totalpages == 0) {
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+        }
         if (totalpages > 1) {
             $('#first-page').addClass('disabled');
             $('#pre-page').addClass('disabled');
@@ -261,8 +267,8 @@ angular.module('patient-information').controller('patientInformationController',
     $scope.printPatient = function (id) {
         location.href = '/personalinformationpatient/' + id;
     };
-    
-    $scope.printPatients = function (){
+
+    $scope.printPatients = function () {
         location.href = '/printpatients';
     };
 });
