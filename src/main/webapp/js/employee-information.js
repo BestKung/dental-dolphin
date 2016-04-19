@@ -161,6 +161,9 @@ angular.module('employee-information').controller('employeeInformationController
         }).error(function (data) {
             $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
             Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+            if (data.message.split(';')[2].substring(14, 16) == 'FK') {
+                $('#modal-fk').openModal();
+            }
         });
         $('i#close-card').trigger('click');
     };

@@ -81,7 +81,7 @@ angular.module('appointment').controller('appointmentController', function ($sco
             selectGetOrSearchAppointment();
             $('span#close-card').trigger('click');
             $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
-            Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
+            Materialize.toast('ลบข้อมูลเรียบร้อย', 3000, 'rounded');
         })
                 .error(function (data) {
                     $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
