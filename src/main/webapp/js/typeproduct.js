@@ -162,6 +162,12 @@ angular.module('typeProduct').controller('typeProductController', function ($sco
             $('#final-page').removeClass('disabled');
             console.log('3');
         }
+        if (totalPage == 0) {
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+        }
 
     }
 

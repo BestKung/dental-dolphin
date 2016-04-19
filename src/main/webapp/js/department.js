@@ -82,8 +82,13 @@ angular.module('department').controller('departmentController', function ($scope
                     $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
                     Materialize.toast('ลบข้อมูลเรียบร้อย', 3000, 'rounded');
                 }).error(function (data) {
+            console.log(+'------------------------error')
             $('#warp-toast').html('<style>.toast{background-color:#FF6D6D}</style>');
             Materialize.toast('เกิดข้อผิดพลาด', 3000, 'rounded');
+            ////////////////////////////////////// foreign key
+            if (data.message.split(';')[2].substring(14, 16) == 'FK') {
+                $('#modal-fk').openModal();
+            }
         });
     };
 

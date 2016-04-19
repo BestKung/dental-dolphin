@@ -20,7 +20,7 @@ import th.co.geniustree.dental.model.OrderProduct_;
  */
 public class OrderProductSpecificaton {
 
-    public static Specification<OrderProduct> whereBill(final Integer keyword) {
+    public static Specification<OrderProduct> whereBill(final String keyword) {
         return new Specification<OrderProduct>() {
             @Override
             public Predicate toPredicate(Root<OrderProduct> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

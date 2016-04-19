@@ -111,6 +111,12 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
             $('#final-page-lot').removeClass('disabled');
             console.log('3');
         }
+        if (totalPagesLot == 0) {
+            $('#next-page-lot').addClass('disabled');
+            $('#final-page-lot').addClass('disabled');
+            $('#first-page-lot').addClass('disabled');
+            $('#pre-page-lot').addClass('disabled');
+        }
     }
 
     $scope.firstPageLot = function () {
@@ -272,6 +278,12 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
             $('#next-page-product').removeClass('disabled');
             $('#final-page-product').removeClass('disabled');
             console.log('3');
+        }
+        if (totalPagesProduct == 0) {
+            $('#next-page-product').addClass('disabled');
+            $('#final-page-product').addClass('disabled');
+            $('#first-page-product').addClass('disabled');
+            $('#pre-page-product').addClass('disabled');
         }
     }
 
@@ -479,6 +491,13 @@ angular.module('priceAndExpireProduct').controller('priceAndExpireProductControl
             $('#next-page-priceandexpireproducts').removeClass('disabled');
             $('#final-page-priceandexpireproducts').removeClass('disabled');
             console.log('4');
+        }
+        if (totalPagesPriceAndExpireProduct == 0) {
+            $('#next-page-priceandexpireproducts').addClass('disabled');
+            $('#final-page-priceandexpireproducts').addClass('disabled');
+            $('#first-page-priceandexpireproducts').addClass('disabled');
+            $('#pre-page-priceandexpireproducts').addClass('disabled');
+            console.log('3');
         }
     }
 

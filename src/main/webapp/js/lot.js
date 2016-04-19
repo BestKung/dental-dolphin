@@ -181,6 +181,12 @@ angular.module('lot').controller('lotController', function ($scope, $http) {
             $('#final-page-employee').removeClass('disabled');
             console.log('3');
         }
+        if (totalPagesEmployee == 0) {
+            $('#next-page-employee').addClass('disabled');
+            $('#final-page-employee').addClass('disabled');
+            $('#first-page-employee').addClass('disabled');
+            $('#pre-page-employee').addClass('disabled');
+        }
     }
 
     $scope.firstPageEmployee = function () {
@@ -324,6 +330,14 @@ angular.module('lot').controller('lotController', function ($scope, $http) {
             $('#pre-page-Lot').removeClass('disabled');
             $('#next-page-Lot').removeClass('disabled');
             $('#final-page-Lot').removeClass('disabled');
+            console.log('4');
+        }
+
+        if (totalPagesLot == 0) {
+            $('#next-page-Lot').addClass('disabled');
+            $('#final-page-Lot').addClass('disabled');
+            $('#first-page-Lot').addClass('disabled');
+            $('#pre-page-Lot').addClass('disabled');
             console.log('4');
         }
     }

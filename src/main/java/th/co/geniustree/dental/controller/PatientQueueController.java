@@ -54,9 +54,9 @@ public class PatientQueueController {
 
     @RequestMapping(value = "/savequeue", method = RequestMethod.POST)
     public void saveQueue(@RequestBody PatientQueue patientQueue, Pageable pageable) throws SQLException {
-        if (patientQueueRepo.findAllByDayQueue(new SimpleDateFormat("dd").format(new Date()), pageable).getTotalElements() == 0) {
-            new H2ConnectAndExport().resetQueueGenerateCode();
-        }
+//        if (patientQueueRepo.findAllByDayQueue(new SimpleDateFormat("dd").format(new Date()), pageable).getTotalElements() == 0) {
+//            new H2ConnectAndExport().resetQueueGenerateCode();
+//        }
         patientQueue.setDayQueue(new SimpleDateFormat("dd").format(new Date()));
         PatientQueueGenerateCode code = null;
         if (patientQueue.getQueueId() == null) {

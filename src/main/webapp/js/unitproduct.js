@@ -135,7 +135,7 @@ angular.module('unitProduct').controller('unitProductController', function ($sco
             totalPages++;
         }
         totalPage = totalPages;
-        console.log(totalPage);
+        console.log(totalPage + 'ppp');
         if ($scope.currentPage === 1) {
             $('#first-page').addClass('disabled');
             $('#pre-page').addClass('disabled');
@@ -163,6 +163,13 @@ angular.module('unitProduct').controller('unitProductController', function ($sco
             $('#final-page').removeClass('disabled');
             console.log('3');
         }
+        if (totalPage == 0) {
+            $('#next-page').addClass('disabled');
+            $('#final-page').addClass('disabled');
+            $('#first-page').addClass('disabled');
+            $('#pre-page').addClass('disabled');
+        }
+
     }
 
     $scope.firstPage = function () {

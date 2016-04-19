@@ -15,10 +15,10 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="nonApp in appointNontification.content">
-                                    <td><input ng-show="nonApp.status == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="ติดต่อเเล้ว">
-                                        <input ng-show="nonApp.status != 0"type="submit" class="btn-group btn-gray" value="ติดต่อเเล้ว" ng-click="clickContact(nonApp)">
-                                        <input ng-show="nonApp.status == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่ได้ติดต่อ">
-                                        <input ng-show="nonApp.status != 1" type="submit" class="btn-group btn-gray" value="ยังไม่ได้ติดต่อ" ng-click="clickNotContact(nonApp)">
+                                    <td><input ng-show="nonApp.status == 0" type="submit" style="background-color: #00C853" class="btn-custom-radius btn-gray" value="ติดต่อเเล้ว">
+                                        <input ng-show="nonApp.status != 0"type="submit" class="btn-custom-radius btn-disabled" value="ติดต่อเเล้ว" ng-click="clickContact(nonApp)">
+                                        <input ng-show="nonApp.status == 1" type="submit" style="background-color: #ff6d6d" class="btn-custom-radius btn-gray" value="ยังไม่ได้ติดต่อ">
+                                        <input ng-show="nonApp.status != 1" type="submit" class="btn-custom-radius btn-disabled" value="ยังไม่ได้ติดต่อ" ng-click="clickNotContact(nonApp)">
                                     </td>
                                     <td>{{nonApp.patient.name}}</td>
                                     <td>{{nonApp.doctor.nameTh}}</td>
@@ -93,10 +93,10 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="ex in expire.content">
-                                    <td><input ng-show="ex.statusNontificationExpire == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="นำออกเเล้ว">
-                                        <input ng-show="ex.statusNontificationExpire != 0"type="submit" class="btn-group btn-gray" value="นำออกเเล้ว" ng-click="clickOutExpire(ex)">
-                                        <input ng-show="ex.statusNontificationExpire == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่นำออก">
-                                        <input ng-show="ex.statusNontificationExpire != 1" type="submit" class="btn-group btn-gray" value="ยังไม่นำออก" ng-click="clickNotOutExpire(ex)">
+                                    <td><input ng-show="ex.statusNontificationExpire == 0" type="submit" style="background-color: #00C853" class="btn-group btn-gray" value="รับทราบ">
+                                        <input ng-show="ex.statusNontificationExpire != 0"type="submit" class="btn-group btn-gray" value="รับทราบ" ng-click="clickOutExpire(ex)">
+                                        <input ng-show="ex.statusNontificationExpire == 1" type="submit" style="background-color: #ff6d6d" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ">
+                                        <input ng-show="ex.statusNontificationExpire != 1" type="submit" class="btn-group btn-gray" value="ยังไม่ได้รับทราบ" ng-click="clickNotOutExpire(ex)">
                                     </td>
                                     <td>{{ex.lot.dateIn}}</td>
                                     <td>{{ex.product.name}}</td>

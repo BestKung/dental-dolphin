@@ -161,6 +161,13 @@ angular.module('product').controller('productController', function ($scope, $htt
             $('#final-page-product').removeClass('disabled');
             console.log('4');
         }
+        if (totalPageProduct == 0) {
+            $('#next-page-product').addClass('disabled');
+            $('#final-page-product').addClass('disabled');
+            $('#first-page-product').addClass('disabled');
+            $('#pre-page-product').addClass('disabled');
+            console.log('3');
+        }
     }
 
     $scope.firstPageProduct = function () {
