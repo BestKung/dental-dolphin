@@ -24,6 +24,24 @@ angular.module('record-keeping').controller('recordController', function ($scope
     $scope.currentPage = 0;
     $scope.seeDetailHeal = {};
 
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            viewWorkCalendar(data);
+        });
+    }
+
+    function viewWorkCalendar(data) {
+        if (data.roles.length > 0) {
+            pageRole = false;
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+    }
+
     function getTypeOfMedical() {
         $http.get('/loadlistselectheal', {params: {page: pageTypeOfMedical, size: 10}}).success(function (data) {
             $scope.typeOfMedicals = data;

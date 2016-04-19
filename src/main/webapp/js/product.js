@@ -21,6 +21,26 @@ angular.module('product').controller('productController', function ($scope, $htt
 
 //===========================================================================================
 
+
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            manageProduct(data);
+        });
+    }
+    function manageProduct(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลเวชภัณฑ์' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+    }
+
     loadProduct();
     function loadProduct() {
         $http.get('/loadlproduct', {params: {page: $scope.pageProduct, size: $scope.rowProduct}}).success(function (data) {

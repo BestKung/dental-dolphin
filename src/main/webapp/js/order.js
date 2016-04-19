@@ -15,6 +15,27 @@ angular.module('order').controller('orderController', function ($scope, $http) {
     var page = 0;
     $scope.search = '';
 
+
+
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            manageProduct(data);
+        });
+    }
+    function manageProduct(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลเวชภัณฑ์' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+    }
+
     $scope.saveTmpOrder = function () {
 
         $http.get('/startpagestaff').success(function (login) {

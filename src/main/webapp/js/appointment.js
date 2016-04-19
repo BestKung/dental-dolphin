@@ -30,6 +30,28 @@ angular.module('appointment').controller('appointmentController', function ($sco
     var totalAppointment = 0;
     var totalPageAppointment = 0;
     var pageAppointment = 0;
+
+
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            managePatient(data);
+        });
+    }
+
+    function managePatient(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลคนไข้' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+    }
+
     $scope.saveAppointment = function () {
         if (!!$scope.startTime) {
             $scope.appointment.startTime = new Date(moment(new Date($scope.appointment.appointDay + " " + $scope.startTime)).format('YYYY-MM-d HH:mm:ss'));

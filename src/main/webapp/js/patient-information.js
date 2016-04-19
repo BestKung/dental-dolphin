@@ -22,6 +22,26 @@ angular.module('patient-information').controller('patientInformationController',
         }
     }
 
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            managePatient(data);
+        });
+    }
+
+    function managePatient(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลคนไข้' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+    }
+
     getPatient();
     function getPatient() {
         $http.get('/getpatient', {params: {size: $scope.size, page: page}}).success(function (data) {

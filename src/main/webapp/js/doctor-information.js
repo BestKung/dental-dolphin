@@ -20,6 +20,27 @@ angular.module('doctor-information').controller('doctorInformationController', f
         }
     }
 
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            manageEmployee(data);
+        });
+    }
+
+    function manageEmployee(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+
+    }
+
     getDoctor();
     function getDoctor() {
         $http.get('/getdoctor', {params: {page: page, size: $scope.size}}).success(function (data) {

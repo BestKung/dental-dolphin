@@ -23,6 +23,27 @@ angular.module('employee-information').controller('employeeInformationController
         }
     }
 
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            manageEmployee(data);
+        });
+    }
+
+    function manageEmployee(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+
+    }
+
     getEmployees();
     function getEmployees() {
         $http.get('/staffs', {params: {page: $scope.page, size: $scope.row}}).success(function (data) {

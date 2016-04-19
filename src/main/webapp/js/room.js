@@ -15,6 +15,29 @@ angular.module('room').controller('roomController', function ($scope, $http) {
     var page = 0;
     $scope.currentPage = 0;
     var totalPage = 0;
+
+
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            manageEmployee(data);
+        });
+    }
+
+    function manageEmployee(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+
+    }
+
     $scope.saveRoom = function () {
         $scope.room.roomStatus = 'ปิด';
         if (update) {

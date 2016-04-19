@@ -18,6 +18,25 @@ angular.module('queue').controller('queueController', function ($scope, $http) {
     $scope.sendQueue = '';
     var roomBydoctor = {};
 
+    var pageRole = true;
+    startPageStaff();
+    function startPageStaff() {
+        $http.get('/startpagestaff').success(function (data) {
+            $scope.login = data;
+            manageHeal(data);
+        });
+    }
+
+    function manageHeal(data) {
+        for (var i = 0; i < data.roles.length; i++) {
+            if (data.roles[i].role == 'จัดการข้อมูลการรักษา' || data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                pageRole = false;
+            }
+        }
+        if (pageRole) {
+            location.href = '/';
+        }
+    }
 
     $scope.findUser = function () {
         var patient = {};

@@ -27,6 +27,25 @@ var app = angular.module('employee')
                     $('#select-workstatus').css('width', 'calc(100% - 3rem)')
                 }
             }
+            var pageRole = true;
+            startPageStaff();
+            function startPageStaff() {
+                $http.get('/startpagestaff').success(function (data) {
+                    $scope.login = data;
+                    manageEmployee(data);
+                });
+            }
+
+            function manageEmployee(data) {
+                for (var i = 0; i < data.roles.length; i++) {
+                    if (data.roles[i].role == 'ผู้ดูเเลระบบ') {
+                        pageRole = false;
+                    }
+                }
+                if (pageRole) {
+                    location.href = '/';
+                }
+            }
 
             console.log(employeeService.employeeUpdate);
             hasEmployeeService();
