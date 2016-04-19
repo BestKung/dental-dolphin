@@ -71,8 +71,8 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix pid">credit_card</i>
-                    <input type="text" id="pid" pid-input ng-model="doctor.pid" ng-change="errorPid = '';">
-                    <label for="pid" class="update">รหัสประชาชน<span class="margin-left necessary-text">{{errorPid}}</span></label>
+                    <input type="text" id="pid" pid-input ng-model="doctor.pid" ng-change="error.violations.pid.message = '';errorPid = '';">
+                    <label for="pid" class="update">รหัสประชาชน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.pid.message}}{{errorPid}}</span></label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix nameth">account_circle</i>

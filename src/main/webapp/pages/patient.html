@@ -17,8 +17,8 @@
             <div class="row">
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">book</i>
-                    <input type="text" id="pid" pid-input ng-model="patient.pid">
-                    <label  for="pid" class="update">เลขประจำตัวประชาชน</label>
+                    <input type="text" id="pid" pid-input ng-model="patient.pid" ng-change="error.violations.pid.message = '';">
+                    <label  for="pid" class="update">เลขประจำตัวประชาชน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.pid.message}}</span></label>
                 </div>
                 <div class="col m6 s12 input-field">
                     <i class="material-icons prefix clear-prefix">person</i>
@@ -274,4 +274,14 @@
     </div>
 </div>
 <div id="warp-toast">
+</div>
+
+<div id="modal-notfont" class="modal" style="border-radius: 10px;">
+    <div class="modal-content">
+        <div class="row center" style="height: 150px;">
+            <div style="margin-top: 60px">
+                <font size="100" color="#90a4ae"> ไม่พบข้อมูล</font>
+            </div>
+        </div>
+    </div>
 </div>

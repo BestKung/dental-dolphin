@@ -36,7 +36,8 @@ public class Patient implements Serializable {
     private String id;
 //    @Column(name = "PATIENT_ID")
 
-//    @Column(name = "PATIENT_PID")
+    @Column(name = "PATIENT_PID",nullable = false)
+    @NotBlank(message = "กรุณากรอกรหัสบัตรประชาชน")
     private String pid;
     @Column(name = "PATIENT_NAME")
     @NotBlank(message = "กรุณากรอกชื่อ")

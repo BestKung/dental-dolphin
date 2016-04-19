@@ -28,7 +28,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @AttributeOverride(name = "id", column = @Column(name = "ID"))
 public class Staff extends Employee implements Serializable {
 
-    @Column(name = "PERSONAL_ID")
+    @Column(name = "PERSONAL_ID", nullable = false)
+    @NotBlank(message = "กรุณากรอกรหัสบัตรประชาชน")
     private String pid;
 
     @Column(name = "NAME_ENG")
@@ -57,14 +58,14 @@ public class Staff extends Employee implements Serializable {
     private String addressOfPid;
 
     @Column(name = "CURRENT_ADDRESS", nullable = false)
-    @NotBlank(message = "Current Address not Empty")
+    @NotBlank(message = "กรุณากรอกที่อยู่ปัจจุบัน")
     private String currentAddress;
 
     @Column(name = "TEL")
     private String tel;
 
     @Column(name = "MOBILE", nullable = false)
-    @NotBlank(message = "Mobile not Empty")
+    @NotBlank(message = "กรุณากรอกเลขโทรศัพท์มือถือ")
     private String mobile;
 
     @Column(name = "START_WORK")

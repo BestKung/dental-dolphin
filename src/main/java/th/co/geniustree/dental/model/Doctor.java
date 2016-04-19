@@ -34,7 +34,8 @@ public class Doctor extends Employee implements Serializable {
     @Column(name = "PERMITTYPE")
     private String permitType;
 
-    @Column(name = "PERSONAL_ID")
+    @Column(name = "PERSONAL_ID",nullable = false)
+    @NotBlank(message = "กรุณากรอกรหัสบัตรประชาชน")
     private String pid;
 
     @Column(name = "NAME_ENG")

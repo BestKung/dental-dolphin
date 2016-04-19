@@ -58,7 +58,7 @@ angular.module('patient-information').controller('patientInformationController',
     function searchPatient() {
         $http.post('/searchpatient', $scope.search).success(function (data) {
             console.log(data + "-------------->");
-            if (data.content.length == 0 || $scope.search.keyword == "") {
+            if (data.content.length === 0 || $scope.search.keyword === "") {
                 $('#modal-notfont').openModal();
                 console.log(data);
                 getPatient();
