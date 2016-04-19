@@ -3,9 +3,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-
 	<parameter name="clinicname" class="java.lang.String"/>
-
 	<parameter name="id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -39,7 +37,7 @@
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PID" class="java.lang.String">
+	<field name="PATIENT_PID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="RACE" class="java.lang.String">
@@ -126,7 +124,6 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy",new Locale("th","TH")).format(new Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-
 				<reportElement uuid="b56990d5-da9f-4289-b7d3-b6db06d77ca5" x="11" y="66" width="50" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" isBold="false" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>

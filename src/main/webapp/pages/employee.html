@@ -23,9 +23,6 @@
                     <input type="password" id="password" class="immediate-help" password-validate ng-model="password" ng-change="comparePassword();
                                     error.violations.password.message = ''" 
                            maxlength="12" minlength="8" size="12" length="12" ng-hide="showPasswordField">
-                    <input type="password" id="password" ng-show="showPasswordField" password-validate ng-model="password" ng-change="comparePassword();
-                                    error.violations.password.message = ''" 
-                           maxlength="12" minlength="8" size="12" length="12" disabled>
                     <div class="input-help" style="margin-left: 45px; width: 400px;">
                         <h4>รหัสควรกรอกตามเงื่อนไขต่อไปนี้:</h4>
                         <ul>
@@ -40,8 +37,6 @@
                     <i class="material-icons prefix clear-prefix">lock</i>
                     <input type="password" id="confirmpassword"  ng-model="employee.password" ng-change="comparePassword();
                                     error.violations.password.message = ''"  maxlength="12" minlength="8" size="12" length="12" ng-hide="showPasswordField">
-                    <input type="password" id="confirmpassword"  ng-model="employee.password" ng-change="comparePassword();
-                                    error.violations.password.message = ''"  maxlength="12" minlength="8" size="12" length="12" disabled  ng-show="showPasswordField">
                     <label for="confirmpassword" class="update">ยืนยันรหัสผ่าน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
                     <i class="material-icons right-input-custom" id="confirm"></i>
                 </div>

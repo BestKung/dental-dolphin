@@ -13,7 +13,7 @@ angular.module('order').controller('orderController', function ($scope, $http) {
     $scope.error = '';
     var totalPage;
     var page = 0;
-    $scope.search;
+    $scope.search = '';
 
     $scope.saveTmpOrder = function () {
 
@@ -85,6 +85,8 @@ angular.module('order').controller('orderController', function ($scope, $http) {
             }
             getOrder();
             $scope.order.total = 0;
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('บันทึกข้อมูลเรียบร้อย', 3000, 'rounded');
         });
     };
     getOrder();
@@ -98,6 +100,8 @@ angular.module('order').controller('orderController', function ($scope, $http) {
     $scope.deleteOrder = function (order) {
         $http.post('/deleteorder', order).success(function (data) {
             getOrder();
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('ลบข้อมูลเรียบร้อย', 3000, 'rounded');
         });
     };
     $scope.searchOrder = function () {
@@ -105,6 +109,10 @@ angular.module('order').controller('orderController', function ($scope, $http) {
     };
     function searchOrder() {
         $http.post('/searchorder', $scope.search, {params: {size: $scope.sizeOrder, page: page}}).success(function (data) {
+            if (data.content.length == 0 || $scope.search == '') {
+                $('#modal-notfont').openModal();
+                getDepartment();
+            }
             console.log(data);
             $scope.orders = data;
         });

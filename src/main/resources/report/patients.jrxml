@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patients" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c117292d-f0b3-4f6d-86e0-d53235fabadc">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="6"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select * from patient]]>
@@ -33,7 +33,7 @@
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PID" class="java.lang.String">
+	<field name="PATIENT_PID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="RACE" class="java.lang.String">
@@ -164,7 +164,7 @@
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PID}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PATIENT_PID}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="e514e5db-03a7-4cc4-8ce1-78aaa916d5ec" x="390" y="6" width="94" height="20"/>

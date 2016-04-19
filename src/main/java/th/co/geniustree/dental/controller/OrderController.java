@@ -122,7 +122,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/printorder/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> printOrder(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> printOrder(@PathVariable("id") String id) {
         InputStream inputStream = null;
         byte[] content = null;
         JasperPrint fill = null;

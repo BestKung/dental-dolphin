@@ -5,11 +5,11 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT * FROM APPOINTMENT a
-join Patient p on (a.patient_id = p.id)
-join doctor d on (a.doctor_id = d.id)
-join employee e on (e.id = d.id)]]>
+left outer join Patient p on (a.patient_id = p.id)
+left outer join doctor d on (a.doctor_id = d.id)
+left outer join employee e on (e.id = d.id)]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="APPOINT_DAY" class="java.sql.Date">
@@ -31,6 +31,9 @@ join employee e on (e.id = d.id)]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="DOCTOR_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PATIENT_ID" class="java.lang.String">
@@ -57,7 +60,7 @@ join employee e on (e.id = d.id)]]>
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PID" class="java.lang.String">
+	<field name="PATIENT_PID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="RACE" class="java.lang.String">
@@ -67,9 +70,6 @@ join employee e on (e.id = d.id)]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="TEL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PATIENT_PICTURE_AFTER_ID" class="java.lang.Integer">
@@ -120,6 +120,9 @@ join employee e on (e.id = d.id)]]>
 	<field name="START_WORK" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="TYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="WORK_STATUS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -132,16 +135,19 @@ join employee e on (e.id = d.id)]]>
 	<field name="DOCTOR_PICTURE_ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="CHANGE_PASSWORD_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="ENABLE" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FORGOT_PASSWORD" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="NAME_TH" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PASSWORD" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TYPE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="count_row" class="java.lang.Integer"/>
@@ -179,14 +185,14 @@ join employee e on (e.id = d.id)]]>
 	<columnHeader>
 		<band height="50" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="b921c982-4bc5-4587-a624-de1fb4e7ab61" x="0" y="22" width="40" height="20"/>
+				<reportElement uuid="b921c982-4bc5-4587-a624-de1fb4e7ab61" x="0" y="22" width="56" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ลำดับ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b8bc9dee-afff-4ed5-b8ba-46b4e6fd0cce" x="40" y="22" width="96" height="20"/>
+				<reportElement uuid="b8bc9dee-afff-4ed5-b8ba-46b4e6fd0cce" x="56" y="22" width="92" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -200,7 +206,7 @@ join employee e on (e.id = d.id)]]>
 				<text><![CDATA[วันที่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d6016a32-d564-45be-9e3e-dc714d9ebd44" x="136" y="22" width="98" height="20"/>
+				<reportElement uuid="d6016a32-d564-45be-9e3e-dc714d9ebd44" x="148" y="22" width="86" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" isBold="true" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -225,7 +231,7 @@ join employee e on (e.id = d.id)]]>
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement uuid="10710597-e402-4947-8f38-a62c2a1fa2bd" x="0" y="0" width="40" height="20"/>
+				<reportElement uuid="10710597-e402-4947-8f38-a62c2a1fa2bd" x="0" y="0" width="56" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -239,7 +245,7 @@ join employee e on (e.id = d.id)]]>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd MMMM yyyy", new Locale("th", "TH")).format($F{APPOINT_DAY})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b91430d6-2b51-4caa-b568-b5adbf1687c6" x="136" y="0" width="98" height="20"/>
+				<reportElement uuid="b91430d6-2b51-4caa-b568-b5adbf1687c6" x="148" y="0" width="86" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -260,7 +266,7 @@ join employee e on (e.id = d.id)]]>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm น").format($F{START_TIME})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d0cc77b8-120d-4cf2-9ee0-3cbb1679dd59" x="40" y="0" width="96" height="20"/>
+				<reportElement uuid="d0cc77b8-120d-4cf2-9ee0-3cbb1679dd59" x="56" y="0" width="92" height="20"/>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="14" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>

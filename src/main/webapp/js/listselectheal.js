@@ -60,6 +60,8 @@ angular.module('listSelectHeal').controller('listSelectHealController', function
             $scope.listSelectHeal = {};
             getTotalList();
             $scope.firstPage();
+            $('#warp-toast').html('<style>.toast{background-color:#32CE70}</style>');
+            Materialize.toast('ลบข้อมูลเรียบร้อย', 3000, 'rounded');
         }).error(function (data) {
 
         });

@@ -8,9 +8,9 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select * from PATIENT p
-join PATIENT_MEDICAL_HISTORY ph on (ph.patient_id = p.id)
-join MEDICALHISTORY m on(ph.medical_history_id = m.id)
-where p.id = 'HNTEST3']]>
+left outer join PATIENT_MEDICAL_HISTORY ph on (ph.patient_id = p.id)
+left outer join MEDICALHISTORY m on(ph.medical_history_id = m.id)
+where p.id = $P{id}]]>
 	</queryString>
 	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -39,7 +39,7 @@ where p.id = 'HNTEST3']]>
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PID" class="java.lang.String">
+	<field name="PATIENT_PID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="RACE" class="java.lang.String">
@@ -174,7 +174,7 @@ where p.id = 'HNTEST3']]>
 				<textElement>
 					<font fontName="TH SarabunPSK" size="16" pdfFontName="C:\font\THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PID}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PATIENT_PID}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="d91d571e-f84f-41a5-a714-6598175e177d" x="234" y="132" width="115" height="20"/>
