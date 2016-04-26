@@ -19,7 +19,7 @@ where a.doctor_id = $P{doctorId}
 and a.appoint_day between $P{startDate} and $P{endDate}
 order by a.appoint_day asc]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer">
+	<field name="ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="APPOINT_DAY" class="java.sql.Date">
@@ -40,10 +40,13 @@ order by a.appoint_day asc]]>
 	<field name="TREATMENT_LIST" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DOCTOR_ID" class="java.lang.Integer">
+	<field name="DOCTOR_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PATIENT_ID" class="java.lang.Integer">
+	<field name="GENNERATE_CODE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PATIENT_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ADDRESS" class="java.lang.String">
@@ -58,9 +61,6 @@ order by a.appoint_day asc]]>
 	<field name="EMAIL" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="HN" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="JOB" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -70,7 +70,7 @@ order by a.appoint_day asc]]>
 	<field name="NATION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PID" class="java.lang.String">
+	<field name="PATIENT_PID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="RACE" class="java.lang.String">

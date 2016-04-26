@@ -48,6 +48,7 @@ app.controller('homeController', function ($scope, $http) {
             isAdmin(data);
             employeeOrAdmin(data);
             console.log(!data.ChangePasswordStatus);
+
             if (!data.changePasswordStatus) {
                 $('#modal-changepassword').openModal({dismissible: false});
                 $('.update').addClass('active');
@@ -59,7 +60,6 @@ app.controller('homeController', function ($scope, $http) {
                 } else {
                     saveFirstLoginStaff();
                 }
-
             }
         });
     }

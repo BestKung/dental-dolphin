@@ -44,6 +44,7 @@ angular.module('reportproduct').controller('reportProductController', function (
         totalPagePriceAndExpireProduct = totalPagesPriceAndExpireProduct;
         console.log(totalPagePriceAndExpireProduct + "totalPageLot");
 
+
         if ($scope.currentPagePriceAndExpireProduct === 0) {
             $('#first-page-priceandexpireproducts').addClass('disabled');
             $('#pre-page-priceandexpireproducts').addClass('disabled');
@@ -72,6 +73,7 @@ angular.module('reportproduct').controller('reportProductController', function (
             $('#final-page-priceandexpireproducts').removeClass('disabled');
             console.log('4');
         }
+
     }
 
     $scope.firstPagePriceAndExpireProduct = function () {

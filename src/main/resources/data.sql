@@ -14,17 +14,16 @@ INSERT INTO STAFF_PICTURE(id,content_image,name,type) values(null,'ffd8ffe112a14
   
 INSERT INTO MEDICALHISTORY(DISEASE) VALUES('ความดันโลหิตสูง');
 INSERT INTO MEDICALHISTORY(DISEASE) VALUES('โรคโลหิตจาง');
-INSERT INTO MEDICALHISTORY(DISEASE) VALUES('ละลายลิ่มเลือด');
+INSERT INTO MEDICALHISTORY(DISEASE) VALUES('ทานยาละลายลิ่มเลือด');
 INSERT INTO MEDICALHISTORY(DISEASE) VALUES('โรคหัวใจ');
 INSERT INTO MEDICALHISTORY(DISEASE) VALUES('ไวรัสตับอักเสบ');
-INSERT INTO MEDICALHISTORY(DISEASE) VALUES('ประวัติแพ้ยาเสพติด');
 -- 
-INSERT INTO PATIENT(id,PATIENT_PID,PATIENT_NAME,BIRTHDATE,SEX,BLOOD,NATION,RACE,ADDRESS,TEL,MOBILE,JOB,EMAIL)
-VALUES('HNTEST1','1730200213549','นายกิตติพร คำไล้','1993-07-28','M','B','ไทย','ไทย','155/8 ม.1 ต.บางรัก','034567543','0964747468','โปรแกรมเมอร์','meta.vin@hotmail.com');
-INSERT INTO PATIENT(id,PATIENT_PID,PATIENT_NAME,BIRTHDATE,SEX,BLOOD,NATION,RACE,ADDRESS,TEL,MOBILE,JOB,EMAIL)
-VALUES('HNTEST2','1355737378334','นายยินดี สบายดี','1991-07-28','M','A','ไทย','ไทย','155/8 ม.1 ต.บางรัก','035432123','09456453212','ครู','gintan@hotmail.com');
-INSERT INTO PATIENT(id,PATIENT_PID,PATIENT_NAME,BIRTHDATE,SEX,BLOOD,NATION,RACE,ADDRESS,TEL,MOBILE,JOB,EMAIL)
-VALUES('HNTEST3','1244725684736','นายกระทิง แรงช้าง','1992-07-28','M','AB','ไทย','ไทย','155/8 ม.1 ต.บางรัก','034589948','0941234561','รับจ้าง','titan.vin@hotmail.com');
+-- INSERT INTO PATIENT(id,PATIENT_PID,PATIENT_NAME,BIRTHDATE,SEX,BLOOD,NATION,RACE,ADDRESS,TEL,MOBILE,JOB,EMAIL)
+-- VALUES('HNTEST1','1730200213549','นายกิตติพร คำไล้','1993-07-28','M','B','ไทย','ไทย','155/8 ม.1 ต.บางรัก','034567543','0964747468','โปรแกรมเมอร์','meta.vin@hotmail.com');
+-- INSERT INTO PATIENT(id,PATIENT_PID,PATIENT_NAME,BIRTHDATE,SEX,BLOOD,NATION,RACE,ADDRESS,TEL,MOBILE,JOB,EMAIL)
+-- VALUES('HNTEST2','1355737378334','นายยินดี สบายดี','1991-07-28','M','A','ไทย','ไทย','155/8 ม.1 ต.บางรัก','035432123','09456453212','ครู','gintan@hotmail.com');
+-- INSERT INTO PATIENT(id,PATIENT_PID,PATIENT_NAME,BIRTHDATE,SEX,BLOOD,NATION,RACE,ADDRESS,TEL,MOBILE,JOB,EMAIL)
+-- VALUES('HNTEST3','1244725684736','นายกระทิง แรงช้าง','1992-07-28','M','AB','ไทย','ไทย','155/8 ม.1 ต.บางรัก','034589948','0941234561','รับจ้าง','titan.vin@hotmail.com');
 
 -- 
 -- INSERT INTO PATIENT_MEDICAL_HISTORY(PATIENT_ID,MEDICAL_HISTORY_ID) VALUES('HNTEST1',1);
@@ -36,10 +35,10 @@ VALUES('HNTEST3','1244725684736','นายกระทิง แรงช้า
 -- INSERT INTO PATIENT_MEDICAL_HISTORY(PATIENT_ID,MEDICAL_HISTORY_ID) VALUES('HNTEST3',3);
 -- INSERT INTO PATIENT_MEDICAL_HISTORY(PATIENT_ID,MEDICAL_HISTORY_ID) VALUES('HNTEST3',4);
 
-INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('บัญชี้');
-INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('เภสัชกรณ์');
-INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('ต้อนรับ');
-INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('ผู้ช่วยหมอ');
+-- INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('บัญชี้');
+-- INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('เภสัชกรณ์');
+-- INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('ต้อนรับ');
+-- INSERT INTO DEPARTMENT(DEPARTMENT_NAME) VALUES('ผู้ช่วยหมอ');
 
 INSERT INTO BANK(ACCOUNT_NUMBER,ACCOUNT_NAME,BANK_NAME,ACCOUNT_TYPE) VALUES('1453626790','MRS.Geamma natade','ธนาคารกสิกรไทย','ออมทรัพย์');
 -- INSERT INTO BANK(ACCOUNT_NUMBER,ACCOUNT_NAME,BANK_NAME,ACCOUNT_TYPE) VALUES('1245231233','MRS.Mama natade','ธนาคารกสิกรไทย','ออมทรัพย์');
@@ -58,7 +57,7 @@ INSERT INTO CONTACT(CONTACT_NAME,CONTACT_TEL,RELATION) VALUES('นายสม�
 
 
 INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
-VALUES('TEST001','admin@admin','admin','นางสาวแกรมม่า น่าตาดี','staff',1);
+VALUES('ADMIN001','admin@admin','admin','นางสาวแกรมม่า น่าตาดี','Staff',1);
 -- INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
 -- VALUES('TEST002','Kingdom@hotmail.com','1234','นางสาวมาม่า น่าหน้าตาดี','staff',1);
 -- INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
@@ -70,11 +69,11 @@ VALUES('TEST001','admin@admin','admin','นางสาวแกรมม่า 
 -- INSERT INTO EMPLOYEE(id,EMAIL,PASSWORD,NAME_TH,TYPE,ENABLE) 
 -- VALUES('TEST006','1','1','นายจสินทร์ แสงทรวง','doctor',1);
 
-insert into EMPLOYEE_ROLES(employee_id,roles_role) values('TEST001','ผู้ดูเเลระบบ');
+insert into EMPLOYEE_ROLES(employee_id,roles_role) values('ADMIN001','ผู้ดูเเลระบบ');
 INSERT INTO STAFF (id,PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
-,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
-VALUES ('TEST001','1730200213521','MRS.Geamma natade','2536-12-21','ชาย','B','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','133/1 ม.2'
-,'122/3 ม.1','035909987','0921242123','2012-12-04','ทำงาน',1,1,1,1);
+,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
+VALUES ('ADMIN001','1730200213521','MRS.Geamma natade','2536-12-21','ชาย','B','โสด','ไทย','ไทย','ผ่านเกญฑ์แล้ว','133/1 ม.2'
+,'122/3 ม.1','035909987','0921242123','2012-12-04','ทำงาน',1,1,1);
 
 -- INSERT INTO STAFF (id,PERSONAL_ID,NAME_ENG,BIRTH_DATE,SEX,BLOOD,MARRY_STATUS,NATION,RACE,SOLDER_STATUS,ADDRESS_OF_PID
 -- ,CURRENT_ADDRESS,TEL,MOBILE,START_WORK,WORK_STATUS,DEPARTMENT_ID,CONTACT_ID,BANK_ID,STAFF_PICTURE_ID) 
@@ -99,10 +98,10 @@ VALUES ('TEST001','1730200213521','MRS.Geamma natade','2536-12-21','ชาย','
 -- VALUES('TEST006','1242521456234','เลขcer','ใบcer','MRS.Jasin Saengsuang','2536-12-21','ชาย','B','144/3 ม.6','032123421'
 -- ,'0842321232','ทำงาน',1);
 
-
-INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('อุดฟัน',400);
-INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('ถอดฟัน',600);
-INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('ขุดหินปูน',500);
+-- 
+-- INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('อุดฟัน',400);
+-- INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('ถอดฟัน',600);
+-- INSERT INTO LISTSELECTHEAL(NAME,PRICE) VALUES('ขุดหินปูน',500);
 -- 
 -- <<<<<<< HEAD
 -- INSERT INTO DETAILHEAL(DETAIL,DATEHEAL,PATIENT_ID,DUCTOR_ID) VALUES('ฟันไม่ฟุมาก','2557-02-12','HNTEST1','TEST005');

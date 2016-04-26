@@ -209,6 +209,48 @@
             <div ng-view></div>
         </div>
 
+        <div id="modal-changepassword" class="modal" style="border-radius: 10px;">
+            <div class="modal-content">
+                <div class="row center">
+                    <h4 style="padding: 20px;" class="margin-top-20 magin-buttom-20">เเก้ไขข้อมูล</h4>
+                </div>
+                <div class="row">
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix">email</i>
+                        <input type="text" id="email" ng-model="login.email" ng-change="error.violations.email.message = '';setBackgroundPrefixId()">
+                        <label for="email" class="update">อีเมล<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.email.message}}</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix">lock</i>
+                        <input type="password" id="password" password-validate ng-model="password" ng-change="comparePassword();
+                        error.violations.password.message = ''" 
+                               maxlength="12" minlength="8" size="12" length="12">
+                        <div class="input-help" style="margin-left: 45px; width: 400px;">
+                            <h4>รหัสควรกรอกตามเงื่อนไขต่อไปนี้:</h4>
+                            <ul>
+                                <li ng-class="pwdHasLetter">ควรมีตัวอักษรอย่างน้อย 1 ตัว</li>
+                                <li ng-class="pwdHasNumber">ควรมีตัวเลขอย่างน้อย 1 ตัว</li>
+                                <li ng-class="pwdValidLength">ความยาวรหัสผ่าน 8-12 ตัวเท่านั้น</li>
+                            </ul>
+                        </div>
+                        <label for="password" class="update">รหัสผ่าน<span class="necessary" >*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
+                    </div>
+                    <div class="col m6 s12 input-field">
+                        <i class="material-icons prefix clear-prefix">lock</i>
+                        <input type="password" id="confirmpassword"  ng-model="login.password" ng-change="comparePassword();
+                        error.violations.password.message = ''">
+                        <label for="confirmpassword" class="update">ยืนยันรหัสผ่าน<span class="necessary">*</span><span class="margin-left necessary-text">{{error.violations.password.message}}</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="model-footer right">
+                <a href="" class="magin-button btn btn-disabled modal-action modal-close" ng-click="removeBlackGround()">ยกเลิก</a>
+                <a href="" class="magin-button btn btn-edit modal-action modal-close" ng-click="selectSave();removeBlackGround()">ตกลง</a>
+            </div>
+        </div>
+
         <script>
             $(document).ready(function () {
                 $(".button-collapse").sideNav();
